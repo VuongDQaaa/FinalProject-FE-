@@ -11,6 +11,7 @@ namespace backend.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int StudentId { get; set; }
+        public string StudentCode { get; set; }
         public int ClassroomId { get; set; }
         public string ClassroomName { get; set; }
         public string UserName { get; set; }

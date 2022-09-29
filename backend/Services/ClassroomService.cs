@@ -7,7 +7,7 @@ namespace backend.Services
     public class ClassroomService : IClassroomService
     {
         private IClassroomRepository _repository;
-        public ClassroomService (IClassroomRepository repository)
+        public ClassroomService(IClassroomRepository repository)
         {
             _repository = repository;
         }

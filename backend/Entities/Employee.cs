@@ -12,6 +12,7 @@ namespace backend.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int EmployeeId { get; set; }
         [Required]
+        public string EmployeeCode {get;set;}
         public string UserName { get; set; }
         [Required]
         [JsonIgnore]

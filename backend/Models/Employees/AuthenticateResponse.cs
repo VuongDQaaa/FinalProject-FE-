@@ -5,6 +5,7 @@ namespace backend.Models.Employees
     public class AuthenticateResponse
     {
         public int EmployeeId { get; set; }
+        public string EmployeeCode { get; set; }
         public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -18,6 +19,7 @@ namespace backend.Models.Employees
         public AuthenticateResponse(Employee employee, string token)
         {
             EmployeeId = employee.EmployeeId;
+            EmployeeCode = employee.EmployeeCode;
             UserName = employee.UserName;
             FirstName = employee.FirstName;
             LastName = employee.LastName;

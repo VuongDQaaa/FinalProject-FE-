@@ -7,19 +7,15 @@ D:\Final Project\FinalProject\backend\bin\Debug\net6.0\backend.dll
 D:\Final Project\FinalProject\backend\bin\Debug\net6.0\ref\backend.dll
 D:\Final Project\FinalProject\backend\bin\Debug\net6.0\backend.pdb
 D:\Final Project\FinalProject\backend\bin\Debug\net6.0\BCrypt.Net-Next.dll
-D:\Final Project\FinalProject\backend\bin\Debug\net6.0\Castle.Core.dll
 D:\Final Project\FinalProject\backend\bin\Debug\net6.0\Humanizer.dll
-D:\Final Project\FinalProject\backend\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\Final Project\FinalProject\backend\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
 D:\Final Project\FinalProject\backend\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
 D:\Final Project\FinalProject\backend\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 D:\Final Project\FinalProject\backend\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
-D:\Final Project\FinalProject\backend\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Proxies.dll
 D:\Final Project\FinalProject\backend\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
 D:\Final Project\FinalProject\backend\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
 D:\Final Project\FinalProject\backend\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
 D:\Final Project\FinalProject\backend\bin\Debug\net6.0\Microsoft.Identity.Client.dll
-D:\Final Project\FinalProject\backend\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
 D:\Final Project\FinalProject\backend\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
 D:\Final Project\FinalProject\backend\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
 D:\Final Project\FinalProject\backend\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
@@ -64,3 +60,7 @@ D:\Final Project\FinalProject\backend\obj\Debug\net6.0\backend.dll
 D:\Final Project\FinalProject\backend\obj\Debug\net6.0\ref\backend.dll
 D:\Final Project\FinalProject\backend\obj\Debug\net6.0\backend.pdb
 D:\Final Project\FinalProject\backend\obj\Debug\net6.0\backend.genruntimeconfig.cache
+D:\Final Project\FinalProject\backend\bin\Debug\net6.0\Castle.Core.dll
+D:\Final Project\FinalProject\backend\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Final Project\FinalProject\backend\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Proxies.dll
+D:\Final Project\FinalProject\backend\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll

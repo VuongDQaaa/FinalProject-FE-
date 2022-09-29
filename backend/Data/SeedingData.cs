@@ -29,6 +29,7 @@ namespace backend.Data
                 IEnumerable<Employee> result = new List<Employee>() {
                     new Employee() {
                         EmployeeId = 1,
+                        EmployeeCode="AD1",
                         UserName = "Staff1",
                         PasswordHash = BCrypt.Net.BCrypt.HashPassword("123456"),
                         FirstName = "Nguyen",
@@ -41,6 +42,7 @@ namespace backend.Data
                     },
                     new Employee() {
                         EmployeeId = 2,
+                        EmployeeCode="AD2",
                         UserName = "Staff2",
                         PasswordHash = BCrypt.Net.BCrypt.HashPassword("123456"),
                         FirstName = "Do",
@@ -53,6 +55,7 @@ namespace backend.Data
                     },
                     new Employee() {
                         EmployeeId = 3,
+                        EmployeeCode = "TC1",
                         UserName = "Staff3",
                         PasswordHash = BCrypt.Net.BCrypt.HashPassword("123456"),
                         FirstName = "Dinh",
@@ -65,6 +68,7 @@ namespace backend.Data
                     },
                         new Employee() {
                         EmployeeId = 4,
+                        EmployeeCode = "TC2",
                         UserName = "Staff4",
                         PasswordHash = BCrypt.Net.BCrypt.HashPassword("123456"),
                         FirstName = "Le",
@@ -87,6 +91,7 @@ namespace backend.Data
                 {
                     new Student() {
                         StudentId = 1,
+                        StudentCode = "ST1",
                         UserName = "Student1",
                         PasswordHash = BCrypt.Net.BCrypt.HashPassword("123456"),
                         FirstName = "Le",
@@ -99,6 +104,7 @@ namespace backend.Data
                     },
                         new Student() {
                         StudentId = 2,
+                        StudentCode = "ST2",
                         UserName = "Student2",
                         PasswordHash = BCrypt.Net.BCrypt.HashPassword("123456"),
                         FirstName = "Anna",
@@ -111,6 +117,7 @@ namespace backend.Data
                     },
                         new Student() {
                         StudentId = 3,
+                        StudentCode = "ST3",
                         UserName = "Student3",
                         PasswordHash = BCrypt.Net.BCrypt.HashPassword("123456"),
                         FirstName = "Dao",

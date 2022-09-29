@@ -1,6 +1,8 @@
-using backend.Entities;
 using backend.Interfaces;
+using backend.Entities;
 using Microsoft.AspNetCore.Mvc;
+using backend.Enums;
+using backend.Authorization;
 
 namespace backend.Controllers
 {
@@ -14,8 +16,9 @@ namespace backend.Controllers
             _service = service;
         }
 
+        [Authorize(Role.Admin)]
         [HttpGet("classrooms")]
-        public async Task<List<Classroom>> GetAllClassroom()
+        public async Task<List<Classroom>> GetAllClassrooms()
         {
             return await _service.GetAllClassrooms();
         }

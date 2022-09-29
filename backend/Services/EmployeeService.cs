@@ -1,10 +1,10 @@
-using backend.Authorization;
 using backend.Entities;
 using backend.Interfaces;
-using backend.Data;
 using backend.Models.Employees;
 using backend.Repositories;
+using backend.Data;
 using backend.Helpers;
+using backend.Authorization;
 using Microsoft.Extensions.Options;
 
 namespace backend.Services
@@ -16,20 +16,21 @@ namespace backend.Services
         private IJwtUtils _jwtUtils;
         private readonly AppSettings _appSettings;
         public EmployeeService(
-            IEmployeeRepository repository, 
+            IEmployeeRepository repository,
             MyDbContext context,
             IJwtUtils jwtUtils,
             IOptions<AppSettings> appSettings)
         {
-            _repository = repository;
             _context = context;
+            _repository = repository;
             _jwtUtils = jwtUtils;
-            _appSettings = appSettings.Value; 
+            _appSettings = appSettings.Value;
         }
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
             var user = _context.Employees.SingleOrDefault(x => x.UserName == model.UserName);
+
             if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
                 throw new AppException("Username or password is incorrect. Please try again");
 

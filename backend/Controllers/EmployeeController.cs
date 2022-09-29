@@ -1,7 +1,9 @@
-using backend.Entities;
-using backend.Enums;
 using backend.Interfaces;
+using backend.Entities;
 using Microsoft.AspNetCore.Mvc;
+using backend.Authorization;
+using backend.Models.Employees;
+using backend.Enums;
 
 namespace backend.Controllers
 {
@@ -15,20 +17,24 @@ namespace backend.Controllers
             _service = service;
         }
 
+        [AllowAnonymous]
+        [HttpPost("[action]")]
+        public IActionResult Authenticate(AuthenticateRequest model)
+        {
+            var response = _service.Authenticate(model);
+            return Ok(response);
+        }
+
+        [Authorize(Role.Admin)]
         [HttpGet("employees")]
-        public async Task<List<Employee>> GetAllEmployees()
+        public async Task<List<Employee>> GetAllEmployee()
         {
             return await _service.GetAllEmployees();
         }
-
+        
         [HttpGet("detail/{id:int}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetEmployeeById(int id)
         {
-            // only admins can access other user records
-            var currentUser = (Employee)HttpContext.Items["Employee"];
-            if (id != currentUser.EmployeeId && currentUser.Role != Role.Admin)
-                return Unauthorized(new { message = "Unauthorized" });
-
             var user = _service.GetEmployeeById(id);
             return Ok(user);
         }

@@ -22,7 +22,7 @@ namespace backend.Repositories
 
         public async Task<Employee> GetEmployeeById(int id)
         {
-            var result = await _context.Employees.FindAsync(id);
+            var result = _context.Employees.Find(id);
             if(result != null)
             {
                 return result;

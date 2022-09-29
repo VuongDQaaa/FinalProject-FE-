@@ -27,11 +27,11 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 
-builder.Services.AddScoped<IClassroomService, ClassroomService>();
-builder.Services.AddScoped<IClassroomRepository, ClassroomRepository>();
-
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
+builder.Services.AddScoped<IClassroomService, ClassroomService>();
+builder.Services.AddScoped<IClassroomRepository, ClassroomRepository>();
 
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
@@ -100,4 +100,3 @@ app.UseEndpoints(endpoints =>
 });
 
 app.Run();
-

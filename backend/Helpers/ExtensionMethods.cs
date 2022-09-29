@@ -4,19 +4,19 @@ namespace WebApi.Helpers
 {
     public static class ExtensionMethods
     {
-        public static IEnumerable<Employee> WithoutPasswords(this IEnumerable<Employee> users) 
+        public static IEnumerable<Employee> WithoutPasswords(this IEnumerable<Employee> employees) 
         {
-            if (users == null) return null;
+            if (employees == null) return null;
 
-            return users.Select(x => x.WithoutPassword());
+            return employees.Select(x => x.WithoutPassword());
         }
 
-        public static Employee WithoutPassword(this Employee user) 
+        public static Employee WithoutPassword(this Employee employee) 
         {
-            if (user == null) return null;
+            if (employee == null) return null;
 
-            user.PasswordHash = null;
-            return user;
+            employee.PasswordHash = null;
+            return employee;
         }
     }
 }
