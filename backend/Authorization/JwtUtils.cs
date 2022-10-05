@@ -9,7 +9,8 @@ using Microsoft.IdentityModel.Tokens;
 namespace backend.Authorization;
 public interface IJwtUtils
 {
-    public string GenerateJwtToken(Employee employee);
+    public string GenerateJwtToken(User user);
+    public string GenerateStudentJwtToken(Student student);
     public int? ValidateJwtToken(string token);
 }
 
@@ -22,14 +23,29 @@ public class JwtUtils : IJwtUtils
         _appSettings = appSettings.Value;
     }
 
-    public string GenerateJwtToken(Employee employee)
+    public string GenerateJwtToken(User user)
+    {
+        // generate token that is valid for 1 days
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+        var tokenDescriptor = new SecurityTokenDescriptor
+        {
+            Subject = new ClaimsIdentity(new[] { new Claim("id", user.UserId.ToString()) }),
+            Expires = DateTime.UtcNow.AddDays(7),
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+        };
+        var token = tokenHandler.CreateToken(tokenDescriptor);
+        return tokenHandler.WriteToken(token);
+    }
+
+    public string GenerateStudentJwtToken(Student student)
     {
         // generate token that is valid for 7 days
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Subject = new ClaimsIdentity(new[] { new Claim("id", employee.EmployeeId.ToString()) }),
+            Subject = new ClaimsIdentity(new[] { new Claim("id", student.StudentId.ToString()) }),
             Expires = DateTime.UtcNow.AddDays(7),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };

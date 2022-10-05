@@ -11,13 +11,13 @@ namespace backend.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int StudentId { get; set; }
-        public string StudentCode { get; set; }
-        public int ClassroomId { get; set; }
-        public string ClassroomName { get; set; }
+        [Required, MaxLength(250)]
         public string UserName { get; set; }
-        [Required]
+        [Required, MaxLength(250)]
         [JsonIgnore]
         public string PasswordHash { get; set; }
+        [Required]
+        public string StudentCode { get; set; }
         [Required]
         public string FirstName { get; set; }
         [Required]
@@ -25,8 +25,12 @@ namespace backend.Entities
         [Required]
         public Gender Gender { get; set; }
         [Required]
-        public DateTime DateOfBirth { get; set; }
+        public bool IsFirstLogin { get; set; } = true;
         [Required]
+        public bool IsDiabled { get; set; } = false;
+        [Required]
+        public Role Role { get; set; }
+        public DateTime DateOfBirth { get; set; }
         public string FullName
         {
             get
@@ -34,7 +38,8 @@ namespace backend.Entities
                 return String.Format("{0} {1}", FirstName, LastName);
             }
         }
-        public bool IsFirstLogin { get; set; } = true;
+        public string ClassroomName { get; set; }
+        public int ClassroomId { get; set; }
         public virtual Classroom Classroom { get; set; }
     }
 }

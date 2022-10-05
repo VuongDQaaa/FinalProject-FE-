@@ -22,62 +22,36 @@ namespace backend.Data
                 return result;
             }
         }
-        public static IEnumerable<Employee> SeedingEmployees
+        public static IEnumerable<User> SeedingUsers
         {
             get
             {
-                IEnumerable<Employee> result = new List<Employee>() {
-                    new Employee() {
-                        EmployeeId = 1,
-                        EmployeeCode="AD1",
-                        UserName = "Staff1",
-                        PasswordHash = BCrypt.Net.BCrypt.HashPassword("123456"),
-                        FirstName = "Nguyen",
-                        LastName = "Van Quyet",
+                IEnumerable<User> result = new List<User>() {
+                    new User() {
+                        UserId = 1,
+                        UserName = "Admin",
+                        PasswordHash= BCrypt.Net.BCrypt.HashPassword("Admin"),
+                        UserCode = "AD1",
+                        FirstName="Dao",
+                        LastName="Quy Vuong",
                         Gender = Gender.Male,
-                        DateOfBirth = DateTime.Now,
-                        PhoneNumber = "0335878777",
+                        IsFirstLogin = false,
+                        IsDiabled = false,
                         Role = Role.Admin,
-                        IsFirstLogin = true
+                        DateOfBirth = new DateTime(2000,2,23),
                     },
-                    new Employee() {
-                        EmployeeId = 2,
-                        EmployeeCode="AD2",
-                        UserName = "Staff2",
-                        PasswordHash = BCrypt.Net.BCrypt.HashPassword("123456"),
-                        FirstName = "Do",
-                        LastName = "Thi Van",
-                        Gender = Gender.Female,
-                        DateOfBirth = DateTime.Now,
-                        PhoneNumber = "1900561252",
-                        Role = Role.Admin,
-                        IsFirstLogin = true
-                    },
-                    new Employee() {
-                        EmployeeId = 3,
-                        EmployeeCode = "TC1",
-                        UserName = "Staff3",
-                        PasswordHash = BCrypt.Net.BCrypt.HashPassword("123456"),
-                        FirstName = "Dinh",
-                        LastName = "Quoc Vuong",
+                    new User() {
+                        UserId = 2,
+                        UserName = "Teacher",
+                        PasswordHash= BCrypt.Net.BCrypt.HashPassword("Teacher"),
+                        UserCode = "TC1",
+                        FirstName="Do",
+                        LastName="Duy Nam",
                         Gender = Gender.Male,
-                        DateOfBirth = DateTime.Now,
-                        PhoneNumber = "0335689232",
+                        IsFirstLogin = false,
+                        IsDiabled = false,
                         Role = Role.Teacher,
-                        IsFirstLogin = true
-                    },
-                        new Employee() {
-                        EmployeeId = 4,
-                        EmployeeCode = "TC2",
-                        UserName = "Staff4",
-                        PasswordHash = BCrypt.Net.BCrypt.HashPassword("123456"),
-                        FirstName = "Le",
-                        LastName = "Anh Vien",
-                        Gender = Gender.Female,
-                        DateOfBirth = DateTime.Now,
-                        PhoneNumber = "0983287143",
-                        Role = Role.Teacher,
-                        IsFirstLogin = true
+                        DateOfBirth = new DateTime(2000,2,23),
                     },
                 };
                 return result;
@@ -87,47 +61,52 @@ namespace backend.Data
         {
             get
             {
-                IEnumerable<Student> result = new List<Student>
-                {
+                IEnumerable<Student> result = new List<Student>(){
                     new Student() {
                         StudentId = 1,
-                        StudentCode = "ST1",
                         UserName = "Student1",
-                        PasswordHash = BCrypt.Net.BCrypt.HashPassword("123456"),
-                        FirstName = "Le",
-                        LastName = "Van Luyen",
-                        Gender = Gender.Male,
-                        DateOfBirth = DateTime.Now,
-                        ClassroomId = 1,
+                        PasswordHash= BCrypt.Net.BCrypt.HashPassword("Student"),
+                        StudentCode = "ST1",
+                        FirstName="Le",
+                        LastName="Thi Van",
+                        Gender = Gender.Female,
+                        IsFirstLogin = false,
+                        IsDiabled = false,
+                        Role = Role.Student,
                         ClassroomName = "10 Sinh",
-                        IsFirstLogin = true
+                        DateOfBirth = new DateTime(2000,2,23),
+                        ClassroomId = 1
                     },
                         new Student() {
                         StudentId = 2,
-                        StudentCode = "ST2",
                         UserName = "Student2",
-                        PasswordHash = BCrypt.Net.BCrypt.HashPassword("123456"),
-                        FirstName = "Anna",
-                        LastName = "Viet Nam",
-                        Gender = Gender.Female,
-                        DateOfBirth = DateTime.Now,
-                        ClassroomId = 1,
-                        ClassroomName = "10 Toan",
-                        IsFirstLogin = true
+                        PasswordHash= BCrypt.Net.BCrypt.HashPassword("Student"),
+                        StudentCode = "ST2",
+                        FirstName="Nguyen",
+                        LastName="Van A",
+                        Gender = Gender.Male,
+                        IsFirstLogin = false,
+                        IsDiabled = false,
+                        Role = Role.Student,
+                        ClassroomName = "10 Sinh",
+                        DateOfBirth = new DateTime(2000,2,23),
+                        ClassroomId = 1
                     },
                         new Student() {
                         StudentId = 3,
-                        StudentCode = "ST3",
                         UserName = "Student3",
-                        PasswordHash = BCrypt.Net.BCrypt.HashPassword("123456"),
-                        FirstName = "Dao",
-                        LastName = "Quy Vuong",
+                        PasswordHash= BCrypt.Net.BCrypt.HashPassword("Student"),
+                        StudentCode = "ST4",
+                        FirstName="Nguyen",
+                        LastName="Van B",
                         Gender = Gender.Male,
-                        DateOfBirth = DateTime.Now,
-                        ClassroomId = 2,
+                        IsFirstLogin = false,
+                        IsDiabled = false,
+                        Role = Role.Student,
                         ClassroomName = "10 Toan",
-                        IsFirstLogin = true
-                    }
+                        DateOfBirth = new DateTime(2000,2,23),
+                        ClassroomId = 2
+                    },
                 };
                 return result;
             }

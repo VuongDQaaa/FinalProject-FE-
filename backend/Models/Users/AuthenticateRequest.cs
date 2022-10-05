@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace backend.Models.Employees
+namespace backend.Models.Users
 {
     public class AuthenticateRequest
     {

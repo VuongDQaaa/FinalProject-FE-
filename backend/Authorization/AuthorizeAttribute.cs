@@ -21,9 +21,8 @@ public class AuthorizeAttribute : Attribute, IAuthorizationFilter
         if (allowAnonymous)
             return;
 
-        // authorization
-        var employee = (Employee)context.HttpContext.Items["Employee"];
-        if (employee == null || (_roles.Any() && !_roles.Contains(employee.Role)))
+        var user = (User)context.HttpContext.Items["User"];
+        if (user == null || (_roles.Any() && !_roles.Contains(user.Role)))
         {
             // not logged in or role not authorized
             context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };

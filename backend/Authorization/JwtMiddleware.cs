@@ -14,14 +14,18 @@ public class JwtMiddleware
         _appSettings = appSettings.Value;
     }
 
-    public async Task Invoke(HttpContext context, IEmployeeService employeeService, IJwtUtils jwtUtils)
+    public async Task Invoke(HttpContext context, IUserService userService, IStudentService studentService, IJwtUtils jwtUtils)
     {
         var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
         var userId = jwtUtils.ValidateJwtToken(token);
         if (userId != null)
         {
             // attach user to context on successful jwt validation
-            context.Items["User"] = employeeService.GetEmployeeById(userId.Value);
+            context.Items["User"] = userService.GetById(userId.Value);
+            if(context.Items["User"] == null)
+            {
+                context.Items["Student"] = studentService.GetById(userId.Value);
+            }
         }
 
         await _next(context);

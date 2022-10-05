@@ -13,5 +13,6 @@ namespace backend.Entities
         [Required]
         public string ClassroomName { get; set; }
         public virtual ICollection<Student> Students { get; set; }
+
     }
 }

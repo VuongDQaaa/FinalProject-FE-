@@ -7,21 +7,25 @@ namespace backend.Data
     {
         private readonly IConfiguration configuration;
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
-        public DbSet<Employee> Employees { get; set; }
-        public DbSet<Student> Students { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Student> Students {get;set;}
         public DbSet<Classroom> Classrooms { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Employee>(e => e.ToTable("Employee"));
-            modelBuilder.Entity<Student>(e => e.ToTable("Student"));
+            modelBuilder.Entity<User>(e => e.ToTable("User"));
             modelBuilder.Entity<Classroom>(e => e.ToTable("Classroom"));
 
+            //User
             modelBuilder.Entity<Student>()
             .HasOne(a => a.Classroom)
             .WithMany(b => b.Students)
-            .HasForeignKey(c => c.ClassroomId);
+            .HasForeignKey(c => c.ClassroomId)
+            .OnDelete(DeleteBehavior.Restrict)
+            .IsRequired();
 
-            modelBuilder.Entity<Employee>().HasData(SeedingData.SeedingEmployees);
+            //Seeding data
+            modelBuilder.Entity<User>().HasData(SeedingData.SeedingUsers);
             modelBuilder.Entity<Student>().HasData(SeedingData.SeedingStudents);
             modelBuilder.Entity<Classroom>().HasData(SeedingData.SeedingClassrooms);
         }

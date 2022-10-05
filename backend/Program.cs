@@ -21,17 +21,14 @@ builder.Services.AddControllers().AddJsonOptions(x =>
     });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer("name=ConnectionStrings:DataConnection", providerOptions => providerOptions.EnableRetryOnFailure()).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer("name=ConnectionStrings:AssetConnection", providerOptions => providerOptions.EnableRetryOnFailure()).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 
-builder.Services.AddScoped<IEmployeeService, EmployeeService>();
-builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-
-builder.Services.AddScoped<IClassroomService, ClassroomService>();
-builder.Services.AddScoped<IClassroomRepository, ClassroomRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
@@ -81,7 +78,6 @@ app.UseMiddleware<ErrorHandlerMiddleware>();
 
 // custom jwt auth middleware
 app.UseMiddleware<JwtMiddleware>();
-
 
 app.UseRouting();
 
