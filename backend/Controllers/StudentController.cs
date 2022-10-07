@@ -28,7 +28,7 @@ namespace backend.Controllers
             return Ok(response);
         }
 
-        [AuthorizeAttributeStudent(Role.Student)]
+        [Authorize(Role.Admin)]
         [HttpGet("all-student")]
         public IActionResult GetAll()
         {
@@ -49,48 +49,53 @@ namespace backend.Controllers
             return Ok(user);
         }
 
-        [Authorize(Role.Student)]
+        [Authorize(Role.Admin)]
         [HttpGet("GetAllActiveStudent")]
         public async Task<List<StudentDTO>> GetAllActiveStudent(int userId)
         {
             return await _service.GetAllActiveStudent(userId);
         }
 
+        [Authorize(Role.Admin)]
         [HttpPost("Add")]
         public async Task AddStudent([FromBody]CreateStudentModel studentModel)
         {
             await _service.AddStudent(studentModel);
         }
 
+        [Authorize(Role.Admin)]
         [HttpPut("Update/{studentId}")]
         public async Task UpdateStudent([FromBody]UpdateStudentModel studentModel, int studentId)
         {
             await _service.UpdateStudent(studentModel, studentId);
         }
 
+        [AuthorizeAttributeStudent(Role.Student)]
         [HttpPut("Change-password-student")]
         public async Task ChangePassword(UpdatePasswordModel changePassword)
         {
             await _service.ChangePassWord(changePassword);
         }
 
+        [AuthorizeAttributeStudent(Role.Student)]
         [HttpPut("First-login-student")]
         public async Task ChangePasswordFirstLogin(StudentFirstLoginModel login)
         {
             await _service.ChangePasswordFirstLogin(login);
         }
 
+        [Authorize(Role.Admin)]
         [HttpPut("Diable/{studentId}")]
         public async Task DisableStudent(int studentId)
         {
             await _service.DisableStudent(studentId);
         }
 
+        [Authorize(Role.Admin)]
         [HttpDelete("Delete/{studentId}")]
         public async Task DeleteStudent(int studentId)
         {
             await _service.DeleteStudent(studentId);
         }
-        
     }
 }

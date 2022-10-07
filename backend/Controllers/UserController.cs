@@ -71,14 +71,14 @@ namespace backend.Controllers
             await _service.UpdateUser(user, userId);
         }
 
-        [Authorize(Role.Admin)]
+        [Authorize(Role.Admin, Role.Teacher)]
         [HttpPut("First-login")]
         public async Task ChangePasswordFirstLogin(FirstLoginModel login)
         {
             await _service.ChangePasswordFirstLogin(login);
         }
 
-        [Authorize(Role.Admin)]
+        [Authorize(Role.Admin, Role.Teacher)]
         [HttpPut("Change-password")]
         public async Task ChangePassword(ChangePasswordModel changePassword)
         {

@@ -17,8 +17,8 @@ namespace backend.Repositories
         public Task DisableStudent(int id);
         public Task ChangePasswordFirstLogin(StudentFirstLoginModel login);
         public Task ChangePassWord(UpdatePasswordModel changePassword);
-        public Task<List<StudentDTO>> GetAllActiveStudent(int studentId);
-        public Task<Student> GetStudentById(int id);
+        public Task<List<StudentDTO>> GetAllActiveStudent(int adminId);
+        public Task<Student> GetStudentById(int studentId);
     }
     public class StudentRepository : IStudentRepository
     {
@@ -269,9 +269,9 @@ namespace backend.Repositories
             }
         }
 
-        public async Task<List<StudentDTO>> GetAllActiveStudent(int studentId)
+        public async Task<List<StudentDTO>> GetAllActiveStudent(int adminId)
         {
-            var item = _context.Students.FirstOrDefault(x => x.StudentId == studentId);
+            var item = _context.Users.FirstOrDefault(x => x.UserId == adminId);
             if (item != null)
             {
                 var students = _context.Students.Where(x => x.IsDiabled == false);
@@ -287,9 +287,9 @@ namespace backend.Repositories
             }
         }
 
-        public async Task<Student> GetStudentById(int id)
+        public async Task<Student> GetStudentById(int studentId)
         {
-            var foundStudent = await _context.Students.FindAsync(id);
+            var foundStudent = await _context.Students.FindAsync(studentId);
             if (foundStudent != null)
             {
                 return foundStudent;

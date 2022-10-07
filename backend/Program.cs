@@ -33,6 +33,9 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 
+builder.Services.AddScoped<IClassroomService, ClassroomService>();
+builder.Services.AddScoped<IClassroomRepository, ClassroomRepository>();
+
 // configure strongly typed settings objects
 var appSettingsSection = builder.Configuration.GetSection("AppSettings");
 builder.Services.Configure<AppSettings>(appSettingsSection);
