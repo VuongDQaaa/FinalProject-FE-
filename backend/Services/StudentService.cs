@@ -46,7 +46,7 @@ namespace backend.Services
             return _context.Students;
         }
 
-        public async Task<List<StudentDTO>> GetAllActiveUser(int userId)
+        public async Task<List<StudentDTO>> GetAllActiveStudent(int userId)
         {
             return await _repository.GetAllActiveStudent(userId);
         }
@@ -55,6 +55,36 @@ namespace backend.Services
         {
             var student = _context.Students.Find(id);
             return student;
+        }
+
+        public async Task AddStudent(CreateStudentModel studentModel)
+        {
+            await _repository.AddStudent(studentModel);
+        }
+
+        public async Task UpdateStudent(UpdateStudentModel studentModel, int studentId)
+        {
+            await _repository.UpdateStudent(studentModel, studentId);
+        }
+
+        public async Task DeleteStudent(int id)
+        {
+            await _repository.DeleteStudent(id);
+        }
+
+        public async Task DisableStudent(int id)
+        {
+            await _repository.DisableStudent(id);
+        }
+
+        public async Task ChangePasswordFirstLogin(ChangePasswordFirstLogin login)
+        {
+            await _repository.ChangePasswordFirstLogin(login);
+        }
+
+        public async Task ChangePassWord(ChangePasswordModel changePassword)
+        {
+            await _repository.ChangePassWord(changePassword);
         }
     }
 }

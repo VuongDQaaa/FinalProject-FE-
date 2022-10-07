@@ -56,5 +56,47 @@ namespace backend.Controllers
         {
             return await _service.GetAllActiveUser(userId);
         }
+
+        [Authorize(Role.Admin)]
+        [HttpPost("Add")]
+        public async Task AddUser([FromBody]CreateUserModel user)
+        {
+            await _service.AddUser(user);
+        }
+
+        [Authorize(Role.Admin)]
+        [HttpPut("Update/{userId}")]
+        public async Task UpdateUser([FromBody]UpdateUserModel user, int userId)
+        {
+            await _service.UpdateUser(user, userId);
+        }
+
+        [Authorize(Role.Admin)]
+        [HttpPut("First-login")]
+        public async Task ChangePasswordFirstLogin(ChangePasswordFirstLogin login)
+        {
+            await _service.ChangePasswordFirstLogin(login);
+        }
+
+        [Authorize(Role.Admin)]
+        [HttpPut("Change-password")]
+        public async Task ChangePassword(ChangePasswordModel changePassword)
+        {
+            await _service.ChangePassWord(changePassword);
+        }
+
+        [Authorize(Role.Admin)]
+        [HttpPut("Disable/{userId}")]
+        public async Task DiableUser(int userId)
+        {
+            await _service.DisableUser(userId);
+        }
+
+        [Authorize(Role.Admin)]
+        [HttpDelete("Delete/{userId}")]
+        public async Task DeleteUser(int userId)
+        {
+            await _service.DeleteUser(userId);
+        }
     }
 }
