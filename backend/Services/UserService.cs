@@ -78,7 +78,7 @@ namespace backend.Services
             await _repository.DisableUser(id);
         }
 
-        public async Task ChangePasswordFirstLogin(ChangePasswordFirstLogin login)
+        public async Task ChangePasswordFirstLogin(FirstLoginModel login)
         {
             await _repository.ChangePasswordFirstLogin(login);
         }

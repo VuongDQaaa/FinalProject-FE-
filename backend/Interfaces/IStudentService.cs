@@ -14,7 +14,7 @@ namespace backend.Interfaces
         public Task UpdateStudent(UpdateStudentModel studentModel, int studentId);
         public Task DeleteStudent(int id);
         public Task DisableStudent(int id);
-        public Task ChangePasswordFirstLogin(ChangePasswordFirstLogin login);
-        public Task ChangePassWord(ChangePasswordModel changePassword);
+        public Task ChangePasswordFirstLogin(StudentFirstLoginModel login);
+        public Task ChangePassWord(UpdatePasswordModel changePassword);
     }
 }

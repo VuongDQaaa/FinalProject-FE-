@@ -77,12 +77,12 @@ namespace backend.Services
             await _repository.DisableStudent(id);
         }
 
-        public async Task ChangePasswordFirstLogin(ChangePasswordFirstLogin login)
+        public async Task ChangePasswordFirstLogin(StudentFirstLoginModel login)
         {
             await _repository.ChangePasswordFirstLogin(login);
         }
 
-        public async Task ChangePassWord(ChangePasswordModel changePassword)
+        public async Task ChangePassWord(UpdatePasswordModel changePassword)
         {
             await _repository.ChangePassWord(changePassword);
         }

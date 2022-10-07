@@ -73,7 +73,7 @@ namespace backend.Controllers
 
         [Authorize(Role.Admin)]
         [HttpPut("First-login")]
-        public async Task ChangePasswordFirstLogin(ChangePasswordFirstLogin login)
+        public async Task ChangePasswordFirstLogin(FirstLoginModel login)
         {
             await _service.ChangePasswordFirstLogin(login);
         }

@@ -68,17 +68,17 @@ namespace backend.Controllers
             await _service.UpdateStudent(studentModel, studentId);
         }
 
-        // [HttpPut("Change-password-student")]
-        // public async Task ChangePassword(ChangePasswordModel changePassword)
-        // {
-        //     await _service.ChangePassWord(changePassword);
-        // }
+        [HttpPut("Change-password-student")]
+        public async Task ChangePassword(UpdatePasswordModel changePassword)
+        {
+            await _service.ChangePassWord(changePassword);
+        }
 
-        // [HttpPut("First-login-student")]
-        // public async Task ChangePasswordFirstLogin(ChangePasswordFirstLogin login)
-        // {
-        //     await _service.ChangePasswordFirstLogin(login);
-        // }
+        [HttpPut("First-login-student")]
+        public async Task ChangePasswordFirstLogin(StudentFirstLoginModel login)
+        {
+            await _service.ChangePasswordFirstLogin(login);
+        }
 
         [HttpPut("Diable/{studentId}")]
         public async Task DisableStudent(int studentId)

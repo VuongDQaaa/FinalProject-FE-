@@ -15,7 +15,7 @@ namespace backend.Repositories
         public Task UpdateUser(UpdateUserModel user, int userId);
         public Task DeleteUser(int id);
         public Task DisableUser(int id);
-        public Task ChangePasswordFirstLogin(ChangePasswordFirstLogin login);
+        public Task ChangePasswordFirstLogin(FirstLoginModel login);
         public Task ChangePassWord(ChangePasswordModel changePassword);
         public Task<List<UserDTO>> GetAllActiveUser(int userId);
         public Task<User> GetUserById(int id);
@@ -280,7 +280,7 @@ namespace backend.Repositories
             }
         }
 
-        public async Task ChangePasswordFirstLogin(ChangePasswordFirstLogin login)
+        public async Task ChangePasswordFirstLogin(FirstLoginModel login)
         {
             try
             {
@@ -289,6 +289,7 @@ namespace backend.Repositories
                 if (login.NewPassword.Length > 255) throw new AppException("Your password should less than 255 chatacters");
                 if (login.NewPassword.Length < 8) throw new AppException("Your password should more than 8 chatacters");
                 if (!checkValidPassowrd(login.NewPassword)) throw new AppException("Password should not have any space");
+                if (login.NewPassword != login.ConfirmPassword) throw new AppException("Confirm Password is wrong");
                 if (foundUser.IsFirstLogin == false) throw new AppException("This is not your first login");
                 if (foundUser != null
 
@@ -318,6 +319,7 @@ namespace backend.Repositories
                 if (changePassword.NewPassword.Length > 255) throw new AppException("Password should less than 255 characters");
                 if (changePassword.NewPassword.Length < 8) throw new AppException("Password should have more than 8 characters");
                 if (!checkValidPassowrd(changePassword.NewPassword)) throw new AppException("Password should not have any space");
+                if (changePassword.NewPassword != changePassword.ConfirmPassword) throw new AppException("Confirm Password is wrong");
                 if (foundUser != null)
                 {
                     foundUser.PasswordHash = BCrypt.Net.BCrypt.HashPassword(changePassword.NewPassword);
