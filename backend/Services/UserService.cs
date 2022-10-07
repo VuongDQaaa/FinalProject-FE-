@@ -57,5 +57,35 @@ namespace backend.Services
         {
             return await _repository.GetAllActiveUser(userId);
         }
+
+        public async Task AddUser(CreateUserModel user)
+        {
+            await _repository.AddUser(user);
+        }
+
+        public async Task UpdateUser(UpdateUserModel user, int userId)
+        {
+            await _repository.UpdateUser(user, userId);
+        }
+
+        public async Task DeleteUser(int id)
+        {
+            await _repository.DeleteUser(id);
+        }
+
+        public async Task DisableUser(int id)
+        {
+            await _repository.DisableUser(id);
+        }
+
+        public async Task ChangePasswordFirstLogin(ChangePasswordFirstLogin login)
+        {
+            await _repository.ChangePasswordFirstLogin(login);
+        }
+
+        public async Task ChangePassWord(ChangePasswordModel changePassword)
+        {
+            await _repository.ChangePassWord(changePassword);
+        }
     }
 }

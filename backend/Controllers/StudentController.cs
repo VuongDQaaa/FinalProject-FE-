@@ -21,7 +21,7 @@ namespace backend.Controllers
         }
 
         [AllowAnonymousAttribute]
-        [HttpPost("[action]")]
+        [HttpPost("student/[action]")]
         public IActionResult Authenticate(AuthenticateStudentRequest model)
         {
             var response = _service.Authenticate(model);
@@ -29,7 +29,7 @@ namespace backend.Controllers
         }
 
         [AuthorizeAttributeStudent(Role.Student)]
-        [HttpGet("all")]
+        [HttpGet("all-student")]
         public IActionResult GetAll()
         {
             var users = _studentService.GetAll();
@@ -37,7 +37,7 @@ namespace backend.Controllers
         }
 
         [AuthorizeAttributeStudent(Role.Student)]
-        [HttpGet("detail/{id:int}")]
+        [HttpGet("detail-student/{id:int}")]
         public IActionResult GetById(int id)
         {
             // only students can access other user records
@@ -50,10 +50,46 @@ namespace backend.Controllers
         }
 
         [Authorize(Role.Student)]
-        [HttpGet("GetAllActive")]
+        [HttpGet("GetAllActiveStudent")]
         public async Task<List<StudentDTO>> GetAllActiveStudent(int userId)
         {
-            return await _service.GetAllActiveUser(userId);
+            return await _service.GetAllActiveStudent(userId);
+        }
+
+        [HttpPost("Add")]
+        public async Task AddStudent([FromBody]CreateStudentModel studentModel)
+        {
+            await _service.AddStudent(studentModel);
+        }
+
+        [HttpPut("Update/{studentId}")]
+        public async Task UpdateStudent([FromBody]UpdateStudentModel studentModel, int studentId)
+        {
+            await _service.UpdateStudent(studentModel, studentId);
+        }
+
+        // [HttpPut("Change-password-student")]
+        // public async Task ChangePassword(ChangePasswordModel changePassword)
+        // {
+        //     await _service.ChangePassWord(changePassword);
+        // }
+
+        // [HttpPut("First-login-student")]
+        // public async Task ChangePasswordFirstLogin(ChangePasswordFirstLogin login)
+        // {
+        //     await _service.ChangePasswordFirstLogin(login);
+        // }
+
+        [HttpPut("Diable/{studentId}")]
+        public async Task DisableStudent(int studentId)
+        {
+            await _service.DisableStudent(studentId);
+        }
+
+        [HttpDelete("Delete/{studentId}")]
+        public async Task DeleteStudent(int studentId)
+        {
+            await _service.DeleteStudent(studentId);
         }
         
     }
