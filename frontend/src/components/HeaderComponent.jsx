@@ -18,6 +18,7 @@ export default function HeaderComponent({ username }) {
     const [password, setPassword] = React.useState({
         oldPassword: "",
         newPassword: "",
+        confirmPassword: "",
     });
     const [changeSuccess, setChangeSuccess] = React.useState(false);
     const [Footer, setFooter] = React.useState({});
@@ -233,7 +234,31 @@ export default function HeaderComponent({ username }) {
                                 }}
                             />
                         </Form.Item>
+                        <Form.Item
+                            name="Confirm New Password"
+                            label="Confirm New Password"
+                            rules={[{ required: true, max: 50, whitespace: true },
+                            { pattern: new RegExp("^[a-zA-Z0-9]+$"), message: `Confirm new password must match with new password` },
+                           
+                            ]}
+                            hasFeedback
+
+                        >
+                            <Input.Password
+                                disabled={isModal.isLoading === true}
+                                className="inputForm"
+                                onChange={(confirmPass) => {
+                                    
+                                    setPassword({
+                                        ...password,
+                                        confirmPassword: confirmPass.target.value,
+
+                                    });
+                                }}
+                            />
+                        </Form.Item>
                         <p style={{ color: "red" }}>{error}</p>
+                        
                     </Form>
                 ) : (
                     <p>Your password has been changed successfully!</p>

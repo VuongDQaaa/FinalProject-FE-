@@ -3,12 +3,13 @@ import {makeStyles} from "@material-ui/core/styles";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import {Context} from "../App";
+import {Context} from "../../App";
 import {Input, Spin, Button} from "antd";
 import {LoadingOutlined} from "@ant-design/icons";
 import {EyeInvisibleOutlined, EyeOutlined} from "@ant-design/icons";
 import "antd/dist/antd.css";
-import "../../src/styles/Styles.css";
+import "../../styles/Styles.css";
+import { useNavigate } from 'react-router-dom';
 
 const styles = makeStyles({
     form: {
@@ -74,9 +75,9 @@ const LOGING = {
     SUCCESS: 'success',
     NONE: 'none'
 }
-const Login = () => {
+const LoginStudent = () => {
 
-
+    const navigate = useNavigate();
     const [loginState, setLoginState] = useContext(Context);
     const [isLoging, setLoging] = useState(LOGING.NONE);
     const [error, setError] = useState("");
@@ -95,9 +96,8 @@ const Login = () => {
 
         onSubmit: () => {
             setLoging(LOGING.LOADING)
-
             axios
-                .post(`${process.env.REACT_APP_Backend_URI}api/Student/Authenticate`, {
+                .post(`${process.env.REACT_APP_Backend_URI}api/Student/student/Authenticate`, {
                     userName: formik.values.username,
                     password: formik.values.password,
                 })
@@ -109,9 +109,10 @@ const Login = () => {
                         token: response.data.token,
                         isLogin: true,
                         role: response.data.role,
-                        username: response.data.userName,
+                        username: formik.values.username,
                         isfirstlogin: response.data.isFirstLogin,
                         id: response.data.id,
+                        fullName: response.data.fullName,
                     });
                     localStorage.setItem(
                         "loginState",
@@ -119,9 +120,10 @@ const Login = () => {
                             token: response.data.token,
                             isLogin: true,
                             role: response.data.role,
-                            username: response.data.username,
+                            username: formik.values.username,
                             isfirstlogin: response.data.isFirstLogin,
                             id: response.data.id,
+                            fullName: response.data.fullName,
                         })
                     );
 
@@ -132,8 +134,6 @@ const Login = () => {
                 .catch((error) => {
                     setLoging(LOGING.FAIL);
                     axios.defaults.headers.common["Authorization"] = "";
-
-
                     setError(error.response.data.message);
                 });
         },
@@ -149,7 +149,7 @@ const Login = () => {
                         alt="logo"
                         disabled
                         width={100}
-                        src="https://assets-global.website-files.com/5da4969031ca1b26ebe008f7/602e42d8ec61635cd4859b25_Nash_Tech_Primary_Pos_sRGB.png"
+                        src="https://dcassetcdn.com/design_img/2426630/517402/517402_12706012_2426630_6a1b3dfa_image.jpg"
                     />
                     <p style={{color: "red", fontWeight: "bold"}}>{error}</p>
                     <Input
@@ -191,6 +191,7 @@ const Login = () => {
                                 />
                             )
                         }
+                        
                     />
 
                     <div className={classes.validContainer}>
@@ -207,10 +208,19 @@ const Login = () => {
                             </span>
 
                     </Button>
+                    <Button   style={{width: "150px", height: "40px",  background: "black", color: "white"}} 
+                     onClick={() => {
+                        navigate(`/login/teacher`)
+                      }}>
+                        <span>
+                                Login Teacher
+                            </span>
+
+                    </Button>
                 </form>
             </div>
         </>
     );
 };
 
-export default Login;
+export default LoginStudent;

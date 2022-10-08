@@ -4,24 +4,26 @@ import { BrowserRouter } from "react-router-dom";
 import MenuComponent from "./components/MenuComponent";
 import { AppRoutes } from "./routes/AppRoutes";
 import { NavRoutes } from "./routes/NavRoutes";
-import Login from "./pages/Login";
+//import LoginStd from "./pages/login/LoginStudent";
 import RouteComponent from "./components/RouteComponent";
 import HeaderComponent from "./components/HeaderComponent";
-import ChangePasswordModal from "./components/ChangePasswordModal";
+//import ChangePasswordModal from "./components/ChangePasswordModal";
 import GridComponent from "./components/GridComponet";
 import axios from "axios";
-import "antd/dist/antd.css";
+import 'antd/dist/antd.min.css';
 import { UserRoute } from "./routes/UserRoute";
+import LoginRoutes from "./routes/LoginRoutes"
 export const Context = createContext();
 
 function App() {
   const [loginState, setLoginState] = useState({
     token: localStorage.token,
     isLogin: false,
-    role: "",
-    username: "",
+    role: localStorage.role,
+    username: localStorage.username,
     isfirstlogin: localStorage.isfirstlogin,
-    id: 1,
+    id: localStorage.id,
+    fullName: localStorage.fullName,
   });
 
   axios.defaults.baseURL = `${process.env.REACT_APP_UNSPLASH_BASEURL}`;
@@ -57,21 +59,27 @@ function App() {
       setLoginState(JSON.parse(localStorage.getItem("loginState")));
     }
   }, [loginState.token]);
+  
   return (
+    
     <div className="App">
+      
       <Context.Provider value={[loginState, setLoginState]}>
+     
         <BrowserRouter>
+        
           {loginState.isLogin === false ? (
-            <Login />
+            <RouteComponent routes={LoginRoutes} />
+           
           ) : loginState.role === "Admin" ? (
             <div>
-              <HeaderComponent username={loginState.userName} />
+              <HeaderComponent username={loginState.fullName} />
               <GridComponent
                 leftComp={
                   <div>
                     {/* <ChangePasswordModal
                       isOpen={loginState.isfirstlogin}
-                      userid={loginState.id}
+                      userName={loginState.username}
                     /> */}
                     <MenuComponent routes={NavRoutes} />
                   </div>
@@ -81,7 +89,7 @@ function App() {
             </div>
           ) : (
             <>
-              <HeaderComponent username={loginState.userName}  />
+              <HeaderComponent username={loginState.fullName}  />
              
               <GridComponent
               leftComp={
@@ -89,7 +97,7 @@ function App() {
                   <>
                   {/* <ChangePasswordModal
                   isOpen={loginState.isfirstlogin}
-                  userid={loginState.id}
+                  userName={loginState.username}}
                 /> */}
                  <MenuComponent routes={UserRoute} />
                  
@@ -108,6 +116,7 @@ function App() {
           )}
         </BrowserRouter>
       </Context.Provider>
+    
     </div>
   );
 }

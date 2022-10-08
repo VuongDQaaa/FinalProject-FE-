@@ -2,6 +2,7 @@ import Home from "../pages/Home";
 import ManageUser from "../pages/users/AdminUser/ManageUser";
 import ManageAssets from "../pages/assets/ManageAssets";
 import ReportPage from "../pages/report/ReportPage";
+import ManageAssignment from "../pages/assignments/ManageAssignment";
 import RequestForReturningPage from "../pages/request/RequestForReturning";
 // import ReportPage from "../pages/report/ReportPage";
 
@@ -23,7 +24,7 @@ export const NavRoutes = [
       },
       {
         path: "/assignment",
-    
+        element: <ManageAssignment />,
         title: "Manage Assignment",
       },
       {
