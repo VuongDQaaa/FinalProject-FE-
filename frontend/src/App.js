@@ -10,9 +10,10 @@ import HeaderComponent from "./components/HeaderComponent";
 //import ChangePasswordModal from "./components/ChangePasswordModal";
 import GridComponent from "./components/GridComponet";
 import axios from "axios";
-import 'antd/dist/antd.min.css';
+
 import { UserRoute } from "./routes/UserRoute";
-import LoginRoutes from "./routes/LoginRoutes"
+import LoginRoutes from "./routes/LoginRoutes";
+
 export const Context = createContext();
 
 function App() {
@@ -32,24 +33,20 @@ function App() {
 
   axios.interceptors.request.use(
     (request) => {
-
       // Edit request config
       return request;
     },
     (error) => {
-
       return Promise.reject(error);
     }
   );
 
   axios.interceptors.response.use(
     (response) => {
-
       // Edit response config
       return response;
     },
     (error) => {
-
       return Promise.reject(error);
     }
   );
@@ -59,65 +56,48 @@ function App() {
       setLoginState(JSON.parse(localStorage.getItem("loginState")));
     }
   }, [loginState.token]);
-  
+
   return (
-    
-    <div className="App">
-      
-      <Context.Provider value={[loginState, setLoginState]}>
-     
-        <BrowserRouter>
-        
-          {loginState.isLogin === false ? (
-            <RouteComponent routes={LoginRoutes} />
-           
-          ) : loginState.role === "Admin" ? (
-            <div>
-              <HeaderComponent username={loginState.fullName} />
-              <GridComponent
-                leftComp={
-                  <div>
-                    {/* <ChangePasswordModal
+    <Context.Provider value={[loginState, setLoginState]}>
+      <BrowserRouter>
+        {loginState.isLogin === false ? (
+          <RouteComponent routes={LoginRoutes} />
+        ) : loginState.role === "Admin" ? (
+          <>
+            <HeaderComponent username={loginState.fullName} />
+            <GridComponent
+              leftComp={
+                <div>
+                  {/* <ChangePasswordModal
                       isOpen={loginState.isfirstlogin}
                       userName={loginState.username}
                     /> */}
-                    <MenuComponent routes={NavRoutes} />
-                  </div>
-                }
-                rightComp={<RouteComponent routes={AppRoutes} />}
-              />
-            </div>
-          ) : (
-            <>
-              <HeaderComponent username={loginState.fullName}  />
-             
-              <GridComponent
+                  <MenuComponent routes={NavRoutes} />
+                </div>
+              }
+              rightComp={<RouteComponent routes={AppRoutes} />}
+            />
+          </>
+        ) : (
+          <>
+            <HeaderComponent username={loginState.fullName} />
+
+            <GridComponent
               leftComp={
-                (
-                  <>
+                <>
                   {/* <ChangePasswordModal
                   isOpen={loginState.isfirstlogin}
                   userName={loginState.username}}
                 /> */}
-                 <MenuComponent routes={UserRoute} />
-                 
+                  <MenuComponent routes={UserRoute} />
                 </>
-                
-                )
-               
               }
-
               rightComp={<RouteComponent routes={AppRoutes} />}
-              
-              />
-
-             
-            </>
-          )}
-        </BrowserRouter>
-      </Context.Provider>
-    
-    </div>
+            />
+          </>
+        )}
+      </BrowserRouter>
+    </Context.Provider>
   );
 }
 
