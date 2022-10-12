@@ -5,7 +5,7 @@ import axios from "axios";
 import "antd/dist/antd.css";
 import "../styles/Styles.css";
 
-export default function ChangePasswordModal({isOpen, userid}) {
+export default function ChangePasswordModal({isOpen, userName}) {
     const [isPaswordVisible, setIsPaswordVisible] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(isOpen);
     const [NewPassword, setNewPassword] = useState("");
@@ -15,8 +15,8 @@ export default function ChangePasswordModal({isOpen, userid}) {
     })
     const handleOk = () => {
         axios
-            .put(`${process.env.REACT_APP_UNSPLASH_CHANGEPASSWORD1ST_USERRURL}`, {
-                id: userid,
+            .put(`${process.env.REACT_APP_Backend_URI}User/First-login`, {
+                userName: userName,
                 newPassword: NewPassword,
             })
             .then(function (response) {
