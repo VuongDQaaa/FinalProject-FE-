@@ -4,24 +4,27 @@ import { BrowserRouter } from "react-router-dom";
 import MenuComponent from "./components/MenuComponent";
 import { AppRoutes } from "./routes/AppRoutes";
 import { NavRoutes } from "./routes/NavRoutes";
-import Login from "./pages/Login";
+//import LoginStd from "./pages/login/LoginStudent";
 import RouteComponent from "./components/RouteComponent";
 import HeaderComponent from "./components/HeaderComponent";
-import ChangePasswordModal from "./components/ChangePasswordModal";
+//import ChangePasswordModal from "./components/ChangePasswordModal";
 import GridComponent from "./components/GridComponet";
 import axios from "axios";
-import "antd/dist/antd.css";
+
 import { UserRoute } from "./routes/UserRoute";
+import LoginRoutes from "./routes/LoginRoutes";
+
 export const Context = createContext();
 
 function App() {
   const [loginState, setLoginState] = useState({
     token: localStorage.token,
     isLogin: false,
-    role: "",
-    username: "",
+    role: localStorage.role,
+    username: localStorage.username,
     isfirstlogin: localStorage.isfirstlogin,
-    id: 1,
+    id: localStorage.id,
+    fullName: localStorage.fullName,
   });
 
   axios.defaults.baseURL = `${process.env.REACT_APP_UNSPLASH_BASEURL}`;
@@ -30,24 +33,20 @@ function App() {
 
   axios.interceptors.request.use(
     (request) => {
-
       // Edit request config
       return request;
     },
     (error) => {
-
       return Promise.reject(error);
     }
   );
 
   axios.interceptors.response.use(
     (response) => {
-
       // Edit response config
       return response;
     },
     (error) => {
-
       return Promise.reject(error);
     }
   );
@@ -57,58 +56,48 @@ function App() {
       setLoginState(JSON.parse(localStorage.getItem("loginState")));
     }
   }, [loginState.token]);
+
   return (
-    <div className="App">
-      <Context.Provider value={[loginState, setLoginState]}>
-        <BrowserRouter>
-          {loginState.isLogin === false ? (
-            <Login />
-          ) : loginState.role === "Admin" ? (
-            <div>
-              <HeaderComponent username={loginState.userName} />
-              <GridComponent
-                leftComp={
-                  <div>
-                    {/* <ChangePasswordModal
-                      isOpen={loginState.isfirstlogin}
-                      userid={loginState.id}
-                    /> */}
-                    <MenuComponent routes={NavRoutes} />
-                  </div>
-                }
-                rightComp={<RouteComponent routes={AppRoutes} />}
-              />
-            </div>
-          ) : (
-            <>
-              <HeaderComponent username={loginState.userName}  />
-             
-              <GridComponent
+    <Context.Provider value={[loginState, setLoginState]}>
+      <BrowserRouter>
+        {loginState.isLogin === false ? (
+          <RouteComponent routes={LoginRoutes} />
+        ) : loginState.role === "Admin" ? (
+          <>
+            <HeaderComponent username={loginState.fullName} />
+            <GridComponent
               leftComp={
-                (
-                  <>
+                <div>
+                  {/* <ChangePasswordModal
+                      isOpen={loginState.isfirstlogin}
+                      userName={loginState.username}
+                    /> */}
+                  <MenuComponent routes={NavRoutes} />
+                </div>
+              }
+              rightComp={<RouteComponent routes={AppRoutes} />}
+            />
+          </>
+        ) : (
+          <>
+            <HeaderComponent username={loginState.fullName} />
+
+            <GridComponent
+              leftComp={
+                <>
                   {/* <ChangePasswordModal
                   isOpen={loginState.isfirstlogin}
-                  userid={loginState.id}
+                  userName={loginState.username}}
                 /> */}
-                 <MenuComponent routes={UserRoute} />
-                 
+                  <MenuComponent routes={UserRoute} />
                 </>
-                
-                )
-               
               }
-
               rightComp={<RouteComponent routes={AppRoutes} />}
-              
-              />
-
-             
-            </>
-          )}
-        </BrowserRouter>
-      </Context.Provider>
-    </div>
+            />
+          </>
+        )}
+      </BrowserRouter>
+    </Context.Provider>
   );
 }
 
