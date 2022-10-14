@@ -1,5 +1,5 @@
 import { Row, Col, Form, Input, Select, Button, DatePicker, Radio } from "antd";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
 import "../../../styles/Styles.css";
 import { useNavigate, useParams } from "react-router-dom";
@@ -10,6 +10,8 @@ import "antd/dist/antd.css";
 export default function EditUserPage() {
   const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const [classData, setClassData] = useState([]);
   const userId = useParams().studentId;
   const [form] = Form.useForm();
   const { Option } = Select;
@@ -23,20 +25,32 @@ export default function EditUserPage() {
     },
   };
   console.log(userId);
-  React.useEffect(() => {
+  useEffect(() => {
     axios
       .get(
-        `${process.env.REACT_APP_Backend_URI}api/Student/detail-student/${userId}`
+        `${process.env.REACT_APP_Backend_URI}api/Classroom/All-classroom`,
+        {}
+      )
+      .then((response) => {
+        let respData = response.data;
+        setClassData(respData);
+      })
+      .catch(() => {});
+  }, []);
+  useEffect(() => {
+    axios
+      .get(
+        `${process.env.REACT_APP_Backend_URI}api/Student/student-detail/${userId}`
       )
       .then(function (response) {
         console.log(response.data);
         form.setFieldsValue({
           Firstname: response.data.firstName,
           Lastname: response.data.lastName,
-          DateOfBirth: moment(response.data.doB).format("DD/MM/YYYY"),
+          DateOfBirth: moment(response.data.dateOfBirth),
           Gender: response.data.gender,
-          JoinedDate: moment.tz(response.data.joinDate, "Asia/Ho_Chi_Minh"),
-          Type: response.data.type,
+          // JoinedDate: moment.tz(response.data.joinDate, "Asia/Ho_Chi_Minh"),
+          classroomName: response.data.classroomName,
         });
       })
       .catch(() => {});
@@ -45,17 +59,18 @@ export default function EditUserPage() {
   const onFinish = (fieldsValue) => {
     const values = {
       ...fieldsValue,
-      DateOfBirth: fieldsValue["DateOfBirth"].format("YYYY-MM-DD"),
-      JoinedDate: fieldsValue["JoinedDate"].format("YYYY-MM-DD"),
+      firstname: fieldsValue["Firstname"],
+      lastname: fieldsValue["Lastname"],
+      classroomName: fieldsValue["classroomName"],
+      dateOfBirth: fieldsValue["DateOfBirth"],
+      gender: fieldsValue["Gender"],
     };
     axios
-      .put(`${process.env.REACT_APP_UNSPLASH_USERURL}`, {
-        id: parseInt(userId),
+      .put(`${process.env.REACT_APP_Backend_URI}api/Student/Update/${userId}`, {
         firstname: values.Firstname,
         lastname: values.Lastname,
-        joinDate: values.JoinedDate,
-        type: values.Type,
-        doB: values.DateOfBirth,
+        classroomName: values.classroomName,
+        dateOfBirth: values.DateOfBirth,
         gender: values.Gender,
       })
       .then(() => {
@@ -100,6 +115,7 @@ export default function EditUserPage() {
                   <Input className="inputForm" disabled />
                 </Form.Item>
               </Form.Item>
+
               <Form.Item label="Date Of Birth" style={{ marginBottom: 0 }}>
                 <Form.Item
                   name="DateOfBirth"
@@ -108,19 +124,6 @@ export default function EditUserPage() {
                       required: true,
                       message: "Date of birth must be required",
                     },
-                    () => ({
-                      validator(_, value) {
-                        if (
-                          new Date().getFullYear() - value._d.getFullYear() <
-                          18
-                        ) {
-                          return Promise.reject(
-                            "User must be greater than 18 years old"
-                          );
-                        }
-                        return Promise.resolve();
-                      },
-                    }),
                   ]}
                   style={{ display: "block" }}
                 >
@@ -140,53 +143,17 @@ export default function EditUserPage() {
                   </Radio.Group>
                 </Form.Item>
               </Form.Item>
-              <Form.Item label="Joined Date" style={{ marginBottom: 0 }}>
+
+              <Form.Item label="Classroom Name">
                 <Form.Item
-                  name="JoinedDate"
-                  rules={[
-                    { required: true, message: "Joined date must be require" },
-                    ({ getFieldValue }) => ({
-                      validator(_, value) {
-                        if (
-                          value._d.getDay() === 0 ||
-                          value._d.getDay() === 6
-                        ) {
-                          return Promise.reject(
-                            `Join date can't be Satuday or Sunday `
-                          );
-                        } else if (
-                          value - getFieldValue("DateOfBirth") <
-                          568080000000
-                        ) {
-                          return Promise.reject(
-                            "Only accept staff from 18 years old"
-                          );
-                        } else {
-                          return Promise.resolve();
-                        }
-                      },
-                    }),
-                  ]}
-                  style={{ display: "block", marginLeft: "" }}
-                >
-                  <DatePicker
-                    disabled={isLoading.isLoading === true}
-                    style={{ display: "block" }}
-                    format="DD-MM-YYYY"
-                    className="inputForm"
-                  />
-                </Form.Item>
-              </Form.Item>
-              <Form.Item label="Type">
-                <Form.Item
-                  name="Type"
+                  name="classroomName"
                   rules={[{ required: true }]}
                   style={{ display: "block" }}
                 >
                   <Select
                     disabled={isLoading.isLoading === true}
                     showSearch
-                    name="Type"
+                    name="classroomName"
                     className="inputForm"
                     style={{ display: "block" }}
                     optionFilterProp="children"
@@ -201,8 +168,11 @@ export default function EditUserPage() {
                         .localeCompare(optionB.children.toLowerCase())
                     }
                   >
-                    <Option value="Student">Student</Option>
-                    <Option value="Admin">Admin</Option>
+                    {classData.map((item) => (
+                      <Option value={item.classroomName}>
+                        {item.classroomName}
+                      </Option>
+                    ))}
                   </Select>
                 </Form.Item>
               </Form.Item>

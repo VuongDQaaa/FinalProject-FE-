@@ -10,7 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "../../../styles/Styles.css";
-import moment from "moment";
+
 import "antd/dist/antd.css";
 
 export default function ManageEmployee() {
@@ -102,9 +102,9 @@ export default function ManageEmployee() {
 
         respData.forEach((element) => {
           element.action = [
-              <Link to={`/editEmployee/${element.userId}`} id="editButton">
-                <EditFilled style={{ color: "green", fontSize: "13px" }} />
-              </Link>,
+            <Link to={`/editEmployee/${element.userId}`} id="editButton">
+              <EditFilled style={{ color: "green", fontSize: "13px" }} />
+            </Link>,
             <CloseCircleOutlined
               onClick={() => {
                 setDeleteModal({
@@ -112,38 +112,38 @@ export default function ManageEmployee() {
                   footer: (
                     <div style={{ textAlign: "left" }}>
                       <Button
-                          className="buttonSave"
-                          onClick={() => {
-                            axios
-                              .put(
-                                `${process.env.REACT_APP_Backend_URI}api/Users/Disable/${element.userId}`
-                              )
-                              .then(() => {
-                                setDeleteModal({
-                                  ...deleteModal,
-                                  isOpen: false,
-                                });
-                                window.location.reload();
-                              })
-                              .catch(() => {
-                                setDeleteModal({
-                                  ...deleteModal,
-                                  isOpen: true,
-                                  footer: null,
-                                  title: "Can not disable user",
-                                  content: (
-                                    <p>
-                                      There are valid assignments belonging to
-                                      this user. Please Close all assignments
-                                      before disabling user.
-                                    </p>
-                                  ),
-                                });
+                        className="buttonSave"
+                        onClick={() => {
+                          axios
+                            .put(
+                              `${process.env.REACT_APP_Backend_URI}api/Users/Disable/${element.userId}`
+                            )
+                            .then(() => {
+                              setDeleteModal({
+                                ...deleteModal,
+                                isOpen: false,
                               });
-                          }}
-                        >
-                          Disable
-                        </Button>
+                              window.location.reload();
+                            })
+                            .catch(() => {
+                              setDeleteModal({
+                                ...deleteModal,
+                                isOpen: true,
+                                footer: null,
+                                title: "Can not disable user",
+                                content: (
+                                  <p>
+                                    There are valid assignments belonging to
+                                    this user. Please Close all assignments
+                                    before disabling user.
+                                  </p>
+                                ),
+                              });
+                            });
+                        }}
+                      >
+                        Disable
+                      </Button>
                       <Button
                         className="buttonCancel"
                         onClick={() => {
@@ -321,7 +321,7 @@ export default function ManageEmployee() {
                 paddingLeft: "35px",
               }}
             >
-              {modal.data.studentId}
+              {modal.data.userId}
             </td>
           </tr>
           <tr>
@@ -351,7 +351,7 @@ export default function ManageEmployee() {
             </td>
           </tr>
           <tr>
-            <td style={{ fontSize: "18px", color: "#838688" }}>Class Name</td>
+            <td style={{ fontSize: "18px", color: "#838688" }}>Role</td>
             <td
               style={{
                 fontSize: "18px",
@@ -360,7 +360,7 @@ export default function ManageEmployee() {
                 paddingLeft: "35px",
               }}
             >
-              {modal.data.classroomName}
+              {modal.data.role}
             </td>
           </tr>
 
@@ -422,10 +422,10 @@ export default function ManageEmployee() {
                     ...modal,
                     isOpen: true,
                     data: {
-                      studentId: record.studentId,
+                      userId: record.userId,
                       userCode: record.userCode,
                       fullName: record.fullName,
-                      classroomName: record.classroomName,
+                      role: record.role,
                       dob: record.dateOfBirth,
                       gender: record.gender,
                     },

@@ -1,5 +1,5 @@
-import { Row, Col, Form, Input, Select, Button, DatePicker, Radio } from "antd";
-import React, { useEffect, useState } from "react";
+import { Row, Col, Form, Input, Button, DatePicker, Radio } from "antd";
+import React, { useState } from "react";
 import "antd/dist/antd.css";
 import "../../../styles/Styles.css";
 import axios from "axios";
@@ -8,9 +8,9 @@ import { useNavigate } from "react-router-dom";
 export default function CreateEmployeePage() {
   const [isLoading, setLoading] = useState({ isLoading: false });
   const navigate = useNavigate();
-  const { Option } = Select;
+
   const [form] = Form.useForm();
-  const [classData, setClassData] = useState([]);
+
   const formItemLayout = {
     labelCol: {
       span: 6,
@@ -33,15 +33,17 @@ export default function CreateEmployeePage() {
         lastName: values.Lastname,
         dateOfBirth: values.DateOfBirth,
         gender: values.Gender,
-        role: values.Role
+        role: values.Role,
       })
       .then(() => {
         setTimeout(() => {
-        setLoading({ isLoading: false });
+          setLoading({ isLoading: false });
         }, 3000);
         navigate("/employee");
       })
-      .catch((error) => {console.log(error);});
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -156,9 +158,7 @@ export default function CreateEmployeePage() {
               >
                 <Form.Item
                   name="Role"
-                  rules={[
-                    { required: true, message: "Role must be required" },
-                  ]}
+                  rules={[{ required: true, message: "Role must be required" }]}
                 >
                   <Radio.Group disabled={isLoading.isLoading === true}>
                     <Radio value="Admin">Admin</Radio>

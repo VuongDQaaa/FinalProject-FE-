@@ -7,7 +7,8 @@ import { NavRoutes } from "./routes/NavRoutes";
 //import LoginStd from "./pages/login/LoginStudent";
 import RouteComponent from "./components/RouteComponent";
 import HeaderComponent from "./components/HeaderComponent";
-//import ChangePasswordModal from "./components/ChangePasswordModal";
+import ChangePasswordStudent from "./components/ChangePasswordStudent";
+import ChangePasswordUser from "./components/ChangePasswordUser";
 import GridComponent from "./components/GridComponet";
 import axios from "axios";
 
@@ -64,14 +65,18 @@ function App() {
           <RouteComponent routes={LoginRoutes} />
         ) : loginState.role === "Admin" ? (
           <>
-            <HeaderComponent username={loginState.fullName} />
+            <HeaderComponent
+              fullname={loginState.fullName}
+              username={loginState.username}
+              api="Users/Change-password"
+            />
             <GridComponent
               leftComp={
                 <div>
-                  {/* <ChangePasswordModal
-                      isOpen={loginState.isfirstlogin}
-                      userName={loginState.username}
-                    /> */}
+                  <ChangePasswordUser
+                    isOpen={loginState.isfirstlogin === "True"}
+                    userName={loginState.username}
+                  />
                   <MenuComponent routes={NavRoutes} />
                 </div>
               }
@@ -80,15 +85,19 @@ function App() {
           </>
         ) : (
           <>
-            <HeaderComponent username={loginState.fullName} />
+            <HeaderComponent
+              fullname={loginState.fullName}
+              username={loginState.username}
+              api="api/Student/Change-password-student"
+            />
 
             <GridComponent
               leftComp={
                 <>
-                  {/* <ChangePasswordModal
-                  isOpen={loginState.isfirstlogin}
-                  userName={loginState.username}}
-                /> */}
+                  <ChangePasswordStudent
+                    isOpen={loginState.isfirstlogin === "True"}
+                    userName={loginState.username}
+                  />
                   <MenuComponent routes={UserRoute} />
                 </>
               }

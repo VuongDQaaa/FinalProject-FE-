@@ -114,7 +114,10 @@ export default function ManageUser() {
   });
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_Backend_URI}api/Student/all-student`, {})
+      .get(
+        `${process.env.REACT_APP_Backend_URI}api/Student/GetAllActiveStudent`,
+        {}
+      )
       .then(function (response) {
         let respData = response.data;
         console.log(respData);

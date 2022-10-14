@@ -1,5 +1,5 @@
 import { Row, Col, Form, Input, Select, Button, DatePicker, Radio } from "antd";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
 import "../../../styles/Styles.css";
 import { useNavigate, useParams } from "react-router-dom";
@@ -7,7 +7,7 @@ import axios from "axios";
 
 import "antd/dist/antd.css";
 
-export default function EditEmployeePage() {
+export default function EditUserPage() {
   const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
   const userId = useParams().userId;
@@ -23,11 +23,10 @@ export default function EditEmployeePage() {
     },
   };
   console.log(userId);
-  React.useEffect(() => {
+
+  useEffect(() => {
     axios
-      .get(
-        `${process.env.REACT_APP_Backend_URI}Users/detail/${userId}`
-      )
+      .get(`${process.env.REACT_APP_Backend_URI}Users/detail/${userId}`)
       .then(function (response) {
         console.log(response.data);
         form.setFieldsValue({
@@ -35,7 +34,7 @@ export default function EditEmployeePage() {
           Lastname: response.data.lastName,
           DateOfBirth: moment(response.data.dateOfBirth),
           Gender: response.data.gender,
-          Role: response.data.Role,
+          Role: response.data.role,
         });
       })
       .catch(() => {});
@@ -44,11 +43,14 @@ export default function EditEmployeePage() {
   const onFinish = (fieldsValue) => {
     const values = {
       ...fieldsValue,
-    //   DateOfBirth: fieldsValue["DateOfBirth"].format("YYYY-MM-DD"),
+      firstname: fieldsValue["Firstname"],
+      lastname: fieldsValue["Lastname"],
+      role: fieldsValue["Role"],
+      dateOfBirth: fieldsValue["DateOfBirth"],
+      gender: fieldsValue["Gender"],
     };
     axios
       .put(`${process.env.REACT_APP_Backend_URI}Users/Update/${userId}`, {
-        id: parseInt(userId),
         firstname: values.Firstname,
         lastname: values.Lastname,
         role: values.Role,
@@ -65,7 +67,7 @@ export default function EditEmployeePage() {
       <Col span={12} offset={6}>
         <div className="content">
           <Row style={{ marginBottom: "10px" }} className="fontHeaderContent">
-            Edit Employee
+            Edit User
           </Row>
           <Row
             style={{ marginTop: "10px", marginLeft: "5px", display: "block" }}
@@ -97,6 +99,7 @@ export default function EditEmployeePage() {
                   <Input className="inputForm" disabled />
                 </Form.Item>
               </Form.Item>
+
               <Form.Item label="Date Of Birth" style={{ marginBottom: 0 }}>
                 <Form.Item
                   name="DateOfBirth"
@@ -105,19 +108,6 @@ export default function EditEmployeePage() {
                       required: true,
                       message: "Date of birth must be required",
                     },
-                    () => ({
-                      validator(_, value) {
-                        if (
-                          new Date().getFullYear() - value._d.getFullYear() <
-                          18
-                        ) {
-                          return Promise.reject(
-                            "User must be greater than 18 years old"
-                          );
-                        }
-                        return Promise.resolve();
-                      },
-                    }),
                   ]}
                   style={{ display: "block" }}
                 >
@@ -137,6 +127,7 @@ export default function EditEmployeePage() {
                   </Radio.Group>
                 </Form.Item>
               </Form.Item>
+
               <Form.Item label="Role">
                 <Form.Item
                   name="Role"
@@ -186,7 +177,7 @@ export default function EditEmployeePage() {
                         }, 3000);
                         onFinish();
                       }}
-                      htmlRole="submit"
+                      htmlType="submit"
                     >
                       Save
                     </Button>
@@ -194,7 +185,7 @@ export default function EditEmployeePage() {
                       className="buttonCancel"
                       disabled={isLoading.isLoading === true}
                       onClick={() => {
-                        navigate("/employee");
+                        navigate("/user");
                       }}
                     >
                       Cancel
