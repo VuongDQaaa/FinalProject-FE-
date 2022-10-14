@@ -10,10 +10,10 @@ import {
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "../../../styles/Styles.css";
-import moment from "moment";
+
 import "antd/dist/antd.css";
 
-export default function ManageUser() {
+export default function ManageEmployee() {
   const [data, setData] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [page, setPage] = useState(1);
@@ -27,22 +27,22 @@ export default function ManageUser() {
 
   const columns = [
     {
-      title: "Student code",
-      dataIndex: "studentCode",
-      key: "studentCode",
+      title: "Employee code",
+      dataIndex: "userCode",
+      key: "userCode",
 
       sorter: (a, b) => {
-        if (a.studentCode > b.studentCode) {
+        if (a.userCode > b.userCode) {
           return -1;
         }
-        if (b.studentCode > a.studentCode) {
+        if (b.userCode > a.userCode) {
           return 1;
         }
         return 0;
       },
     },
     {
-      title: "Student Name",
+      title: "Employee Name",
       dataIndex: "fullName",
       key: "fullName",
       sorter: (a, b) => {
@@ -55,48 +55,29 @@ export default function ManageUser() {
         return 0;
       },
     },
+    {
+      title: "User name",
+      dataIndex: "userName",
+      key: "userName",
 
-    {
-      title: "Gender",
-      dataIndex: "gender",
-      key: "gender",
-      //   sorter: (a, b) => {
-      //     if (a.joinDate > b.joinDate) {
-      //       return -1;
-      //     }
-      //     if (b.joinDate > a.joinDate) {
-      //       return 1;
-      //     }
-      //     return 0;
-      //   },
-    },
-    // {
-    //   title: "Type",
-    //   dataIndex: "type",
-    //   key: "type",
-    //   sorter: (a, b) => {
-    //     if (a.type > b.type) {
-    //       return -1;
-    //     }
-    //     if (b.type > a.type) {
-    //       return 1;
-    //     }
-    //     return 0;
-    //   },
-    // },
-    {
-      title: "Date of Birth",
-      dataIndex: "dateOfBirth",
-      key: "dateOfBirth",
-    },
-    {
-      title: "Class",
-      dataIndex: "classroomName",
-      key: "classroomName",
+      sorter: (a, b) => {
+        if (a.userName > b.userName) {
+          return -1;
+        }
+        if (b.userName > a.userName) {
+          return 1;
+        }
+        return 0;
+      },
     },
 
     {
-      title: "Acton",
+      title: "Role",
+      dataIndex: "role",
+      key: "role",
+    },
+    {
+      title: "Action",
       dataIndex: "action",
       key: "action",
     },
@@ -104,7 +85,7 @@ export default function ManageUser() {
   const [deleteModal, setDeleteModal] = useState({
     isOpen: false,
     title: "Are you sure?",
-    content: <p>Do you want to disable user?</p>,
+    content: <p>Do you want to disable employee?</p>,
     footer: (
       <div style={{ textAlign: "left" }}>
         <Button className="buttonSave">Disable</Button>
@@ -114,21 +95,14 @@ export default function ManageUser() {
   });
   useEffect(() => {
     axios
-      .get(
-        `${process.env.REACT_APP_Backend_URI}api/Student/GetAllActiveStudent`,
-        {}
-      )
+      .get(`${process.env.REACT_APP_Backend_URI}Users/all`, {})
       .then(function (response) {
         let respData = response.data;
         console.log(respData);
 
         respData.forEach((element) => {
-          //   element.fullName = element.firstName + " " + element.lastName;
-          element.dateOfBirth = moment(
-            new Date(element.dateOfBirth).toLocaleDateString("en-US")
-          ).format("DD/MM/YYYY");
           element.action = [
-            <Link to={`/editUser/${element.studentId}`} id="editButton">
+            <Link to={`/editEmployee/${element.userId}`} id="editButton">
               <EditFilled style={{ color: "green", fontSize: "13px" }} />
             </Link>,
             <CloseCircleOutlined
@@ -142,7 +116,7 @@ export default function ManageUser() {
                         onClick={() => {
                           axios
                             .put(
-                              `${process.env.REACT_APP_Backend_URI}api/Student/Diable/${element.studentId}`
+                              `${process.env.REACT_APP_Backend_URI}api/Users/Disable/${element.userId}`
                             )
                             .then(() => {
                               setDeleteModal({
@@ -190,14 +164,12 @@ export default function ManageUser() {
         setData(
           respData.sort((a, b) => {
             if (
-              a.studentCode.trim().toLowerCase() >
-              b.studentCode.trim().toLowerCase()
+              a.userCode.trim().toLowerCase() > b.userCode.trim().toLowerCase()
             ) {
               return 1;
             }
             if (
-              b.studentCode.trim().toLowerCase() >
-              a.studentCode.trim().toLowerCase()
+              b.userCode.trim().toLowerCase() > a.userCode.trim().toLowerCase()
             ) {
               return -1;
             }
@@ -209,7 +181,7 @@ export default function ManageUser() {
   }, [deleteModal]);
 
   const dataBytype =
-    type === "Type" ? data : data.filter((u) => u.type === type);
+    type === "Type" ? data : data.filter((u) => u.role === type);
   const finalData =
     searchText === ""
       ? dataBytype
@@ -219,7 +191,7 @@ export default function ManageUser() {
               .toLowerCase()
               .replace(/\s+/g, "")
               .includes(searchText.toLowerCase().replace(/\s+/g, "")) ||
-            u.studentCode.toLowerCase().includes(searchText.toLowerCase())
+            u.userCode.toLowerCase().includes(searchText.toLowerCase())
         );
 
   const pagination = {
@@ -248,7 +220,7 @@ export default function ManageUser() {
           paddingBottom: "20px",
         }}
       >
-        User List
+        Employee List
       </p>
       <Row gutter={45} style={{ marginBottom: "30px" }}>
         <Col xs={8} sm={8} md={7} lg={7} xl={6} xxl={5}>
@@ -258,12 +230,12 @@ export default function ManageUser() {
             overlay={
               <Menu>
                 <Menu.Item
-                  value="Student"
+                  value="Teacher"
                   onClick={() => {
-                    setType("Staff");
+                    setType("Teacher");
                   }}
                 >
-                  Staff
+                  Teacher
                 </Menu.Item>
                 <Menu.Item
                   value="Admin"
@@ -289,7 +261,7 @@ export default function ManageUser() {
         </Col>
         <Col xs={8} sm={8} md={7} lg={7} xl={8} xxl={8}>
           <Input.Search
-            placeholder="Search User"
+            placeholder="Search Employee"
             maxLength={255}
             allowClear
             onSearch={(e) => {
@@ -300,7 +272,7 @@ export default function ManageUser() {
         </Col>
         <Col xs={8} sm={8} md={7} lg={7} xl={9} xxl={9}>
           <Button style={{ background: "#e30c18", color: "white" }}>
-            <Link to="/createUser"> Create new user</Link>
+            <Link to="/createEmployee"> Create new employee</Link>
           </Button>
         </Col>
       </Row>
@@ -349,7 +321,7 @@ export default function ManageUser() {
                 paddingLeft: "35px",
               }}
             >
-              {modal.data.studentId}
+              {modal.data.userId}
             </td>
           </tr>
           <tr>
@@ -362,7 +334,7 @@ export default function ManageUser() {
                 paddingLeft: "35px",
               }}
             >
-              {modal.data.studentCode}
+              {modal.data.userCode}
             </td>
           </tr>
           <tr>
@@ -379,7 +351,7 @@ export default function ManageUser() {
             </td>
           </tr>
           <tr>
-            <td style={{ fontSize: "18px", color: "#838688" }}>Class Name</td>
+            <td style={{ fontSize: "18px", color: "#838688" }}>Role</td>
             <td
               style={{
                 fontSize: "18px",
@@ -388,7 +360,7 @@ export default function ManageUser() {
                 paddingLeft: "35px",
               }}
             >
-              {modal.data.classroomName}
+              {modal.data.role}
             </td>
           </tr>
 
@@ -450,10 +422,10 @@ export default function ManageUser() {
                     ...modal,
                     isOpen: true,
                     data: {
-                      studentId: record.studentId,
-                      studentCode: record.studentCode,
+                      userId: record.userId,
+                      userCode: record.userCode,
                       fullName: record.fullName,
-                      classroomName: record.classroomName,
+                      role: record.role,
                       dob: record.dateOfBirth,
                       gender: record.gender,
                     },

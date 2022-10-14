@@ -9,12 +9,13 @@ import { useLocation } from "react-router-dom";
 import { AppRoutes } from "../routes/AppRoutes";
 import "../styles/Styles.css";
 
-export default function HeaderComponent({ username }) {
+export default function HeaderComponent({ fullname, username, api }) {
   const [isModal, setModal] = React.useState({
     isOpen: false,
     isLoading: false,
   });
   const [password, setPassword] = React.useState({
+    userName: username,
     oldPassword: "",
     newPassword: "",
     confirmPassword: "",
@@ -103,10 +104,7 @@ export default function HeaderComponent({ username }) {
                 setModal({ ...isModal, isLoading: false });
               }, 3000);
               axios
-                .put(
-                  `${process.env.REACT_APP_UNSPLASH_CHANGEPW_USER}`,
-                  password
-                )
+                .put(`${process.env.REACT_APP_Backend_URI}` + api, password)
                 .then(() => {
                   setChangeSuccess(true);
 
@@ -151,35 +149,22 @@ export default function HeaderComponent({ username }) {
           </Button>,
         ]}
         onOk={() => {
-          axios
-            .put(`${process.env.REACT_APP_UNSPLASH_CHANGEPW_USER}`, password)
-            .then((response) => {
-              setChangeSuccess(true);
+          setChangeSuccess(true);
 
-              setFooter({
-                footer: (
-                  <Button
-                    className="buttonCancel"
-                    onClick={() => {
-                      setFooter({});
-                      setChangeSuccess(false);
-                      setModal(false);
-                    }}
-                  >
-                    Close
-                  </Button>
-                ),
-              });
-            })
-            .catch((error) => {
-              if (!error.response.data.title) {
-                setModal(true);
-                setError(error.response.data.message);
-              } else {
-                setModal(true);
-                setError(error.response.data.title);
-              }
-            });
+          setFooter({
+            footer: (
+              <Button
+                className="buttonCancel"
+                onClick={() => {
+                  setFooter({});
+                  setChangeSuccess(false);
+                  setModal(false);
+                }}
+              >
+                Close
+              </Button>
+            ),
+          });
         }}
         onCancel={() => {
           setModal(false);
@@ -288,7 +273,7 @@ export default function HeaderComponent({ username }) {
             onClick={(e) => e.preventDefault()}
             href="/#"
           >
-            {username} <DownOutlined />
+            {fullname} <DownOutlined />
           </a>
         </Dropdown>
       </PageHeader>

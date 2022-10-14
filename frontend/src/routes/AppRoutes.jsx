@@ -10,6 +10,9 @@ import RequestForReturningPage from "../pages/request/RequestForReturning";
 import ManageAssignment from "../pages/assignments/ManageAssignment";
 import CreateAssignmentPage from "../pages/assignments/CreateAssignmentPage";
 import EditAssignmentPage from "../pages/assignments/EditAssignmentPage";
+import ManageEmployee from "../pages/users/AdminEmployee/ManageEmployee";
+import CreateEmployeePage from "../pages/users/AdminEmployee/CreateEmployeePage";
+import EditEmployeePage from "../pages/users/AdminEmployee/EditEmployeePage";
 
 export const AppRoutes = [
   {
@@ -21,6 +24,11 @@ export const AppRoutes = [
     path: "/user",
     element: <ManageUser />,
     title: "Manage User",
+  },
+  {
+    path: "/employee",
+    element: <ManageEmployee />,
+    title: "Manage Employee",
   },
   {
     path: "/asset",
@@ -73,5 +81,16 @@ export const AppRoutes = [
     path: "/createAsset",
     element: <CreateAssetPage />,
     title: "Manage Asset > Create Asset",
+  },
+
+  {
+    path: "/createEmployee",
+    element: <CreateEmployeePage />,
+    title: "Manage Employee > Create Employee",
+  },
+  {
+    path: "/editEmployee/:userId",
+    element: <EditEmployeePage />,
+    title: "Manage Employee > Edit Employee",
   },
 ];

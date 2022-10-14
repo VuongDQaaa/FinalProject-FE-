@@ -10,9 +10,7 @@ import "antd/dist/antd.css";
 export default function EditUserPage() {
   const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
-
-  const [classData, setClassData] = useState([]);
-  const userId = useParams().studentId;
+  const userId = useParams().userId;
   const [form] = Form.useForm();
   const { Option } = Select;
   const formItemLayout = {
@@ -25,23 +23,10 @@ export default function EditUserPage() {
     },
   };
   console.log(userId);
+
   useEffect(() => {
     axios
-      .get(
-        `${process.env.REACT_APP_Backend_URI}api/Classroom/All-classroom`,
-        {}
-      )
-      .then((response) => {
-        let respData = response.data;
-        setClassData(respData);
-      })
-      .catch(() => {});
-  }, []);
-  useEffect(() => {
-    axios
-      .get(
-        `${process.env.REACT_APP_Backend_URI}api/Student/student-detail/${userId}`
-      )
+      .get(`${process.env.REACT_APP_Backend_URI}Users/detail/${userId}`)
       .then(function (response) {
         console.log(response.data);
         form.setFieldsValue({
@@ -49,8 +34,7 @@ export default function EditUserPage() {
           Lastname: response.data.lastName,
           DateOfBirth: moment(response.data.dateOfBirth),
           Gender: response.data.gender,
-          // JoinedDate: moment.tz(response.data.joinDate, "Asia/Ho_Chi_Minh"),
-          classroomName: response.data.classroomName,
+          Role: response.data.role,
         });
       })
       .catch(() => {});
@@ -61,21 +45,21 @@ export default function EditUserPage() {
       ...fieldsValue,
       firstname: fieldsValue["Firstname"],
       lastname: fieldsValue["Lastname"],
-      classroomName: fieldsValue["classroomName"],
+      role: fieldsValue["Role"],
       dateOfBirth: fieldsValue["DateOfBirth"],
       gender: fieldsValue["Gender"],
     };
     axios
-      .put(`${process.env.REACT_APP_Backend_URI}api/Student/Update/${userId}`, {
+      .put(`${process.env.REACT_APP_Backend_URI}Users/Update/${userId}`, {
         firstname: values.Firstname,
         lastname: values.Lastname,
-        classroomName: values.classroomName,
+        role: values.Role,
         dateOfBirth: values.DateOfBirth,
         gender: values.Gender,
       })
       .then(() => {
         sessionStorage.setItem("changeStatus", true);
-        navigate("/user");
+        navigate("/employee");
       });
   };
   return (
@@ -144,16 +128,16 @@ export default function EditUserPage() {
                 </Form.Item>
               </Form.Item>
 
-              <Form.Item label="Classroom Name">
+              <Form.Item label="Role">
                 <Form.Item
-                  name="classroomName"
+                  name="Role"
                   rules={[{ required: true }]}
                   style={{ display: "block" }}
                 >
                   <Select
                     disabled={isLoading.isLoading === true}
                     showSearch
-                    name="classroomName"
+                    name="Role"
                     className="inputForm"
                     style={{ display: "block" }}
                     optionFilterProp="children"
@@ -168,11 +152,8 @@ export default function EditUserPage() {
                         .localeCompare(optionB.children.toLowerCase())
                     }
                   >
-                    {classData.map((item) => (
-                      <Option value={item.classroomName}>
-                        {item.classroomName}
-                      </Option>
-                    ))}
+                    <Option value="Teacher">Teacher</Option>
+                    <Option value="Admin">Admin</Option>
                   </Select>
                 </Form.Item>
               </Form.Item>

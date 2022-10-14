@@ -95,13 +95,10 @@ const LoginStudent = () => {
     onSubmit: () => {
       setLoging(LOGING.LOADING);
       axios
-        .post(
-          `${process.env.REACT_APP_Backend_URI}api/Student/student/Authenticate`,
-          {
-            userName: formik.values.username,
-            password: formik.values.password,
-          }
-        )
+        .post(`${process.env.REACT_APP_Backend_URI}api/Student/Authenticate`, {
+          userName: formik.values.username,
+          password: formik.values.password,
+        })
         .then((response) => {
           setLoginState({
             ...loginState,

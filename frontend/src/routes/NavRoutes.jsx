@@ -4,6 +4,7 @@ import ManageAssets from "../pages/assets/ManageAssets";
 import ReportPage from "../pages/report/ReportPage";
 import ManageAssignment from "../pages/assignments/ManageAssignment";
 import RequestForReturningPage from "../pages/request/RequestForReturning";
+import ManageEmployee from "../pages/users/AdminEmployee/ManageEmployee";
 // import ReportPage from "../pages/report/ReportPage";
 
 export const NavRoutes = [
@@ -11,6 +12,11 @@ export const NavRoutes = [
         path: "/",
         element: <Home />,
         title: "Home",
+      },
+      {
+        path: "/employee",
+        element: <ManageEmployee />,
+        title: "Manage Employee",
       },
       {
         path: "/user",
