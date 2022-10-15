@@ -209,7 +209,7 @@ export default function ManageUser() {
   }, [deleteModal]);
 
   const dataBytype =
-    type === "Type" ? data : data.filter((u) => u.type === type);
+    type === "Type" ? data : data.filter((u) => u.gender === type);
   const finalData =
     searchText === ""
       ? dataBytype
@@ -258,27 +258,29 @@ export default function ManageUser() {
             overlay={
               <Menu>
                 <Menu.Item
-                  value="Student"
+                  value="Male"
                   onClick={() => {
-                    setType("Staff");
-                  }}
-                >
-                  Staff
-                </Menu.Item>
-                <Menu.Item
-                  value="Admin"
-                  onClick={() => {
-                    setType("Admin");
+                    setType("Male");
                   }}
                 >
                   {" "}
-                  Admin
+                  Male
+                </Menu.Item>
+                <Menu.Item
+                  value="Female"
+                  onClick={() => {
+                    setType("Female");
+                  }}
+                >
+                  {" "}
+                  Female
                 </Menu.Item>
                 <Menu.Item
                   onClick={() => {
                     setType("Type");
                   }}
                 >
+                  {" "}
                   All
                 </Menu.Item>
               </Menu>
