@@ -95,7 +95,7 @@ export default function ManageEmployee() {
   });
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_Backend_URI}Users/all`, {})
+      .get(`${process.env.REACT_APP_Backend_URI}Users/GetAllActive`, {})
       .then(function (response) {
         let respData = response.data;
         console.log(respData);
@@ -116,7 +116,7 @@ export default function ManageEmployee() {
                         onClick={() => {
                           axios
                             .put(
-                              `${process.env.REACT_APP_Backend_URI}api/Users/Disable/${element.userId}`
+                              `${process.env.REACT_APP_Backend_URI}Users/Disable/${element.userId}`
                             )
                             .then(() => {
                               setDeleteModal({
@@ -233,14 +233,17 @@ export default function ManageEmployee() {
                   value="Teacher"
                   onClick={() => {
                     setType("Teacher");
+                    console.log(dataBytype);
                   }}
                 >
+                  {" "}
                   Teacher
                 </Menu.Item>
                 <Menu.Item
                   value="Admin"
                   onClick={() => {
                     setType("Admin");
+                    console.log(dataBytype);
                   }}
                 >
                   {" "}
@@ -249,8 +252,10 @@ export default function ManageEmployee() {
                 <Menu.Item
                   onClick={() => {
                     setType("Type");
+                    console.log(dataBytype);
                   }}
                 >
+                  {" "}
                   All
                 </Menu.Item>
               </Menu>
