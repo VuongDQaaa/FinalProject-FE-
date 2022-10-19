@@ -212,7 +212,7 @@ const LoginStudent = () => {
                   navigate(`/login/teacher`);
                 }}
               >
-                <span>Login Teacher</span>
+                <span>Login for staff</span>
               </Button>
               <Button
                 disabled={isLoging === LOGING.LOADING}
@@ -220,18 +220,16 @@ const LoginStudent = () => {
                 style={{
                   width: "100px",
                   height: "40px",
-                  background: "#e30c18",
+                  background: "#33CCFF",
                   color: "white",
                 }}
               >
                 <span>
-                  {isLoging === LOGING.LOADING ? (
-                    <Spin indicator={antIcon} />
-                  ) : isLoging === LOGING.FAIL ? (
-                    <div className="text-danger">Login Fail!</div>
-                  ) : (
-                    "Login"
-                  )}
+                {isLoging === LOGING.LOADING ? (
+                  <Spin indicator={antIcon} />
+                )  : (
+                  "Login"
+                )}
                 </span>
               </Button>
             </div>

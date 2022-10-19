@@ -1,4 +1,4 @@
-import { Row, Col, Form, Input, Button, DatePicker, Radio } from "antd";
+import { Row, Col, Form, Input, Button,Select, DatePicker, Radio } from "antd";
 import React, { useState } from "react";
 import "antd/dist/antd.css";
 import "../../../styles/Styles.css";
@@ -10,7 +10,7 @@ export default function CreateEmployeePage() {
   const navigate = useNavigate();
 
   const [form] = Form.useForm();
-
+  const { Option } = Select;
   const formItemLayout = {
     labelCol: {
       span: 6,
@@ -121,6 +121,14 @@ export default function CreateEmployeePage() {
                       required: true,
                       message: "Date of birth must be required",
                     },
+                    () => ({
+                      validator(_, value) {
+                          if ((new Date().getFullYear() - value._d.getFullYear()) < 18) {
+                              return Promise.reject("User is under 18. Please select a different date")
+                          }
+                          return Promise.resolve();
+                      }
+                  })
                   ]}
                   style={{ display: "block" }}
                   hasFeedback
@@ -151,21 +159,35 @@ export default function CreateEmployeePage() {
                 </Form.Item>
               </Form.Item>
 
-              <Form.Item
-                disabled={isLoading.isLoading === true}
-                label="Role"
-                style={{ marginBottom: 0 }}
-              >
+              <Form.Item label="Role">
                 <Form.Item
                   name="Role"
-                  rules={[{ required: true, message: "Role must be required" }]}
+                  rules={[{ required: true }]}
+                  style={{ display: "block" }}
                 >
-                  <Radio.Group disabled={isLoading.isLoading === true}>
-                    <Radio value="Admin">Admin</Radio>
-                    <Radio value="Teacher">Teacher</Radio>
-                  </Radio.Group>
+                  <Select
+                    disabled={isLoading.isLoading === true}
+                    showSearch
+                    name="Role"
+                    className="inputForm"
+                    style={{ display: "block" }}
+                    optionFilterProp="children"
+                    filterOption={(input, option) =>
+                      option.children
+                        .toLowerCase()
+                        .indexOf(input.toLowerCase()) >= 0
+                    }
+                    filterSort={(optionA, optionB) =>
+                      optionA.children
+                        .toLowerCase()
+                        .localeCompare(optionB.children.toLowerCase())
+                    }
+                  >
+                    <Option value="Teacher">Teacher</Option>
+                    <Option value="Admin">Admin</Option>
+                  </Select>
                 </Form.Item>
-              </Form.Item>
+                </Form.Item>
 
               <Form.Item shouldUpdate>
                 {() => (

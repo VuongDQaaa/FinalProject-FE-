@@ -18,8 +18,9 @@ export default function ManageUser() {
   const [searchText, setSearchText] = useState("");
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [type, setType] = useState("Type");
-
+  const [type, setType] = useState("Gender");
+  const [classz, setClassz] = useState("Class");
+  const [classData, setClassData] = useState([]);
   const [modal, setModal] = useState({
     isOpen: false,
     data: {},
@@ -40,6 +41,7 @@ export default function ManageUser() {
         }
         return 0;
       },
+      width: "10%",
     },
     {
       title: "Student Name",
@@ -55,35 +57,27 @@ export default function ManageUser() {
         return 0;
       },
     },
-
+    {
+      title: "UserName",
+      dataIndex: "userName",
+      key: "userName",
+      sorter: (a, b) => {
+        if (a.userName > b.userName) {
+          return -1;
+        }
+        if (b.userName > a.userName) {
+          return 1;
+        }
+        return 0;
+      },
+    },
     {
       title: "Gender",
       dataIndex: "gender",
       key: "gender",
-      //   sorter: (a, b) => {
-      //     if (a.joinDate > b.joinDate) {
-      //       return -1;
-      //     }
-      //     if (b.joinDate > a.joinDate) {
-      //       return 1;
-      //     }
-      //     return 0;
-      //   },
+     
     },
-    // {
-    //   title: "Type",
-    //   dataIndex: "type",
-    //   key: "type",
-    //   sorter: (a, b) => {
-    //     if (a.type > b.type) {
-    //       return -1;
-    //     }
-    //     if (b.type > a.type) {
-    //       return 1;
-    //     }
-    //     return 0;
-    //   },
-    // },
+   
     {
       title: "Date of Birth",
       dataIndex: "dateOfBirth",
@@ -96,19 +90,20 @@ export default function ManageUser() {
     },
 
     {
-      title: "Acton",
+      title: "Action",
       dataIndex: "action",
       key: "action",
+      
     },
   ];
   const [deleteModal, setDeleteModal] = useState({
     isOpen: false,
-    title: "Are you sure?",
-    content: <p>Do you want to disable user?</p>,
+    title: "Notice",
+    content: <p>Do you want to disable student?</p>,
     footer: (
       <div style={{ textAlign: "left" }}>
         <Button className="buttonSave">Disable</Button>
-        <Button className="buttonCancel">Cancel</Button>
+       
       </div>
     ),
   });
@@ -129,16 +124,16 @@ export default function ManageUser() {
           ).format("DD/MM/YYYY");
           element.action = [
             <Link to={`/editUser/${element.studentId}`} id="editButton">
-              <EditFilled style={{ color: "green", fontSize: "13px" }} />
+              <EditFilled style={{ color: "green", fontSize: "25px" }} />
             </Link>,
             <CloseCircleOutlined
               onClick={() => {
                 setDeleteModal({
                   ...deleteModal,
                   footer: (
-                    <div style={{ textAlign: "left" }}>
-                      <Button
-                        className="buttonSave"
+                    <div >
+                      <Button 
+                        className="ant-btn ant-btn-danger"
                         onClick={() => {
                           axios
                             .put(
@@ -170,20 +165,13 @@ export default function ManageUser() {
                       >
                         Disable
                       </Button>
-                      <Button
-                        className="buttonCancel"
-                        onClick={() => {
-                          setDeleteModal({ ...deleteModal, isOpen: false });
-                        }}
-                      >
-                        Cancel
-                      </Button>
+                      
                     </div>
                   ),
                   isOpen: true,
                 });
               }}
-              style={{ color: "red", fontSize: "13px", marginLeft: "10px" }}
+              style={{ color: "red", fontSize: "25px", marginLeft: "10px" }}
             />,
           ];
         });
@@ -207,19 +195,33 @@ export default function ManageUser() {
       }, [])
       .catch(() => {});
   }, [deleteModal]);
+  useEffect(() => {
+    axios
+      .get(
+        `${process.env.REACT_APP_Backend_URI}api/Classroom/All-classroom`,
+        {}
+      )
+      .then((response) => {
+        let respData = response.data;
+        setClassData(respData);
+      })
+      .catch(() => {});
+  }, []);
 
   const dataBytype =
-    type === "Type" ? data : data.filter((u) => u.gender === type);
+    type === "Gender" ? data : data.filter((u) => u.gender === type);
+    const dataClass= classz === "Class" ? dataBytype : dataBytype.filter((u) => u.classroomName === classz);
   const finalData =
     searchText === ""
-      ? dataBytype
-      : dataBytype.filter(
+      ? dataClass
+      : (dataClass.filter(
           (u) =>
             u.fullName
               .toLowerCase()
               .replace(/\s+/g, "")
               .includes(searchText.toLowerCase().replace(/\s+/g, "")) ||
             u.studentCode.toLowerCase().includes(searchText.toLowerCase())
+        ) 
         );
 
   const pagination = {
@@ -277,7 +279,7 @@ export default function ManageUser() {
                 </Menu.Item>
                 <Menu.Item
                   onClick={() => {
-                    setType("Type");
+                    setType("Gender");
                   }}
                 >
                   {" "}
@@ -288,10 +290,40 @@ export default function ManageUser() {
           >
             {type}
           </Dropdown.Button>
+          <Dropdown.Button
+            placement="bottom"
+            icon={<FilterOutlined />}
+            overlay={
+              <Menu>
+                {classData.map((item) => (
+                      <Menu.Item
+                      value={item.classroomName}
+                      onClick={() => {
+                        setClassz(item.classroomName);
+                      }}
+                    >
+                      {" "}
+                      {item.classroomName}
+                    </Menu.Item>
+                    ))}
+              
+                <Menu.Item
+                  onClick={() => {
+                    setClassz("Class");
+                  }}
+                >
+                  {" "}
+                  All
+                </Menu.Item>
+              </Menu>
+            }
+          >
+            {classz}
+          </Dropdown.Button>
         </Col>
         <Col xs={8} sm={8} md={7} lg={7} xl={8} xxl={8}>
           <Input.Search
-            placeholder="Search User"
+            placeholder="Search Student"
             maxLength={255}
             allowClear
             onSearch={(e) => {
@@ -301,8 +333,8 @@ export default function ManageUser() {
           />
         </Col>
         <Col xs={8} sm={8} md={7} lg={7} xl={9} xxl={9}>
-          <Button style={{ background: "#e30c18", color: "white" }}>
-            <Link to="/createUser"> Create new user</Link>
+          <Button style={{ background: "#33CCFF", color: "white" }}>
+            <Link to="/createUser"> Add new user</Link>
           </Button>
         </Col>
       </Row>

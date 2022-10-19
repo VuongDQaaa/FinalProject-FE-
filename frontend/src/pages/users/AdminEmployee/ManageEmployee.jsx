@@ -10,7 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "../../../styles/Styles.css";
-
+import moment from "moment";
 import "antd/dist/antd.css";
 
 export default function ManageEmployee() {
@@ -18,7 +18,7 @@ export default function ManageEmployee() {
   const [searchText, setSearchText] = useState("");
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [type, setType] = useState("Type");
+  const [type, setType] = useState("Role");
 
   const [modal, setModal] = useState({
     isOpen: false,
@@ -84,12 +84,12 @@ export default function ManageEmployee() {
   ];
   const [deleteModal, setDeleteModal] = useState({
     isOpen: false,
-    title: "Are you sure?",
+    title: "Notice",
     content: <p>Do you want to disable employee?</p>,
     footer: (
       <div style={{ textAlign: "left" }}>
         <Button className="buttonSave">Disable</Button>
-        <Button className="buttonCancel">Cancel</Button>
+       
       </div>
     ),
   });
@@ -98,21 +98,20 @@ export default function ManageEmployee() {
       .get(`${process.env.REACT_APP_Backend_URI}Users/GetAllActive`, {})
       .then(function (response) {
         let respData = response.data;
-        console.log(respData);
-
+        
         respData.forEach((element) => {
           element.action = [
             <Link to={`/editEmployee/${element.userId}`} id="editButton">
-              <EditFilled style={{ color: "green", fontSize: "13px" }} />
+              <EditFilled style={{ color: "green", fontSize: "25px" }} />
             </Link>,
             <CloseCircleOutlined
               onClick={() => {
                 setDeleteModal({
                   ...deleteModal,
                   footer: (
-                    <div style={{ textAlign: "left" }}>
-                      <Button
-                        className="buttonSave"
+                    <div >
+                      <Button 
+                        className="ant-btn ant-btn-danger"
                         onClick={() => {
                           axios
                             .put(
@@ -144,20 +143,13 @@ export default function ManageEmployee() {
                       >
                         Disable
                       </Button>
-                      <Button
-                        className="buttonCancel"
-                        onClick={() => {
-                          setDeleteModal({ ...deleteModal, isOpen: false });
-                        }}
-                      >
-                        Cancel
-                      </Button>
+                     
                     </div>
                   ),
                   isOpen: true,
                 });
               }}
-              style={{ color: "red", fontSize: "13px", marginLeft: "10px" }}
+              style={{ color: "red", fontSize: "25px", marginLeft: "10px" }}
             />,
           ];
         });
@@ -181,7 +173,7 @@ export default function ManageEmployee() {
   }, [deleteModal]);
 
   const dataBytype =
-    type === "Type" ? data : data.filter((u) => u.role === type);
+    type === "Role" ? data : data.filter((u) => u.role === type);
   const finalData =
     searchText === ""
       ? dataBytype
@@ -251,12 +243,12 @@ export default function ManageEmployee() {
                 </Menu.Item>
                 <Menu.Item
                   onClick={() => {
-                    setType("Type");
-                    console.log(dataBytype);
+                    setType("Role");
+                    
                   }}
                 >
                   {" "}
-                  All
+                  Role
                 </Menu.Item>
               </Menu>
             }
@@ -276,8 +268,8 @@ export default function ManageEmployee() {
           />
         </Col>
         <Col xs={8} sm={8} md={7} lg={7} xl={9} xxl={9}>
-          <Button style={{ background: "#e30c18", color: "white" }}>
-            <Link to="/createEmployee"> Create new employee</Link>
+          <Button style={{ background: "#33CCFF", color: "white" }}>
+            <Link to="/createEmployee"> Add new employee</Link>
           </Button>
         </Col>
       </Row>
@@ -317,7 +309,7 @@ export default function ManageEmployee() {
       >
         <table>
           <tr>
-            <td style={{ fontSize: "18px", color: "#838688" }}>Student ID</td>
+            <td style={{ fontSize: "18px", color: "#838688" }}>Employee ID</td>
             <td
               style={{
                 fontSize: "18px",
@@ -330,7 +322,7 @@ export default function ManageEmployee() {
             </td>
           </tr>
           <tr>
-            <td style={{ fontSize: "18px", color: "#838688" }}>Student Code</td>
+            <td style={{ fontSize: "18px", color: "#838688" }}>Employee Code</td>
             <td
               style={{
                 fontSize: "18px",
@@ -394,7 +386,8 @@ export default function ManageEmployee() {
                 paddingLeft: "35px",
               }}
             >
-              {modal.data.dob}
+              
+              {moment(modal.data.dob).format("DD/MM/YYYY")}
             </td>
           </tr>
         </table>

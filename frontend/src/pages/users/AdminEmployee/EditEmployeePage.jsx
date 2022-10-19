@@ -108,6 +108,14 @@ export default function EditUserPage() {
                       required: true,
                       message: "Date of birth must be required",
                     },
+                    () => ({
+                      validator(_, value) {
+                          if ((new Date().getFullYear() - value._d.getFullYear()) < 18) {
+                              return Promise.reject("User is under 18. Please select a different date")
+                          }
+                          return Promise.resolve();
+                      }
+                  })
                   ]}
                   style={{ display: "block" }}
                 >

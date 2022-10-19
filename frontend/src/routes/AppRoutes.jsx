@@ -2,14 +2,11 @@ import EditUserPage from "../pages/users/AdminUser/EditUserPage";
 import Home from "../pages/Home";
 import ManageUser from "../pages/users/AdminUser/ManageUser";
 import CreateUserPage from "../pages/users/AdminUser/CreateUserPage";
-import ManageAssets from "../pages/assets/ManageAssets";
-import CreateAssetPage from "../pages/assets/CreateAssetPage";
-import EditAssetPage from "../pages/assets/EditAssetPage";
+import ManageClassrom from "../pages/classroom/ManageClassrom";
 import ReportPage from "../pages/report/ReportPage";
 import RequestForReturningPage from "../pages/request/RequestForReturning";
-import ManageAssignment from "../pages/assignments/ManageAssignment";
-import CreateAssignmentPage from "../pages/assignments/CreateAssignmentPage";
-import EditAssignmentPage from "../pages/assignments/EditAssignmentPage";
+import ManageSubject from "../pages/subject/ManageSubject";
+
 import ManageEmployee from "../pages/users/AdminEmployee/ManageEmployee";
 import CreateEmployeePage from "../pages/users/AdminEmployee/CreateEmployeePage";
 import EditEmployeePage from "../pages/users/AdminEmployee/EditEmployeePage";
@@ -31,30 +28,17 @@ export const AppRoutes = [
     title: "Manage Employee",
   },
   {
-    path: "/asset",
-    element: <ManageAssets />,
-    title: "Manage Asset",
+    path: "/classroom",
+    element: <ManageClassrom />,
+    title: "Manage Classroom",
   },
+ 
   {
-    path: "/editAsset/:id",
-    element: <EditAssetPage />,
-    title: "Manage Asset > Edit Asset",
+    path: "/subject",
+    element: <ManageSubject />,
+    title: "Manage Subject",
   },
-  {
-    path: "/assignment",
-    element: <ManageAssignment />,
-    title: "Manage Assignment",
-  },
-  {
-    path: "/createAssignment",
-    element: <CreateAssignmentPage />,
-    title: "Manage Assignment > Create Assignment",
-  },
-  {
-    path: "/editAssignment/:id",
-    element: <EditAssignmentPage />,
-    title: "Manage Assignment > Edit Assignment",
-  },
+
   {
     path: "/request",
     element: <RequestForReturningPage />,
@@ -77,11 +61,7 @@ export const AppRoutes = [
     element: <EditUserPage />,
     title: "Manage User > Edit User",
   },
-  {
-    path: "/createAsset",
-    element: <CreateAssetPage />,
-    title: "Manage Asset > Create Asset",
-  },
+
 
   {
     path: "/createEmployee",

@@ -124,7 +124,7 @@ const LoginStudent = () => {
 
           axios.defaults.headers.common["Authorization"] =
             "Bearer " + response.data.token;
-          window.location.href = `/`;
+          window.location.href = `/employee`;
         })
 
         .catch((error) => {
@@ -207,7 +207,7 @@ const LoginStudent = () => {
                 navigate(`/`);
               }}
             >
-              <span>Login Student</span>
+              <span>Login for student</span>
             </Button>
             <Button
               disabled={isLoging === LOGING.LOADING}
@@ -215,16 +215,14 @@ const LoginStudent = () => {
               style={{
                 width: "100px",
                 height: "40px",
-                background: "#e30c18",
+                background: "#33CCFF",
                 color: "white",
               }}
             >
               <span>
                 {isLoging === LOGING.LOADING ? (
                   <Spin indicator={antIcon} />
-                ) : isLoging === LOGING.FAIL ? (
-                  <div className="text-danger">Login Fail!</div>
-                ) : (
+                )  : (
                   "Login"
                 )}
               </span>

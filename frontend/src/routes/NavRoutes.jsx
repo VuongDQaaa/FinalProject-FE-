@@ -1,18 +1,14 @@
-import Home from "../pages/Home";
+
 import ManageUser from "../pages/users/AdminUser/ManageUser";
-import ManageAssets from "../pages/assets/ManageAssets";
+import ManageClassrom from "../pages/classroom/ManageClassrom";
 import ReportPage from "../pages/report/ReportPage";
-import ManageAssignment from "../pages/assignments/ManageAssignment";
+import ManageSubject from "../pages/subject/ManageSubject";
 import RequestForReturningPage from "../pages/request/RequestForReturning";
 import ManageEmployee from "../pages/users/AdminEmployee/ManageEmployee";
 // import ReportPage from "../pages/report/ReportPage";
 
 export const NavRoutes = [
-  {
-    path: "/",
-    element: <Home />,
-    title: "Home",
-  },
+
   {
     path: "/employee",
     element: <ManageEmployee />,
@@ -24,24 +20,24 @@ export const NavRoutes = [
     title: "Manage Student",
   },
   {
-    path: "/asset",
-    element: <ManageAssets />,
-    title: "Manage Asset",
+    path: "/classroom",
+    element: <ManageClassrom />,
+    title: "Manage Classroom",
   },
   {
-    path: "/assignment",
-    element: <ManageAssignment />,
-    title: "Manage Assignment",
+    path: "/subject",
+    element: <ManageSubject />,
+    title: "Manage Subject",
   },
   {
     path: "/request",
     element: <RequestForReturningPage />,
-    title: "Request for Returning",
+    title: "Manage Task",
   },
 
   {
     path: "/report",
     element: <ReportPage />,
-    title: "Report",
+    title: "Manage Schedule",
   },
 ];
