@@ -2,7 +2,7 @@ import { Row, Col } from "antd";
 
 export default function GridComponent({ leftComp, rightComp }) {
   return (
-    <div>
+  
       <Row gutter={10}>
         <Col xs={24} sm={24} md={6} lg={5} xl={5} xxl={4}>
           <img
@@ -27,6 +27,6 @@ export default function GridComponent({ leftComp, rightComp }) {
           {rightComp}
         </Col>
       </Row>
-    </div>
+    
   );
 }

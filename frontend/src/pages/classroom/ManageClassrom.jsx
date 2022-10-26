@@ -19,6 +19,7 @@ export default function ManageUser() {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(0);
   const [type, setType] = useState("All");
+  const [startYear, setStartYear] = useState("StartYear");
   const [form] = Form.useForm();
   const [isLoading, setLoading] = useState({ isLoading: false });
   const [classData, setClassData] = useState([]);
@@ -59,7 +60,36 @@ const formItemLayout = {
       },
      
     },
-
+    {
+      title: "Start Year",
+      dataIndex: "startYear",
+      key: "startYear",
+      sorter: (a, b) => {
+        if (a.startYear > b.startYear) {
+          return -1;
+        }
+        if (b.startYear > a.startYear) {
+          return 1;
+        }
+        return 0;
+      },
+     
+    },
+    {
+      title: "End Year",
+      dataIndex: "endYear",
+      key: "endYear",
+      sorter: (a, b) => {
+        if (a.endYear > b.endYear) {
+          return -1;
+        }
+        if (b.endYear > a.endYear) {
+          return 1;
+        }
+        return 0;
+      },
+     
+    },
     {
       title: "Action",
       dataIndex: "action",
@@ -210,12 +240,13 @@ const formItemLayout = {
   };
 
   const dataBytype =
-    type === "All" ? data : data.filter((u) => u.classroomName === type);
-  
+    type === "All" ? data : data.filter((u) => u.grade === type);
+  const  dataByYear =
+  startYear ==="StartYear" ? dataBytype : dataBytype.filter((u) => u.startYear === startYear);
   const finalData =
     searchText === ""
-      ? dataBytype
-      : dataBytype.filter(
+      ? dataByYear
+      : dataByYear.filter(
           (u) =>
             u.classroomName
               .toLowerCase()
@@ -239,7 +270,18 @@ const formItemLayout = {
     responsive:true, 
     showSizeChanger:true
   };
-
+  const today = new Date();
+  const rows = [];
+  for (let i = today.getFullYear()-10; i < today.getFullYear()+1; i++) {
+      rows.push((<Menu.Item
+        onClick={() => {
+          setStartYear(i);
+        }}
+      >
+        {" "}
+        {i}
+      </Menu.Item>));
+  }
   return (
     <>
       <p
@@ -262,7 +304,7 @@ const formItemLayout = {
             icon={<FilterOutlined />}
             overlay={
               <Menu>
-                {classData.map((item) => (
+                {/* {classData.map((item) => (
                       <Menu.Item
                       value={item.classroomName}
                       onClick={() => {
@@ -272,8 +314,31 @@ const formItemLayout = {
                       {" "}
                       {item.classroomName}
                     </Menu.Item>
-                    ))}
-              
+                    ))} */}
+               <Menu.Item
+                  onClick={() => {
+                    setType("10");
+                  }}
+                >
+                  {" "}
+                  Grade 10
+                </Menu.Item>
+                <Menu.Item
+                  onClick={() => {
+                    setType("11");
+                  }}
+                >
+                  {" "}
+                  Grade 11
+                </Menu.Item>
+                <Menu.Item
+                  onClick={() => {
+                    setType("12");
+                  }}
+                >
+                  {" "}
+                  Grade 12
+                </Menu.Item>
                 <Menu.Item
                   onClick={() => {
                     setType("All");
@@ -286,6 +351,25 @@ const formItemLayout = {
             }
           >
             {type}
+          </Dropdown.Button>
+          <Dropdown.Button
+            placement="bottom"
+            icon={<FilterOutlined />}
+            overlay={
+              <Menu>
+                {rows}
+                <Menu.Item
+                  onClick={() => {
+                    setStartYear("StartYear");
+                  }}
+                >
+                  {" "}
+                  All
+                </Menu.Item>
+              </Menu>
+            }
+          >
+            {startYear}
           </Dropdown.Button>
         </Col>
         <Col xs={8} sm={8} md={7} lg={7} xl={8} xxl={8}>
