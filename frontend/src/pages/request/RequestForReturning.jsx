@@ -28,6 +28,7 @@ export default function RequestForReturningPage() {
   const [idCompleted, setIdCompleted] = useState();
   const [state, setState] = useState("state");
   const [searchText, setSearchText] = useState("");
+  const [allSubjects, setAllSubjects] = useState();
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -76,8 +77,17 @@ export default function RequestForReturningPage() {
   const handleCancelModal = () => {
     setIsModalCancelVisible(false);
   };
-
+console.log(allSubjects);
   useEffect(() => {
+    const fetchData = async () =>{
+      try {
+        const {data: response} = await axios.get(`${process.env.REACT_APP_Backend_URI}api/Subject/All-subjects`);
+        setAllSubjects(response);
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+    fetchData();
     axios
       .get(`${process.env.REACT_APP_Backend_URI}api/AssignedTask/All-tasks`, {})
       .then(function (response) {
@@ -92,7 +102,7 @@ export default function RequestForReturningPage() {
               disabled={element.state === "Completed"}
               onClick={() => {
                 showModal();
-                handleCheckId(element.id);
+                handleCheckId(element.taskId);
               }}
             >
               Edit
@@ -104,7 +114,7 @@ export default function RequestForReturningPage() {
               disabled={element.state === "Completed"}
               onClick={() => {
                 showModalDelete();
-                handleCheckDeleteId(element.id);
+                handleCheckDeleteId(element.taskId);
               }}
             >
               Delete
@@ -118,7 +128,7 @@ export default function RequestForReturningPage() {
   }, []);
 
   const dataBytype =
-    state === "state" ? data : data.filter((u) => u.state === state);
+    state === "state" ? data : data.filter((u) => u.subjectName === state);
   const finalData =
     searchText === ""
       ? dataBytype
@@ -135,8 +145,8 @@ export default function RequestForReturningPage() {
   const columns = [
     {
       title: "No.",
-      dataIndex: "id",
-      key: "id",
+      dataIndex: "taskId",
+      key: "taskId",
       render: (text, record, id) => id + 1,
     },
     {
@@ -240,30 +250,14 @@ export default function RequestForReturningPage() {
             icon={<FilterOutlined />}
             overlay={
               <Menu>
-                <Menu.Item
-                  value="Completed"
+                {allSubjects?.map(item => <Menu.Item
+                  value={item.subjectName}
                   onClick={() => {
-                    setState("Completed");
+                    setState(`${item.subjectName}`);
                   }}
                 >
-                  Completed
-                </Menu.Item>
-                <Menu.Item
-                  value="Waiting For Returning"
-                  onClick={() => {
-                    setState("Waiting For Returning");
-                  }}
-                >
-                  Waiting For Returning
-                </Menu.Item>
-
-                <Menu.Item
-                  onClick={() => {
-                    setState("state");
-                  }}
-                >
-                  All
-                </Menu.Item>
+                  {item.subjectName}
+                </Menu.Item>)}
               </Menu>
             }
           >
