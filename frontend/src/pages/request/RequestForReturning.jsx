@@ -276,7 +276,7 @@ export default function RequestForReturningPage() {
                 color: ' red',
                 fontWeight: 'bold',
                 paddingBottom: "20px"
-            }}>Request List</p>
+            }}>Task List</p>
             <Row gutter={45} style={{marginBottom: "30px"}}>
                 <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={7}>
                     <Dropdown.Button
@@ -340,15 +340,14 @@ export default function RequestForReturningPage() {
                 </Col>
 
             </Row>
-            {data.length === 0 ? <Table
-                    loading={{indicator: <LoadingOutlined style={{fontSize: "60px", color: "red"}}/>, spinning: true}}/> :
+            
                 <Table
                     size="large"
                     columns={columns}
                     dataSource={finalData}
                 >
                 </Table>
-            }
+            
         </>
 
 

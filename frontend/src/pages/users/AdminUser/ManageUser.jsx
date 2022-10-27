@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Input, Button, Menu, Dropdown, Row, Col, Modal } from "antd";
+import { Table, Input, Button, Menu, Dropdown,Select, Row, Col, Modal } from "antd";
 import {
   FilterOutlined,
   EditFilled,
@@ -25,6 +25,9 @@ export default function ManageUser() {
     isOpen: false,
     data: {},
   });
+
+  const classOptions = [];
+
 
   const columns = [
     {
@@ -124,7 +127,7 @@ export default function ManageUser() {
           ).format("DD/MM/YYYY");
           element.action = [
             <Link to={`/editUser/${element.studentId}`} id="editButton">
-              <EditFilled style={{ color: "green", fontSize: "25px" }} />
+              <EditFilled style={{  fontSize: "25px" }} />
             </Link>,
             <CloseCircleOutlined
               onClick={() => {
@@ -235,6 +238,8 @@ export default function ManageUser() {
       setPage(page);
       setPageSize(pageSize);
     },
+   showSizeChanger:true, 
+      showTotal: total => `Total ${total} Student`
   };
 
   return (
@@ -250,7 +255,7 @@ export default function ManageUser() {
           paddingBottom: "20px",
         }}
       >
-        User List
+        Student List
       </p>
       <Row gutter={45} style={{ marginBottom: "30px" }}>
         <Col xs={8} sm={8} md={7} lg={7} xl={6} xxl={5}>
@@ -290,36 +295,21 @@ export default function ManageUser() {
           >
             {type}
           </Dropdown.Button>
-          <Dropdown.Button
-            placement="bottom"
-            icon={<FilterOutlined />}
-            overlay={
-              <Menu>
-                {classData.map((item) => (
-                      <Menu.Item
-                      value={item.classroomName}
-                      onClick={() => {
-                        setClassz(item.classroomName);
-                      }}
-                    >
-                      {" "}
-                      {item.classroomName}
-                    </Menu.Item>
-                    ))}
-              
-                <Menu.Item
-                  onClick={() => {
-                    setClassz("Class");
-                  }}
-                >
-                  {" "}
-                  All
-                </Menu.Item>
-              </Menu>
-            }
+
+          <Select
+          placeholder="Select Class"
+          onSelect={(value)=>{setClassz(value)}}
+          virtual={false}
           >
-            {classz}
-          </Dropdown.Button>
+            <Option key="Class" value="Class">Full class</Option>
+            {classData.map((item) => (
+                      <Option value={item.classroomName}>
+                        {item.classroomName}
+                      </Option>
+                    ))}
+          </Select>
+          
+          
         </Col>
         <Col xs={8} sm={8} md={7} lg={7} xl={8} xxl={8}>
           <Input.Search
@@ -334,7 +324,7 @@ export default function ManageUser() {
         </Col>
         <Col xs={8} sm={8} md={7} lg={7} xl={9} xxl={9}>
           <Button style={{ background: "#33CCFF", color: "white" }}>
-            <Link to="/createUser"> Add new user</Link>
+            <Link to="/addStudent"> Add new Student</Link>
           </Button>
         </Col>
       </Row>
@@ -355,7 +345,7 @@ export default function ManageUser() {
       </Modal>
       <Modal
         visible={modal.isOpen}
-        title="Detail User"
+        title="Detail Student"
         onOk={() => {
           setModal({ ...modal, isOpen: false });
         }}
