@@ -18,9 +18,9 @@ export const AppRoutes = [
     title: "Home",
   },
   {
-    path: "/user",
+    path: "/student",
     element: <ManageUser />,
-    title: "Manage User",
+    title: "Manage Student",
   },
   {
     path: "/employee",
@@ -40,9 +40,9 @@ export const AppRoutes = [
   },
 
   {
-    path: "/request",
+    path: "/tasks",
     element: <RequestForReturningPage />,
-    title: "Request for Returning",
+    title: "Manage Task",
   },
 
   {
@@ -52,9 +52,9 @@ export const AppRoutes = [
   },
 
   {
-    path: "/createUser",
+    path: "/addStudent",
     element: <CreateUserPage />,
-    title: "Manage User > Create User",
+    title: "Manage Student > Add Student",
   },
   {
     path: "/editUser/:studentId",
