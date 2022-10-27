@@ -108,7 +108,7 @@ const formItemLayout = {
                   subjectId: element.subjectId,
                 })
                 console.log(editModal);
-              }} style={{ color: "green", fontSize: "25px" }} />,
+              }} style={{ color: "#1e94f9", fontSize: "25px" }} />,
           
             <CloseCircleOutlined
               onClick={() => {

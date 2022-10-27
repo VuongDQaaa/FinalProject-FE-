@@ -102,9 +102,10 @@ export default function ManageEmployee() {
         respData.forEach((element) => {
           element.action = [
             <Link to={`/editEmployee/${element.userId}`} id="editButton">
-              <EditFilled style={{ color: "green", fontSize: "25px" }} />
+              <EditFilled style={{  fontSize: "25px",display: "inline-block", verticalAlign: "middle" }} />
             </Link>,
             <CloseCircleOutlined
+          
               onClick={() => {
                 setDeleteModal({
                   ...deleteModal,
@@ -149,7 +150,7 @@ export default function ManageEmployee() {
                   isOpen: true,
                 });
               }}
-              style={{ color: "red", fontSize: "25px", marginLeft: "10px" }}
+              style={{ color: "red", fontSize: "25px", marginLeft: "10px",display: "inline-block", verticalAlign: "middle" }}
             />,
           ];
         });
@@ -407,7 +408,8 @@ export default function ManageEmployee() {
           key="id"
           rowKey={(data) => data.id}
           columns={columns}
-          pagination={pagination}
+          pagination={{...pagination,showSizeChanger:true,total: finalData.length, 
+            showTotal: total => `Total ${total} Employee`}}
           dataSource={finalData}
           onRow={(record) => {
             return {

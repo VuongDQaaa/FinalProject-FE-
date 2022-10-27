@@ -61,7 +61,7 @@ export default function CreateUserPage() {
       <Col span={12} offset={6}>
         <div className="content">
           <Row style={{ marginBottom: "10px" }} className="fontHeaderContent">
-            Create New User
+            Add New Student
           </Row>
           <Row
             style={{ marginTop: "10px", marginLeft: "5px", display: "block" }}
@@ -131,14 +131,14 @@ export default function CreateUserPage() {
                       required: true,
                       message: "Date of birth must be required",
                     },
-                    () => ({
-                      validator(_, value) {
-                          if ((new Date().getFullYear() - value._d.getFullYear()) < 18) {
-                              return Promise.reject("User is under 18. Please select a different date")
-                          }
-                          return Promise.resolve();
-                      }
-                  })
+                  //   () => ({
+                  //     validator(_, value) {
+                  //         if ((new Date().getFullYear() - value._d.getFullYear()) < 14) {
+                  //             return Promise.reject("User is under 14. Please select a different date")
+                  //         }
+                  //         return Promise.resolve();
+                  //     }
+                  // })
                   ]}
                   style={{ display: "block" }}
                   hasFeedback

@@ -36,11 +36,11 @@ export default function HeaderComponent({ fullname, username, api }) {
 
   const formItemLayout = {
     labelCol: {
-      span: 6,
+      span: 8,
     },
     wrapperCol: {
-      span: 16,
-      offset: 1,
+      span: 14,
+      offset: 2,
     },
   };
 
@@ -198,14 +198,15 @@ export default function HeaderComponent({ fullname, username, api }) {
               />
             </Form.Item>
             <Form.Item
-              name="New Password"
+              name="newPassword"
               label="New Password"
               rules={[
-                { required: true, max: 50, whitespace: true },
+                { required: true, max: 50,  message: `New password must have riquired`},
                 {
                   pattern: new RegExp("^[a-zA-Z0-9]+$"),
                   message: `New password can't have white space or special characters`,
                 },
+                
               ]}
               hasFeedback
             >
@@ -229,6 +230,14 @@ export default function HeaderComponent({ fullname, username, api }) {
                   pattern: new RegExp("^[a-zA-Z0-9]+$"),
                   message: `Confirm new password must match with new password`,
                 },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue('newPassword') === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                  },
+                }),
               ]}
               hasFeedback
             >

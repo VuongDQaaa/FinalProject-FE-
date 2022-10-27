@@ -15,7 +15,7 @@ export const NavRoutes = [
     title: "Manage Employee",
   },
   {
-    path: "/user",
+    path: "/student",
     element: <ManageUser />,
     title: "Manage Student",
   },
@@ -30,7 +30,7 @@ export const NavRoutes = [
     title: "Manage Subject",
   },
   {
-    path: "/request",
+    path: "/tasks",
     element: <RequestForReturningPage />,
     title: "Manage Task",
   },
