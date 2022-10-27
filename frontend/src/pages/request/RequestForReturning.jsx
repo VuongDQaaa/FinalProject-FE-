@@ -19,6 +19,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "antd/dist/antd.css";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 // import {useParams} from 'react-router-dom';
 export default function RequestForReturningPage() {
@@ -275,6 +276,11 @@ console.log(allSubjects);
               setSearchText(e.replace(/ /g, ""));
             }}
           />
+        </Col>
+        <Col xs={8} sm={8} md={7} lg={7} xl={9} xxl={9}>
+          <Button style={{ background: "#33CCFF", color: "white" }}>
+            <Link to="/createTask"> Assign new task</Link>
+          </Button>
         </Col>
       </Row>
       {data.length === 0 ? (
