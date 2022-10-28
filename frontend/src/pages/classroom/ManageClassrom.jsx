@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Table, Input, Button, Menu, Dropdown, Row, Col, Modal, Form, Select } from "antd";
+import {
+  Table,
+  Input,
+  Button,
+  Menu,
+  Dropdown,
+  Row,
+  Col,
+  Modal,
+  Form,
+  Select,
+} from "antd";
 import {
   FilterOutlined,
   EditFilled,
@@ -12,6 +23,7 @@ import axios from "axios";
 import "../../styles/Styles.css";
 
 import "antd/dist/antd.css";
+import { Link } from "react-router-dom";
 
 export default function ManageUser() {
   const [data, setData] = useState([]);
@@ -24,6 +36,7 @@ export default function ManageUser() {
   const [isLoading, setLoading] = useState({ isLoading: false });
   const [classData, setClassData] = useState([]);
   const [errMessage, setErrMessage] = useState("");
+  const { Option } = Select;
   const [modal, setModal] = useState({
     isOpen: false,
     data: {},
@@ -63,7 +76,6 @@ export default function ManageUser() {
         }
         return 0;
       },
-
     },
     {
       title: "Start Year",
@@ -78,7 +90,6 @@ export default function ManageUser() {
         }
         return 0;
       },
-
     },
     {
       title: "End Year",
@@ -93,13 +104,12 @@ export default function ManageUser() {
         }
         return 0;
       },
-
     },
     {
       title: "Action",
       dataIndex: "action",
       key: "action",
-      width: '20%',
+      width: "20%",
     },
   ];
   const [deleteModal, setDeleteModal] = useState({
@@ -130,30 +140,35 @@ export default function ManageUser() {
           //   element.fullName = element.firstName + " " + element.lastName;
 
           element.action = [
+            <Button>
+              <Link to={`/view-schedule/${element.classroomId}`}>View Schedule</Link>{" "}
+            </Button>,
 
-            <EditFilled onClick={() => {
-              form.setFieldsValue({
-                classroomName: element.classroomName,
-                grade: element.grade,
-                startYear: element.startYear
-              });
-              setEditModal({
-                ...editModal,
-                isOpen: true,
-              });
-              setEditData({
-                ...editData,
-                classroomName: element.classroomName,
-                classroomId: element.classroomId,
-                grade: element.grade,
-                startYear: element.startYear,
-              })
-              console.log(form);
-            }} style={{ color: "#1e94f9", fontSize: "25px" }} />,
+            <EditFilled
+              onClick={() => {
+                form.setFieldsValue({
+                  classroomName: element.classroomName,
+                  grade: element.grade,
+                  startYear: element.startYear,
+                });
+                setEditModal({
+                  ...editModal,
+                  isOpen: true,
+                });
+                setEditData({
+                  ...editData,
+                  classroomName: element.classroomName,
+                  classroomId: element.classroomId,
+                  grade: element.grade,
+                  startYear: element.startYear,
+                });
+                console.log(form);
+              }}
+              style={{ color: "#1e94f9", fontSize: "25px" }}
+            />,
 
             <CloseCircleOutlined
               onClick={() => {
-
                 setDeleteModal({
                   ...deleteModal,
                   footer: (
@@ -161,13 +176,11 @@ export default function ManageUser() {
                       <Button
                         className="ant-btn ant-btn-danger"
                         onClick={() => {
-
                           axios
                             .delete(
                               `${process.env.REACT_APP_Backend_URI}api/Classroom/Delete-classroom/${element.classroomId}`
                             )
                             .then(() => {
-
                               setDeleteModal({
                                 ...deleteModal,
                                 isOpen: false,
@@ -180,11 +193,7 @@ export default function ManageUser() {
                                 isOpen: true,
                                 footer: null,
                                 title: "Notice",
-                                content: (
-                                  <p>
-                                    Can not delete class !
-                                  </p>
-                                ),
+                                content: <p>Can not delete class !</p>,
                               });
                             });
                         }}
@@ -218,11 +227,12 @@ export default function ManageUser() {
           })
         );
       }, [])
-      .catch(() => { });
+      .catch(() => {});
   }, [deleteModal, editData, editModal, form]);
   const handleCreate = () => {
     axios
-      .post(`${process.env.REACT_APP_Backend_URI}api/Classroom/New-classroom`,
+      .post(
+        `${process.env.REACT_APP_Backend_URI}api/Classroom/New-classroom`,
         submitData
       )
       .then(() => {
@@ -232,45 +242,52 @@ export default function ManageUser() {
 
         window.location.reload();
       })
-      .catch(() => { });
+      .catch(() => {});
   };
 
   const handleEdit = () => {
     axios
       .put(
-        `${process.env.REACT_APP_Backend_URI}api/Classroom/Update-classroom/${editData.classroomId}`, editData
+        `${process.env.REACT_APP_Backend_URI}api/Classroom/Update-classroom/${editData.classroomId}`,
+        editData
       )
-      .then(() => {
-        setTimeout(() => {
-          setLoading({ isLoading: false });
-        }, 3000);
+      .then(
+        () => {
+          setTimeout(() => {
+            setLoading({ isLoading: false });
+          }, 3000);
 
-        window.location.reload();
-      },(error) => {
-        if (error?.response.status === 400 ||error?.response.status === 500)  {
-          setErrMessage(error.response.data.message);
+          window.location.reload();
+        },
+        (error) => {
+          if (
+            error?.response.status === 400 ||
+            error?.response.status === 500
+          ) {
+            setErrMessage(error.response.data.message);
+          }
         }
-      })
-      .catch(() => { });
+      )
+      .catch(() => {});
   };
 
   const dataBytype =
     type === "All" ? data : data.filter((u) => u.grade === type);
   const dataByYear =
-    startYear === -1 ? dataBytype : dataBytype.filter((u) => u.startYear === startYear);
+    startYear === -1
+      ? dataBytype
+      : dataBytype.filter((u) => u.startYear === startYear);
   const finalData =
     searchText === ""
       ? dataByYear
-      : dataByYear.filter(
-        (u) =>
+      : dataByYear.filter((u) =>
           u.classroomName
             .toLowerCase()
             .replace(/\s+/g, "")
             .includes(searchText.toLowerCase().replace(/\s+/g, ""))
-      );
+        );
 
   const pagination = {
-
     current: page,
     PageSize: pageSize,
     total: finalData.length,
@@ -281,24 +298,31 @@ export default function ManageUser() {
       setPage(page);
       setPageSize(pageSize);
     },
-    showTotal: total => `Total ${total} Class`,
+    showTotal: (total) => `Total ${total} Class`,
     responsive: true,
-    showSizeChanger: true
+    showSizeChanger: true,
   };
 
   const gradeOptions = [
-    <Option value={"10"} key={10}>10</Option>,
-    <Option value={"11"} key={11}>11</Option>,
-    <Option value={"12"} key={12}>12</Option>,
+    <Option value={"10"} key={10}>
+      10
+    </Option>,
+    <Option value={"11"} key={11}>
+      11
+    </Option>,
+    <Option value={"12"} key={12}>
+      12
+    </Option>,
   ];
   const today = new Date();
   const rows = [];
   for (let i = today.getFullYear() - 10; i < today.getFullYear() + 1; i++) {
-    rows.push((<Option key={i} value={i}
-    >
-      {" "}
-      {i}
-    </Option>));
+    rows.push(
+      <Option key={i} value={i}>
+        {" "}
+        {i}
+      </Option>
+    );
   }
   return (
     <>
@@ -370,10 +394,14 @@ export default function ManageUser() {
           >
             {type}
           </Dropdown.Button>
-          <Select placeholder={"Start Year"} onChange={(value) => setStartYear(value)}>
-
+          <Select
+            placeholder={"Start Year"}
+            onChange={(value) => setStartYear(value)}
+          >
             {rows}
-            <Option value={-1} key={-1} >All</Option>
+            <Option value={-1} key={-1}>
+              All
+            </Option>
           </Select>
         </Col>
         <Col xs={8} sm={8} md={7} lg={7} xl={8} xxl={8}>
@@ -388,7 +416,8 @@ export default function ManageUser() {
           />
         </Col>
         <Col xs={8} sm={8} md={7} lg={7} xl={9} xxl={9}>
-          <Button style={{ background: "#33CCFF", color: "white" }}
+          <Button
+            style={{ background: "#33CCFF", color: "white" }}
             onClick={(e) => {
               setCreate(true);
             }}
@@ -405,12 +434,9 @@ export default function ManageUser() {
           setEditModal({ ...editModal, isOpen: false });
         }}
         destroyOnClose={true}
-        closeIcon={
-          <CloseSquareOutlined style={{ fontSize: "20px" }} />
-        }
+        closeIcon={<CloseSquareOutlined style={{ fontSize: "20px" }} />}
         footer={[
           <Button
-            
             className="buttonSave"
             style={{ background: "#e30c18", color: "white" }}
             loading={isLoading.isLoading}
@@ -425,21 +451,30 @@ export default function ManageUser() {
           >
             Save
           </Button>,
-          <Button key="back" onClick={() => {
-            setEditModal({ ...editModal, isOpen: false });
-            form.setFieldsValue({ classroomName: "", grade: "Select Grade", startYear: "Select Start Year" });
-          }}>Cancel</Button>
+          <Button
+            key="back"
+            onClick={() => {
+              setEditModal({ ...editModal, isOpen: false });
+              form.setFieldsValue({
+                classroomName: "",
+                grade: "Select Grade",
+                startYear: "Select Start Year",
+              });
+            }}
+          >
+            Cancel
+          </Button>,
         ]}
         maskClosable={false}
         closable={false}
       >
-
-        <Form name="complex-form"
+        <Form
+          name="complex-form"
           // initialValues={{State: 'Available'}}
           {...formItemLayout}
-
           labelAlign="left"
-          form={form}>
+          form={form}
+        >
           <Form.Item label="Classroom Name" style={{ marginBottom: 0 }}>
             <Form.Item
               name="classroomName"
@@ -456,12 +491,10 @@ export default function ManageUser() {
             >
               <Input
                 onChange={(name) => {
-
                   setEditData({
                     ...editData,
                     classroomName: name.target.value,
                   });
-
                 }}
                 disabled={isLoading.isLoading === true}
                 maxLength={51}
@@ -476,12 +509,12 @@ export default function ManageUser() {
           </Form.Item>
 
           <Form.Item label="Grade">
-            <Form.Item name="grade"
-              rules={[
-                { required: true, message: "Grade  must be required" },
-              ]}
+            <Form.Item
+              name="grade"
+              rules={[{ required: true, message: "Grade  must be required" }]}
               style={{ display: "block" }}
-              hasFeedback>
+              hasFeedback
+            >
               <Select
                 defaultValue={"Select Grade"}
                 onChange={(name) => {
@@ -492,21 +525,19 @@ export default function ManageUser() {
                   console.log(name);
                 }}
               >
-
                 {gradeOptions}
               </Select>
-
             </Form.Item>
           </Form.Item>
           <Form.Item label="Start Year">
-            <Form.Item name="startYear"
+            <Form.Item
+              name="startYear"
               rules={[
                 { required: true, message: "Start Year name must be required" },
-
-
               ]}
               style={{ display: "block" }}
-              hasFeedback>
+              hasFeedback
+            >
               <Select
                 defaultValue={"Select Start Year"}
                 onChange={(name) => {
@@ -517,11 +548,8 @@ export default function ManageUser() {
                   console.log(name);
                 }}
               >
-
                 {rows}
-
               </Select>
-
             </Form.Item>
           </Form.Item>
         </Form>
@@ -534,7 +562,6 @@ export default function ManageUser() {
         onCancel={() => {
           setDeleteModal({ ...deleteModal, isOpen: false });
         }}
-
         destroyOnClose={true}
         closeIcon={
           <CloseSquareOutlined style={{ color: "red", fontSize: "20px" }} />
@@ -615,7 +642,6 @@ export default function ManageUser() {
             >
               {modal.data.startYear} - {modal.data.endYear}
             </td>
-            
           </tr>
 
           <tr>
@@ -631,12 +657,8 @@ export default function ManageUser() {
               {modal.data.students}
             </td>
           </tr>
-
-         
-
         </table>
       </Modal>
-
 
       {/* Create Classroom */}
       <Modal
@@ -649,9 +671,8 @@ export default function ManageUser() {
           <Button
             disabled={
               !form.isFieldsTouched(true) ||
-              form
-                .getFieldsError()
-                .filter(({ errors }) => errors.length).length > 0
+              form.getFieldsError().filter(({ errors }) => errors.length)
+                .length > 0
             }
             className="buttonSave"
             style={{ background: "#e30c18", color: "white" }}
@@ -667,23 +688,31 @@ export default function ManageUser() {
           >
             Save
           </Button>,
-          <Button key="back" onClick={() => {
-            setCreate(false);
-            form.setFieldsValue({ classroomName: "", grade: "Select Grade", startYear: "Select Start Year" });
-          }}>Cancel</Button>
+          <Button
+            key="back"
+            onClick={() => {
+              setCreate(false);
+              form.setFieldsValue({
+                classroomName: "",
+                grade: "Select Grade",
+                startYear: "Select Start Year",
+              });
+            }}
+          >
+            Cancel
+          </Button>,
         ]}
-
         destroyOnClose={true}
         maskClosable={false}
         closable={false}
       >
-
-        <Form name="complex-form"
+        <Form
+          name="complex-form"
           // initialValues={{State: 'Available'}}
           {...formItemLayout}
-
           labelAlign="left"
-          form={form}>
+          form={form}
+        >
           <Form.Item label="Classroom Name" style={{ marginBottom: 0 }}>
             <Form.Item
               name="classroomName"
@@ -700,12 +729,10 @@ export default function ManageUser() {
             >
               <Input
                 onChange={(name) => {
-
                   setSubmitData({
                     ...submitData,
                     classroomName: name.target.value,
                   });
-
                 }}
                 disabled={isLoading.isLoading === true}
                 maxLength={51}
@@ -715,12 +742,12 @@ export default function ManageUser() {
           </Form.Item>
 
           <Form.Item label="Grade">
-            <Form.Item name="grade"
-              rules={[
-                { required: true, message: "Grade  must be required" },
-              ]}
+            <Form.Item
+              name="grade"
+              rules={[{ required: true, message: "Grade  must be required" }]}
               style={{ display: "block" }}
-              hasFeedback>
+              hasFeedback
+            >
               <Select
                 defaultValue={"Select Grade"}
                 onChange={(name) => {
@@ -731,23 +758,20 @@ export default function ManageUser() {
                   console.log(name);
                 }}
               >
-
                 {gradeOptions}
               </Select>
-
             </Form.Item>
           </Form.Item>
 
-
           <Form.Item label="Start Year">
-            <Form.Item name="startYear"
+            <Form.Item
+              name="startYear"
               rules={[
                 { required: true, message: "Start Year name must be required" },
-
-
               ]}
               style={{ display: "block" }}
-              hasFeedback>
+              hasFeedback
+            >
               <Select
                 defaultValue={"Select Start Year"}
                 onChange={(name) => {
@@ -758,15 +782,10 @@ export default function ManageUser() {
                   console.log(name);
                 }}
               >
-
                 {rows}
-
               </Select>
-
             </Form.Item>
           </Form.Item>
-
-
         </Form>
       </Modal>
       {data.length === 0 ? (
@@ -781,7 +800,6 @@ export default function ManageUser() {
       ) : (
         <Table
           key="id"
-
           rowKey={(data) => data.id}
           columns={columns}
           pagination={pagination}
@@ -802,10 +820,9 @@ export default function ManageUser() {
                       students: record.students,
                       grade: record.grade,
                       startYear: record.startYear,
-                      endYear: record.endYear
+                      endYear: record.endYear,
                     },
                   });
-
                 } else if (
                   e.target.className ===
                   "ant-table-cell ant-table-column-sort ant-table-cell-row-hover"

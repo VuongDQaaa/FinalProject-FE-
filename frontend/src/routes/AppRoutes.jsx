@@ -12,6 +12,7 @@ import CreateEmployeePage from "../pages/users/AdminEmployee/CreateEmployeePage"
 import EditEmployeePage from "../pages/users/AdminEmployee/EditEmployeePage";
 import CreateTask from "../pages/request/CreateTask";
 import EditTask from "../pages/request/EditTask";
+import ManageSchedule from "../pages/classroom/schedule/ManageSchedule";
 
 export const AppRoutes = [
   {
@@ -34,7 +35,11 @@ export const AppRoutes = [
     element: <ManageClassrom />,
     title: "Manage Classroom",
   },
- 
+  {
+    path: "/view-schedule/:classroomId",
+    element: <ManageSchedule />,
+    title: "Manage Classroom > Manage Schedule",
+  },
   {
     path: "/subject",
     element: <ManageSubject />,
