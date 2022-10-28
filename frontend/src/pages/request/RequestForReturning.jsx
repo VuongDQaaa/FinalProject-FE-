@@ -106,7 +106,9 @@ console.log(allSubjects);
                 handleCheckId(element.taskId);
               }}
             >
+            <Link to={`/editTask/${element.taskId}`} id="editButton">
               Edit
+              </Link>
             </Button>,
 
             <Button
