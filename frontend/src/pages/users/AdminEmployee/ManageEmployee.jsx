@@ -430,7 +430,6 @@ export default function ManageEmployee() {
                       gender: record.gender,
                     },
                   });
-                  console.log(modal.data.dob);
                 } else if (
                   e.target.className ===
                   "ant-table-cell ant-table-column-sort ant-table-cell-row-hover"
@@ -447,7 +446,6 @@ export default function ManageEmployee() {
                       gender: record.gender,
                     },
                   });
-                  console.log(modal.data);
                 } else {
                   setModal({ ...modal, isOpen: false });
                 }

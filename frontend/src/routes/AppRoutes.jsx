@@ -11,6 +11,7 @@ import ManageEmployee from "../pages/users/AdminEmployee/ManageEmployee";
 import CreateEmployeePage from "../pages/users/AdminEmployee/CreateEmployeePage";
 import EditEmployeePage from "../pages/users/AdminEmployee/EditEmployeePage";
 import CreateTask from "../pages/request/CreateTask";
+import EditTask from "../pages/request/EditTask";
 
 export const AppRoutes = [
   {
@@ -49,6 +50,11 @@ export const AppRoutes = [
     path: "/createTask",
     element: <CreateTask />,
     title: "Manage Task > Create Task",
+  },
+  {
+    path: "/editTask/:taskId",
+    element: <EditTask />,
+    title: "Manage Task > Edit Task",
   },
 
   {
