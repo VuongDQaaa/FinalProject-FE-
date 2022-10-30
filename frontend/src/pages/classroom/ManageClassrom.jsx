@@ -41,6 +41,7 @@ export default function ManageUser() {
     isOpen: false,
     data: {},
   });
+  console.log(data);
   const [create, setCreate] = useState(false);
   const [submitData, setSubmitData] = useState({
     classroomName: "",
