@@ -1,466 +1,630 @@
-import { Table, Modal, Button } from "antd";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import {
-  CheckOutlined,
-  CloseOutlined,
-  CloseSquareOutlined,
-  ReloadOutlined,
-} from "@ant-design/icons";
-import moment from "moment";
+import React, { useEffect, useState, useContext } from "react";
+import "../styles/home.css";
+import { Context } from "../App";
 
 export default function Home() {
-  const [data, setData] = useState([]);
-  const [modal, setModal] = useState({
-    isOpen: false,
-    data: {},
-  });
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isModalCancelVisible, setIsModalCancelVisible] = useState(false);
-  const [isModalReturnVisible, setIsModalReturnVisible] = useState(false);
-  const [idCompleted, setIdCompleted] = useState();
+  const [gridData, setGridData] = useState([]);
+  const [loginState] = useContext(Context);
 
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-  const handleOk = () => {
-    setIsModalVisible(false);
-
-    axios
-      .put(
-        `https://rookiesgroup3.azurewebsites.net/api/Assignments/${idCompleted}/accepted`
-      )
-      .then((res) => {
-        window.location.reload();
-        setIdCompleted(null);
-      })
-      .catch(() => {});
-  };
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleCheckId = (id) => {
-    setIdCompleted(id);
-  };
-  //===============================================================
-  const showModalDelete = () => {
-    setIsModalCancelVisible(true);
-  };
-  const handleCheckDeleteId = (id) => {
-    setIdCompleted(id);
-  };
-  const handleDeleteOk = () => {
-    setIsModalCancelVisible(false);
-    axios
-      .put(
-        `https://rookiesgroup3.azurewebsites.net/api/Assignments/${idCompleted}/declined`
-      )
-      .then((res) => {
-        setIdCompleted(null);
-
-        window.location.reload();
-      })
-      .catch((error) => {});
-  };
-  const handleCancelModal = () => {
-    setIsModalCancelVisible(false);
-  };
-  //===========================================================
-  const showModalReturn = () => {
-    setIsModalReturnVisible(true);
-  };
-  const handleCheckReturnId = (id) => {
-    setIdCompleted(id);
-  };
-  const handleReturnOk = () => {
-    setIsModalReturnVisible(false);
-    axios
-      .post(
-        `${process.env.REACT_APP_UNSPLASH_REQUEST_FOR_RETURNING_URL}/user/${idCompleted}`
-      )
-      .then(() => {
-        setIdCompleted(null);
-
-        window.location.reload();
-      })
-      .catch((error) => {
-        alert(error.data.response.message);
-      });
-  };
-  const handleCancelReturnModal = () => {
-    setIsModalReturnVisible(false);
-  };
-  //===============================================
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_UNSPLASH_MY_ASSIGNMENT_URL}`, {})
-      .then((response) => {
-        let respData = response.data;
-        respData.forEach((element) => {
-          element.state =
-            element.state === "WaitingForAcceptance"
-              ? "Waiting For Acceptance"
-              : element.state;
-          element.assignedDate = moment(
-            new Date(element.assignedDate).toLocaleDateString("en-US")
-          ).format("DD/MM/YYYY");
-
-          element.action = [
-            <Button
-              className="buttonState"
-              disabled={
-                element.state === "Accepted" || element.isInProgress === false
-              }
-              onClick={() => {
-                showModal();
-                handleCheckId(element.id);
-              }}
-            >
-              <CheckOutlined style={{ color: "red" }} />
-            </Button>,
-            <Button
-              className="buttonState"
-              disabled={
-                element.state === "Accepted" || element.isInProgress === false
-              }
-              onClick={() => {
-                showModalDelete();
-                handleCheckDeleteId(element.id);
-              }}
-            >
-              <CloseOutlined />
-            </Button>,
-            <Button
-              className="buttonState"
-              disabled={
-                element.state === "Waiting For Acceptance" ||
-                element.isInProgress === false
-              }
-              onClick={() => {
-                showModalReturn();
-                handleCheckReturnId(element.id);
-              }}
-            >
-              <ReloadOutlined style={{ color: "blue" }} />
-            </Button>,
-          ];
-        });
-        setData(response.data);
+    axios({
+      method: "GET",
+      url: `${process.env.REACT_APP_Backend_URI}api/Schedule/Get-schedule/student-id-${loginState.id}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${loginState.token}`,
+      },
+    })
+      .then(function (response) {
+        setGridData(response.data);
       })
-      .catch((error) => {});
-  }, []);
+      .catch(function (error) {});
+  }, [loginState]);
 
-  const columns = [
-    {
-      title: "Asset Code",
-      dataIndex: "assetCode",
-      key: "assetCode",
-      sorter: (a, b) => {
-        if (a.assetCode > b.assetCode) {
-          return -1;
-        }
-        if (b.assetCode > a.assetCode) {
-          return 1;
-        }
-        return 0;
-      },
-    },
-    {
-      title: "Asset Name",
-      dataIndex: "assetName",
-      key: "assetName",
-      sorter: (a, b) => {
-        if (a.assetName > b.assetName) {
-          return -1;
-        }
-        if (b.assetName > a.assetName) {
-          return 1;
-        }
-        return 0;
-      },
-    },
+  console.log(gridData);
+  const MONDAY1 = [];
+  const MONDAY2 = [];
+  const MONDAY3 = [];
+  const MONDAY4 = [];
+  const MONDAY5 = [];
+  const MONDAY6 = [];
+  const MONDAY7 = [];
+  const MONDAY8 = [];
+  const MONDAY9 = [];
+  const TUESDAY1 = [];
+  const TUESDAY4 = [];
+  const TUESDAY3 = [];
+  const TUESDAY5 = [];
+  const TUESDAY6 = [];
+  const TUESDAY7 = [];
+  const TUESDAY8 = [];
+  const TUESDAY9 = [];
+  const TUESDAY2 = [];
+  const WEDNESDAY1 = [];
+  const WEDNESDAY2 = [];
+  const WEDNESDAY3 = [];
+  const WEDNESDAY4 = [];
+  const WEDNESDAY5 = [];
+  const WEDNESDAY6 = [];
+  const WEDNESDAY7 = [];
+  const WEDNESDAY8 = [];
+  const WEDNESDAY9 = [];
+  const THURSDAY1 = [];
+  const THURSDAY2 = [];
+  const THURSDAY3 = [];
+  const THURSDAY4 = [];
+  const THURSDAY5 = [];
+  const THURSDAY6 = [];
+  const THURSDAY7 = [];
+  const THURSDAY8 = [];
+  const THURSDAY9 = [];
+  const FRIDAY1 = [];
+  const FRIDAY2 = [];
+  const FRIDAY3 = [];
+  const FRIDAY4 = [];
+  const FRIDAY5 = [];
+  const FRIDAY6 = [];
+  const FRIDAY7 = [];
+  const FRIDAY8 = [];
+  const FRIDAY9 = [];
+  const SATURDAY1 = [];
+  const SATURDAY2 = [];
+  const SATURDAY3 = [];
+  const SATURDAY4 = [];
+  const SATURDAY5 = [];
+  const SATURDAY6 = [];
+  const SATURDAY7 = [];
+  const SATURDAY8 = [];
+  const SATURDAY9 = [];
+  for (let i = 0; i < gridData.length; i++) {
+    if (gridData[i].day === "Monday") {
+      if (gridData[i].period === 1) {
+        MONDAY1.push(
+          <div class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white text-center ">
+            {gridData[i].autoFill}
+          </div>
+        );
+      }
+      if (gridData[i].period === 2) {
+        MONDAY2.push(
+          <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+            {gridData[i].autoFill}
+          </div>
+        );
+      }
+      if (gridData[i].period === 3) {
+        MONDAY3.push(
+          <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+            {gridData[i].autoFill}
+          </div>
+        );
+      }
+      if (gridData[i].period === 4) {
+        MONDAY4.push(
+          <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+            {gridData[i].autoFill}
+          </div>
+        );
+      }
+      if (gridData[i].period === 5) {
+        MONDAY5.push(
+          <div class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white text-center ">
+            {gridData[i].autoFill}
+          </div>
+        );
+      }
+      if (gridData[i].period === 6) {
+        MONDAY6.push(
+          <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+            {gridData[i].autoFill}
+          </div>
+        );
+      }
+      if (gridData[i].period === 7) {
+        MONDAY7.push(
+          <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+            {gridData[i].autoFill}
+          </div>
+        );
+      }
+      if (gridData[i].period === 8) {
+        MONDAY8.push(
+          <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+            {gridData[i].autoFill}
+          </div>
+        );
+      }
+      if (gridData[i].period === 9) {
+        MONDAY9.push(
+          <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+            {gridData[i].autoFill}
+          </div>
+        );
+      }
+    }
+    if (gridData[i].day === "Tusday") {
+      if (gridData[i].period === 1) {
+        TUESDAY1.push(
+          <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+            {gridData[i].autoFill}
+          </div>
+        );
+      }
+      if (gridData[i].period === 2) {
+        TUESDAY2.push(
+          <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+            {gridData[i].autoFill}
+          </div>
+        );
+      }
+      if (gridData[i].period === 3) {
+        TUESDAY3.push(
+          <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+            {gridData[i].autoFill}
+          </div>
+        );
+      }
+      if (gridData[i].period === 4) {
+        TUESDAY4.push(
+          <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+            {gridData[i].autoFill}
+          </div>
+        );
+      }
+      if (gridData[i].period === 5) {
+        TUESDAY5.push(
+          <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+            {gridData[i].autoFill}
+          </div>
+        );
+      }
+      if (gridData[i].period === 6) {
+        TUESDAY6.push(
+          <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+            {gridData[i].autoFill}
+          </div>
+        );
+      }
+      if (gridData[i].period === 7) {
+        TUESDAY7.push(
+          <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+            {gridData[i].autoFill}
+          </div>
+        );
+      }
+      if (gridData[i].period === 8) {
+        TUESDAY8.push(
+          <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+            {gridData[i].autoFill}
+          </div>
+        );
+      }
+      if (gridData[i].period === 9) {
+        TUESDAY9.push(
+          <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+            {gridData[i].autoFill}
+          </div>
+        );
+      }
+    }
+    if (gridData[i].day === "Wednesday") {
+        if (gridData[i].period === 1) {
+            WEDNESDAY1.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 2) {
+            WEDNESDAY2.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 3) {
+            WEDNESDAY3.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 4) {
+            WEDNESDAY4.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 5) {
+            WEDNESDAY5.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 6) {
+            WEDNESDAY6.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 7) {
+            WEDNESDAY7.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 8) {
+            WEDNESDAY8.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 9) {
+            WEDNESDAY9.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+    }
+    if (gridData[i].day === "Thurday") {
+        if (gridData[i].period === 1) {
+            THURSDAY1.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 2) {
+            THURSDAY2.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 3) {
+           THURSDAY3.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 4) {
+            THURSDAY4.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 5) {
+            THURSDAY5.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 6) {
+            THURSDAY6.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 7) {
+            THURSDAY7.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 8) {
+            THURSDAY8.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 9) {
+            THURSDAY9.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+    }
+    if (gridData[i].day === "Friday") {
+        if (gridData[i].period === 1) {
+            FRIDAY1.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 2) {
+            FRIDAY2.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 3) {
+            FRIDAY3.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 4) {
+            FRIDAY4.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 5) {
+            FRIDAY5.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 6) {
+            FRIDAY6.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 7) {
+            FRIDAY7.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 8) {
+            FRIDAY8.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 9) {
+            FRIDAY9.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+    }
+    if (gridData[i].day === "Satuday") {
+        if (gridData[i].period === 1) {
+            SATURDAY1.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 2) {
+            SATURDAY2.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 3) {
+            SATURDAY3.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 4) {
+            SATURDAY4.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 5) {
+            SATURDAY5.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 6) {
+            SATURDAY6.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 7) {
+            SATURDAY7.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 8) {
+            SATURDAY8.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+          if (gridData[i].period === 9) {
+            SATURDAY9.push(
+              <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
+                {gridData[i].autoFill}
+              </div>
+            );
+          }
+    }
+  }
 
-    {
-      title: "Assigned Date",
-      dataIndex: "assignedDate",
-      key: "assignedDate",
-      sorter: (a, b) => {
-        if (a.assignedDate > b.assignedDate) {
-          return -1;
-        }
-        if (b.assignedDate > a.assignedDate) {
-          return 1;
-        }
-        return 0;
-      },
-    },
-    {
-      title: "Assigned By",
-      dataIndex: "assignedBy",
-      key: "assignedBy",
-      sorter: (a, b) => {
-        if (a.assignedBy > b.assignedBy) {
-          return -1;
-        }
-        if (b.assignedBy > a.assignedBy) {
-          return 1;
-        }
-        return 0;
-      },
-    },
-
-    {
-      title: "State",
-      dataIndex: "state",
-      key: "state",
-      sorter: (a, b) => {
-        if (a.state > b.state) {
-          return -1;
-        }
-        if (b.state > a.state) {
-          return 1;
-        }
-        return 0;
-      },
-    },
-    {
-      title: "",
-      dataIndex: "action",
-      key: "action",
-    },
-  ];
   return (
     <>
-      <Modal
-        visible={modal.isOpen}
-        title="Detail Assignment Information"
-        onCancel={() => {
-          setModal({ ...modal, isOpen: false });
-        }}
-        closeIcon={
-          <CloseSquareOutlined style={{ color: "red", fontSize: "20px" }} />
-        }
-        footer={null}
-      >
-        <table>
-          <tr>
-            <td style={{ fontSize: "18px", color: "#838688" }}>Asset Code</td>
-            <td
-              style={{
-                fontSize: "18px",
-                color: "#838688",
-                textAlign: "justify",
-                paddingLeft: "35px",
-              }}
-            >
-              {modal.data.assetCode}
-            </td>
-          </tr>
-          <tr>
-            <td style={{ fontSize: "18px", color: "#838688" }}>Asset Name</td>
-            <td
-              style={{
-                fontSize: "18px",
-                color: "#838688",
-                textAlign: "justify",
-                paddingLeft: "35px",
-              }}
-            >
-              {modal.data.assetName}
-            </td>
-          </tr>
-          <tr>
-            <td style={{ fontSize: "18px", color: "#838688" }}>
-              Specification
-            </td>
-            <td
-              style={{
-                fontSize: "18px",
-                color: "#838688",
-                textAlign: "justify",
-                paddingLeft: "35px",
-              }}
-            >
-              {modal.data.specification}
-            </td>
-          </tr>
-          <tr>
-            <td style={{ fontSize: "18px", color: "#838688" }}>Assigned To</td>
-            <td
-              style={{
-                fontSize: "18px",
-                color: "#838688",
-                textAlign: "justify",
-                paddingLeft: "35px",
-              }}
-            >
-              {modal.data.assignTo}
-            </td>
-          </tr>
-          <tr>
-            <td style={{ fontSize: "18px", color: "#838688" }}>Assigned By</td>
-            <td
-              style={{
-                fontSize: "18px",
-                color: "#838688",
-                textAlign: "justify",
-                paddingLeft: "35px",
-              }}
-            >
-              {modal.data.assignedBy}
-            </td>
-          </tr>
-          <tr>
-            <td style={{ fontSize: "18px", color: "#838688" }}>
-              Assigned Date
-            </td>
-            <td
-              style={{
-                fontSize: "18px",
-                color: "#838688",
-                textAlign: "justify",
-                paddingLeft: "35px",
-              }}
-            >
-              {modal.data.assignedDate}
-            </td>
-          </tr>
+   
+      <div class="table-responsive tablez">
+      <h2>Morning</h2>
+        <table class="table table-bordered tablez">
+          <thead>
+            <tr class="bg-light-gray">
+              <th class="text-uppercase">Slot</th>
+              <th class="text-uppercase">Monday</th>
+              <th class="text-uppercase">Tuesday</th>
+              <th class="text-uppercase">Wednesday</th>
+              <th class="text-uppercase">Thursday</th>
+              <th class="text-uppercase">Friday</th>
+              <th class="text-uppercase">Saturday</th>
+              <th class="text-uppercase">Sunday</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="align-middle">
+                <div class="margin-10px-top font-size14">Slot 1</div>
+                <div class="font-size13 text-light-gray">7:30-8:30</div>
+              </td>
+              <td>{MONDAY1}</td>
+              <td>{TUESDAY1}</td>
+              <td>{WEDNESDAY1}</td>
+              <td>{THURSDAY1}</td>
+              <td>{FRIDAY1}</td>
+              <td>{SATURDAY1}</td>
+            </tr>
 
-          <tr>
-            <td style={{ fontSize: "18px", color: "#838688" }}>State</td>
-            <td
-              style={{
-                fontSize: "18px",
-                color: "#838688",
-                textAlign: "justify",
-                paddingLeft: "35px",
-              }}
-            >
-              {modal.data.state}
-            </td>
-          </tr>
-          <tr>
-            <td style={{ fontSize: "18px", color: "#838688" }}>Note</td>
-            <td
-              style={{
-                fontSize: "18px",
-                color: "#838688",
-                textAlign: "justify",
-                paddingLeft: "35px",
-              }}
-            >
-              {modal.data.note}
-            </td>
-          </tr>
+            <tr>
+              <td class="align-middle">
+                <div class="margin-10px-top font-size14">Slot 2</div>
+                <div class="font-size13 text-light-gray">8:30-9:30</div>
+              </td>
+              <td>{MONDAY2}</td>
+              <td>{TUESDAY2}</td>
+              <td>{WEDNESDAY2}</td>
+              <td>{THURSDAY2}</td>
+              <td>{FRIDAY2}</td>
+              <td>{SATURDAY2}</td>
+            </tr>
+
+            <tr>
+              <td class="align-middle">
+                <div class="margin-10px-top font-size14">Slot 3</div>
+                <div class="font-size13 text-light-gray">7:30-8:30</div>
+              </td>
+              <td>{MONDAY3}</td>
+              <td>{TUESDAY3}</td>
+              <td>{WEDNESDAY3}</td>
+              <td>{THURSDAY3}</td>
+              <td>{FRIDAY3}</td>
+              <td>{SATURDAY3}</td>
+            </tr>
+
+            <tr>
+              <td class="align-middle">
+                <div class="margin-10px-top font-size14">Slot 4</div>
+                <div class="font-size13 text-light-gray">10:30-11:30</div>
+              </td>
+              <td>{MONDAY4}</td>
+              <td>{TUESDAY4}</td>
+              <td>{WEDNESDAY4}</td>
+              <td>{THURSDAY4}</td>
+              <td>{FRIDAY4}</td>
+              <td>{SATURDAY4}</td>
+            </tr>
+            
+            <tr>
+              <td class="align-middle">
+                <div class="margin-10px-top font-size14">Slot 5</div>
+                <div class="font-size13 text-light-gray">11:30-12:30</div>
+              </td>
+              <td>{MONDAY5}</td>
+              <td>{TUESDAY5}</td>
+              <td>{WEDNESDAY5}</td>
+              <td>{THURSDAY5}</td>
+              <td>{FRIDAY5}</td>
+              <td>{SATURDAY5}</td>
+            </tr>
+          </tbody>
         </table>
-      </Modal>
-      <Modal
-        closable={false}
-        title="Are You Sure?"
-        visible={isModalVisible}
-        okText="Yes"
-        cancelText="No"
-        onOk={handleOk}
-        onCancel={handleCancel}
-        footer={[
-          <div style={{ textAlign: "left" }}>
-            <Button key="Yes" onClick={handleOk} className="buttonSave">
-              Accept
-            </Button>
-            <Button key="No" onClick={handleCancel} className="buttonCancel">
-              Cancel
-            </Button>
-          </div>,
-        ]}
-      >
-        <p>Do you want to accept this assignment?</p>
-      </Modal>
-      <Modal
-        closable={false}
-        title="Are You Sure?"
-        visible={isModalCancelVisible}
-        okText="Yes"
-        cancelText="No"
-        onOk={handleDeleteOk}
-        onCancel={handleCancelModal}
-        footer={[
-          <div style={{ textAlign: "left" }}>
-            <Button key="Yes" onClick={handleDeleteOk} className="buttonSave">
-              Decline
-            </Button>
-            <Button
-              key="No"
-              onClick={handleCancelModal}
-              className=" buttonCancel"
-            >
-              Cancel
-            </Button>
-          </div>,
-        ]}
-      >
-        <p>Do you want to decline this assignment?</p>
-      </Modal>
-      <Modal
-        closable={false}
-        title="Are You Sure?"
-        visible={isModalReturnVisible}
-        okText="Yes"
-        cancelText="No"
-        onOk={handleReturnOk}
-        onCancel={handleCancelReturnModal}
-        footer={[
-          <div style={{ textAlign: "left" }}>
-            <Button className="buttonSave" key="Yes" onClick={handleReturnOk}>
-              Yes
-            </Button>
-            <Button
-              className="buttonCancel"
-              key="No"
-              onClick={handleCancelReturnModal}
-            >
-              No
-            </Button>
-          </div>,
-        ]}
-      >
-        <p>Do you want to create a returning request for this asset?</p>
-      </Modal>
+      </div>
+      <div class="table-responsive tablez">
+      <h2>Afternoon</h2>
+        <table class="table table-bordered tablez">
+          <thead>
+            <tr class="bg-light-gray">
+              <th class="text-uppercase">Slot</th>
+              <th class="text-uppercase">Monday</th>
+              <th class="text-uppercase">Tuesday</th>
+              <th class="text-uppercase">Wednesday</th>
+              <th class="text-uppercase">Thursday</th>
+              <th class="text-uppercase">Friday</th>
+              <th class="text-uppercase">Saturday</th>
+              <th class="text-uppercase">Sunday</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="align-middle">
+                <div class="margin-10px-top font-size14">Slot 6</div>
+                <div class="font-size13 text-light-gray">13:30-14:30</div>
+              </td>
+              <td>{MONDAY6}</td>
+              <td>{TUESDAY6}</td>
+              <td>{WEDNESDAY6}</td>
+              <td>{THURSDAY6}</td>
+              <td>{FRIDAY6}</td>
+              <td>{SATURDAY6}</td>
+            </tr>
 
-      <div>
-        <h1 style={{ color: "black ", float: "left" }}>My Assignment</h1>
-        <Table
-          columns={columns}
-          dataSource={data}
-          onRow={(record) => {
-            return {
-              onClick: (e) => {
-                if (
-                  e.target.className !==
-                  "ant-table-cell ant-table-cell-row-hover"
-                ) {
-                  setModal({ ...modal, isOpen: false });
-                } else {
-                  setModal({
-                    ...modal,
-                    isOpen: true,
-                    data: {
-                      id: record.id,
-                      assetCode: record.assetCode,
-                      assetName: record.assetName,
-                      assignTo: record.assignTo,
-                      specification: record.specification,
-                      assignedBy: record.assignedBy,
-                      assignedDate: record.assignedDate,
-                      state: record.state,
-                      note: record.note,
-                    },
-                  });
-                }
-              },
-            };
-          }}
-        ></Table>
+            <tr>
+              <td class="align-middle">
+                <div class="margin-10px-top font-size14">Slot 7</div>
+                <div class="font-size13 text-light-gray">14:30-15:30</div>
+              </td>
+              <td>{MONDAY7}</td>
+              <td>{TUESDAY7}</td>
+              <td>{WEDNESDAY7}</td>
+              <td>{THURSDAY7}</td>
+              <td>{FRIDAY7}</td>
+              <td>{SATURDAY7}</td>
+            </tr>
+
+            <tr>
+              <td class="align-middle">
+                <div class="margin-10px-top font-size14">Slot 8</div>
+                <div class="font-size13 text-light-gray">15:30-16:30</div>
+              </td>
+              <td>{MONDAY8}</td>
+              <td>{TUESDAY8}</td>
+              <td>{WEDNESDAY8}</td>
+              <td>{THURSDAY8}</td>
+              <td>{FRIDAY8}</td>
+              <td>{SATURDAY8}</td>
+            </tr>
+
+            <tr>
+              <td class="align-middle">
+                <div class="margin-10px-top font-size14">Slot 9</div>
+                <div class="font-size13 text-light-gray">16:30-17:30</div>
+              </td>
+              <td>{MONDAY9}</td>
+              <td>{TUESDAY9}</td>
+              <td>{WEDNESDAY9}</td>
+              <td>{THURSDAY9}</td>
+              <td>{FRIDAY9}</td>
+              <td>{SATURDAY9}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </>
   );

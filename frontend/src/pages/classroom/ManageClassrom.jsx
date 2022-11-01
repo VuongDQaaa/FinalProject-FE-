@@ -34,7 +34,7 @@ export default function ManageUser() {
   const [startYear, setStartYear] = useState(-1);
   const [form] = Form.useForm();
   const [isLoading, setLoading] = useState({ isLoading: false });
-  const [classData, setClassData] = useState([]);
+  //const [classData, setClassData] = useState([]);
   const [errMessage, setErrMessage] = useState("");
   const { Option } = Select;
   const [modal, setModal] = useState({
@@ -136,7 +136,7 @@ export default function ManageUser() {
       .then(function (response) {
         let respData = response.data;
         console.log(respData);
-        setClassData(respData);
+        // setClassData(respData);
         respData.forEach((element) => {
           //   element.fullName = element.firstName + " " + element.lastName;
 

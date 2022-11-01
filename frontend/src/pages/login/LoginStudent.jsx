@@ -107,7 +107,7 @@ const LoginStudent = () => {
             role: response.data.role,
             username: formik.values.username,
             isfirstlogin: response.data.isFirstLogin,
-            id: response.data.id,
+            id: response.data.studentId,
             fullName: response.data.fullName,
           });
           localStorage.setItem(
@@ -118,7 +118,7 @@ const LoginStudent = () => {
               role: response.data.role,
               username: formik.values.username,
               isfirstlogin: response.data.isFirstLogin,
-              id: response.data.id,
+              id: response.data.studentId,
               fullName: response.data.fullName,
             })
           );

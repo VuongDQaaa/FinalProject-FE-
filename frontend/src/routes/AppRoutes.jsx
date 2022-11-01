@@ -6,7 +6,7 @@ import ManageClassrom from "../pages/classroom/ManageClassrom";
 import ReportPage from "../pages/report/ReportPage";
 import RequestForReturningPage from "../pages/request/RequestForReturning";
 import ManageSubject from "../pages/subject/ManageSubject";
-
+import { AbsentHistory } from "../pages/student/AbsentHistory";
 import ManageEmployee from "../pages/users/AdminEmployee/ManageEmployee";
 import CreateEmployeePage from "../pages/users/AdminEmployee/CreateEmployeePage";
 import EditEmployeePage from "../pages/users/AdminEmployee/EditEmployeePage";
@@ -90,4 +90,9 @@ export const AppRoutes = [
     element: <EditEmployeePage />,
     title: "Manage Employee > Edit Employee",
   },
+  {
+    path: "/absenthistory",
+    element: <AbsentHistory/>,
+    title: "Absent History",
+},
 ];
