@@ -84,7 +84,9 @@ export default function ManageSchedule() {
         <div>{index}</div>
         <Button>Edit</Button>
         <Button>Delete</Button>
-      </div>:<Button danger>Add</Button>)) 
+      </div>:<Link to={`/add-schedule/monday/morning/${index+1}/${classroomId}`}>
+      <Button danger>Add</Button>
+      </Link>))  
     },
     {
       title: "Tuesday",
@@ -94,7 +96,9 @@ export default function ManageSchedule() {
         <div>{index}</div>
         <Button>Edit</Button>
         <Button>Delete</Button>
-      </div>:<Button danger>Add</Button>)) 
+      </div>:<Link to={`/add-schedule/tuesday/morning/${index+1}/${classroomId}`}>
+      <Button danger>Add</Button>
+      </Link>))  
     },
     {
       title: "Wednesday",
@@ -104,17 +108,21 @@ export default function ManageSchedule() {
         <div>{index}</div>
         <Button>Edit</Button>
         <Button>Delete</Button>
-      </div>:<Button danger>Add</Button>))  
+      </div>:<Link to={`/add-schedule/wednesday/morning/${index+1}/${classroomId}`}>
+      <Button danger>Add</Button>
+      </Link>))    
     },
     {
       title: "Thursday",
       dataIndex: "thursday",
-      render:  ((text, record, index) => (text?<div>
+      render: ((text, record, index) => (text?<div>
         <div>{text}</div>
         <div>{index}</div>
         <Button>Edit</Button>
         <Button>Delete</Button>
-      </div>:<Button danger>Add</Button>))  
+      </div>:<Link to={`/add-schedule/thursday/morning/${index+1}/${classroomId}`}>
+      <Button danger>Add</Button>
+      </Link>))   
     },
     {
       title: "Friday",
@@ -124,7 +132,9 @@ export default function ManageSchedule() {
         <div>{index}</div>
         <Button>Edit</Button>
         <Button>Delete</Button>
-      </div>:<Button danger>Add</Button>))  
+      </div>:<Link to={`/add-schedule/friday/morning/${index+1}/${classroomId}`}>
+      <Button danger>Add</Button>
+      </Link>))  
     },
     {
       title: "Saturday",
@@ -134,7 +144,9 @@ export default function ManageSchedule() {
         <div>{index}</div>
         <Button>Edit</Button>
         <Button>Delete</Button>
-      </div>:<Button danger>Add</Button>))  
+      </div>:<Link to={`/add-schedule/saturday/morning/${index+1}/${classroomId}`}>
+      <Button danger>Add</Button>
+      </Link>)) 
     },
   ];
   // console.log(otherValArr);

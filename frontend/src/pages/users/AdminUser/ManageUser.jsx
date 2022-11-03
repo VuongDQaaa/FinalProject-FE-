@@ -301,11 +301,11 @@ export default function ManageUser() {
           onSelect={(value)=>{setClassz(value)}}
           virtual={false}
           >
-            <Option key="Class" value="Class">Full class</Option>
+            <option key="Class" value="Class">Full class</option>
             {classData.map((item) => (
-                      <Option value={item.classroomName}>
+                      <option value={item.classroomName}>
                         {item.classroomName}
-                      </Option>
+                      </option>
                     ))}
           </Select>
           
