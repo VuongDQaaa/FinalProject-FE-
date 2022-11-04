@@ -106,7 +106,7 @@ const LoginStudent = () => {
             role: response.data.role,
             username: formik.values.username,
             isfirstlogin: response.data.isFirstLogin,
-            id: response.data.id,
+            id: response.data.userId,
             fullName: response.data.fullName,
           });
           localStorage.setItem(
@@ -117,14 +117,19 @@ const LoginStudent = () => {
               role: response.data.role,
               username: formik.values.username,
               isfirstlogin: response.data.isFirstLogin,
-              id: response.data.id,
+              id: response.data.userId,
               fullName: response.data.fullName,
             })
           );
 
           axios.defaults.headers.common["Authorization"] =
             "Bearer " + response.data.token;
-          window.location.href = `/employee`;
+            if(loginState.role ==="Admin"){
+              window.location.href = `/employee`;
+            }else{
+              window.location.href = `/ScheduleOfTeacher`;
+            }
+         
         })
 
         .catch((error) => {

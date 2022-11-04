@@ -7,7 +7,7 @@ export default function Menucomponent({routes}){
     
   
     return <Menu mode="inline" theme="light" 
-    defaultSelectedKeys={"/employee"}
+    defaultSelectedKeys={routes[0].path}
     > 
         {routes.map(function(route){
            return   <Menu.Item  key={route.path}>

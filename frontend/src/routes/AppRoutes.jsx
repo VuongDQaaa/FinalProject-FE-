@@ -6,19 +6,27 @@ import ManageClassrom from "../pages/classroom/ManageClassrom";
 import ReportPage from "../pages/report/ReportPage";
 import RequestForReturningPage from "../pages/request/RequestForReturning";
 import ManageSubject from "../pages/subject/ManageSubject";
-
+import { AbsentHistory } from "../pages/student/AbsentHistory";
 import ManageEmployee from "../pages/users/AdminEmployee/ManageEmployee";
 import CreateEmployeePage from "../pages/users/AdminEmployee/CreateEmployeePage";
 import EditEmployeePage from "../pages/users/AdminEmployee/EditEmployeePage";
 import CreateTask from "../pages/request/CreateTask";
 import EditTask from "../pages/request/EditTask";
 import ManageSchedule from "../pages/classroom/schedule/ManageSchedule";
-
+import Schedule from "../pages/student/ScheduleStudent";
+import ScheduleTeacher from "../pages/teacher/ScheduleTeacher";
+import {TakeAttendace}  from "../pages/teacher/TakeAttendace";
+import {AttendaceReport}  from "../pages/teacher/AttendaceReport";
 export const AppRoutes = [
   {
     path: "/",
     element: <Home />,
     title: "Home",
+  },
+  {
+    path: "/Schedule",
+    element: <Schedule />,
+    title: "Schedule",
   },
   {
     path: "/student",
@@ -79,7 +87,21 @@ export const AppRoutes = [
     title: "Manage User > Edit User",
   },
 
-
+  {
+    path: "/ScheduleOfTeacher",
+    element: <ScheduleTeacher/>,
+    title: "Schedule",
+},
+{
+  path: "/TakeAttendace/:classid/:scheduleId",
+  element: <TakeAttendace />,
+  title: "TakeAttendace",
+},
+{
+  path: "/AttendaceReport",
+  element: <AttendaceReport />,
+  title: "AttendaceReport",
+},
   {
     path: "/createEmployee",
     element: <CreateEmployeePage />,
@@ -90,4 +112,9 @@ export const AppRoutes = [
     element: <EditEmployeePage />,
     title: "Manage Employee > Edit Employee",
   },
+  {
+    path: "/absenthistory",
+    element: <AbsentHistory/>,
+    title: "Absent History",
+},
 ];

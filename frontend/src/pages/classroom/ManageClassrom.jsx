@@ -34,7 +34,7 @@ export default function ManageUser() {
   const [startYear, setStartYear] = useState(-1);
   const [form] = Form.useForm();
   const [isLoading, setLoading] = useState({ isLoading: false });
-  const [classData, setClassData] = useState([]);
+  //const [classData, setClassData] = useState([]);
   const [errMessage, setErrMessage] = useState("");
   const { Option } = Select;
   const [modal, setModal] = useState({
@@ -136,7 +136,7 @@ export default function ManageUser() {
       .then(function (response) {
         let respData = response.data;
         console.log(respData);
-        setClassData(respData);
+        // setClassData(respData);
         respData.forEach((element) => {
           //   element.fullName = element.firstName + " " + element.lastName;
 
@@ -805,45 +805,45 @@ export default function ManageUser() {
           columns={columns}
           pagination={pagination}
           dataSource={finalData}
-          onRow={(record) => {
-            return {
-              onClick: (e) => {
-                if (
-                  e.target.className ===
-                  "ant-table-cell ant-table-cell-row-hover"
-                ) {
-                  setModal({
-                    ...modal,
-                    isOpen: true,
-                    data: {
-                      classroomId: record.classroomId,
-                      classroomName: record.classroomName,
-                      students: record.students,
-                      grade: record.grade,
-                      startYear: record.startYear,
-                      endYear: record.endYear,
-                    },
-                  });
-                } else if (
-                  e.target.className ===
-                  "ant-table-cell ant-table-column-sort ant-table-cell-row-hover"
-                ) {
-                  setModal({
-                    ...modal,
-                    isOpen: true,
-                    data: {
-                      classroomId: record.classroomId,
-                      classroomName: record.classroomName,
-                      students: record.students,
-                    },
-                  });
-                  console.log(modal.data);
-                } else {
-                  setModal({ ...modal, isOpen: false });
-                }
-              },
-            };
-          }}
+          // onRow={(record) => {
+          //   return {
+          //     onClick: (e) => {
+          //       if (
+          //         e.target.className ===
+          //         "ant-table-cell ant-table-cell-row-hover"
+          //       ) {
+          //         setModal({
+          //           ...modal,
+          //           isOpen: true,
+          //           data: {
+          //             classroomId: record.classroomId,
+          //             classroomName: record.classroomName,
+          //             students: record.students,
+          //             grade: record.grade,
+          //             startYear: record.startYear,
+          //             endYear: record.endYear,
+          //           },
+          //         });
+          //       } else if (
+          //         e.target.className ===
+          //         "ant-table-cell ant-table-column-sort ant-table-cell-row-hover"
+          //       ) {
+          //         setModal({
+          //           ...modal,
+          //           isOpen: true,
+          //           data: {
+          //             classroomId: record.classroomId,
+          //             classroomName: record.classroomName,
+          //             students: record.students,
+          //           },
+          //         });
+          //         console.log(modal.data);
+          //       } else {
+          //         setModal({ ...modal, isOpen: false });
+          //       }
+          //     },
+          //   };
+          // }}
         />
       )}
     </>
