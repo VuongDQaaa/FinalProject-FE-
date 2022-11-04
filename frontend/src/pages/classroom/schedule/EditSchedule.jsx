@@ -16,12 +16,12 @@ import "../../../styles/Styles.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const CreateSchedule = () => {
+const EditSchedule = () => {
   const dataSchedule = {
     day: useParams().day,
     period: Number(useParams().period),
     session: useParams().session,
-    classId: Number(useParams().classId),
+    scheduleId: Number(useParams().scheduleId),
   };
   const [isLoading, setLoading] = useState({ isLoading: false });
   const navigate = useNavigate();
@@ -64,13 +64,10 @@ const CreateSchedule = () => {
     const request = {
       userName: fieldsValue.teacherName.split("-")[2].replace(/ /g, ""),
       taskId: fieldsValue.taskId,
-      session: dataSchedule.session,
-      day: dataSchedule.day,
-      period: dataSchedule.period,
     };
     console.log(request);
-   await axios.post(
-        `${process.env.REACT_APP_Backend_URI}api/Schedule/Add-schedule?classId=${dataSchedule.classId}`,
+   await axios.put(
+        `${process.env.REACT_APP_Backend_URI}api/Schedule/Update-schedule?scheduleId=${dataSchedule.scheduleId}`,
         request
       )
       .then((response) => {
@@ -78,7 +75,7 @@ const CreateSchedule = () => {
         setTimeout(() => {
           setLoading({ isLoading: false });
         }, 3000);
-        navigate(`/view-schedule/${dataSchedule.classId}`);
+        navigate(`/classroom`);
       })
       .catch((error) => {
         console.log(error);
@@ -236,7 +233,7 @@ const CreateSchedule = () => {
                         className="buttonCancel"
                         disabled={isLoading.isLoading === true}
                         onClick={() => {
-                          navigate("/request");
+                          navigate("/classroom");
                         }}
                       >
                         Cancel
@@ -253,4 +250,4 @@ const CreateSchedule = () => {
   );
 };
 
-export default CreateSchedule;
+export default EditSchedule;

@@ -3,9 +3,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { CloseSquareOutlined } from "@ant-design/icons";
-import AfternoonSchedule from "./AfternoonSchedule";
 
-export default function ManageSchedule() {
+export default function AfternoonSchedule() {
   const classroomId = useParams().classroomId;
   const [classroomDetail, setClassroomDetail] = useState();
   const [data, setData] = useState([]);
@@ -31,8 +30,8 @@ export default function ManageSchedule() {
       try {
         const { data: response } = await axios.get(
           `${process.env.REACT_APP_Backend_URI}api/Schedule/Get-Schedule/Classroom-id-${classroomId}`
-        );
-        setClassroomDetail(response.filter(itemInArray => itemInArray.session === "Morning"));
+        )
+        setClassroomDetail(response.filter(itemInArray => itemInArray.session === "Afternoon"));
       } catch (error) {
         console.error(error.message);
       }
@@ -75,7 +74,7 @@ export default function ManageSchedule() {
             <div>{text}</div>
             <div>{index}</div>
             <Link
-              to={`/add-schedule/monday/morning/${index + 1}/${findScheduleId(
+              to={`/add-schedule/monday/afternoon/${index + 1}/${findScheduleId(
                 "Monday",
                 index + 1
               )}`}
@@ -121,7 +120,7 @@ export default function ManageSchedule() {
             </Button>
           </div>
         ) : (
-          <Link to={`/add-schedule/monday/morning/${index + 1}/${classroomId}`}>
+          <Link to={`/add-schedule/monday/afternoon/${index + 1}/${classroomId}`}>
             <Button danger>Add</Button>
           </Link>
         ),
@@ -135,7 +134,7 @@ export default function ManageSchedule() {
             <div>{text}</div>
             <div>{index}</div>
             <Link
-              to={`/add-schedule/tuesday/morning/${index + 1}/${findScheduleId(
+              to={`/add-schedule/tuesday/afternoon/${index + 1}/${findScheduleId(
                 "Tuesday",
                 index + 1
               )}`}
@@ -182,7 +181,7 @@ export default function ManageSchedule() {
           </div>
         ) : (
           <Link
-            to={`/add-schedule/tuesday/morning/${index + 1}/${classroomId}`}
+            to={`/add-schedule/tuesday/afternoon/${index + 1}/${classroomId}`}
           >
             <Button danger>Add</Button>
           </Link>
@@ -197,7 +196,7 @@ export default function ManageSchedule() {
             <div>{text}</div>
             <div>{index}</div>
             <Link
-              to={`/add-schedule/wednesday/morning/${
+              to={`/add-schedule/wednesday/afternoon/${
                 index + 1
               }/${findScheduleId("Wednesday", index + 1)}`}
             >
@@ -243,7 +242,7 @@ export default function ManageSchedule() {
           </div>
         ) : (
           <Link
-            to={`/add-schedule/wednesday/morning/${index + 1}/${classroomId}`}
+            to={`/add-schedule/wednesday/afternoon/${index + 1}/${classroomId}`}
           >
             <Button danger>Add</Button>
           </Link>
@@ -258,7 +257,7 @@ export default function ManageSchedule() {
             <div>{text}</div>
             <div>{index}</div>
             <Link
-              to={`/edit-schedule/thursday/morning/${
+              to={`/edit-schedule/thursday/afternoon/${
                 index + 1
               }/${findScheduleId("Thursday", index + 1)}`}
             >
@@ -304,7 +303,7 @@ export default function ManageSchedule() {
           </div>
         ) : (
           <Link
-            to={`/add-schedule/thursday/morning/${index + 1}/${classroomId}`}
+            to={`/add-schedule/thursday/afternoon/${index + 1}/${classroomId}`}
           >
             <Button danger>Add</Button>
           </Link>
@@ -319,7 +318,7 @@ export default function ManageSchedule() {
             <div>{text}</div>
             <div>{index}</div>
             <Link
-              to={`/edit-schedule/friday/morning/${index + 1}/${findScheduleId(
+              to={`/edit-schedule/friday/afternoon/${index + 1}/${findScheduleId(
                 "Friday",
                 index + 1
               )}`}
@@ -365,7 +364,7 @@ export default function ManageSchedule() {
             </Button>
           </div>
         ) : (
-          <Link to={`/add-schedule/friday/morning/${index + 1}/${classroomId}`}>
+          <Link to={`/add-schedule/friday/afternoon/${index + 1}/${classroomId}`}>
             <Button danger>Add</Button>
           </Link>
         ),
@@ -379,7 +378,7 @@ export default function ManageSchedule() {
             <div>{text}</div>
             <div>{index}</div>
             <Link
-              to={`/edit-schedule/saturday/morning/${
+              to={`/edit-schedule/saturday/afternoon/${
                 index + 1
               }/${findScheduleId("Saturday", index + 1)}`}
             >
@@ -425,7 +424,7 @@ export default function ManageSchedule() {
           </div>
         ) : (
           <Link
-            to={`/add-schedule/saturday/morning/${index + 1}/${classroomId}`}
+            to={`/add-schedule/saturday/afternoon/${index + 1}/${classroomId}`}
           >
             <Button danger>Add</Button>
           </Link>
@@ -436,9 +435,7 @@ export default function ManageSchedule() {
 
   return (
     <div>
-      <div>Morning</div>
       <Table columns={columns} dataSource={data} />
-      <div>Afternoon</div>
       {/* <Table columns={columns} dataSource={data} /> */}
       <Modal
         visible={deleteModal.isOpen}
@@ -454,7 +451,6 @@ export default function ManageSchedule() {
       >
         {deleteModal.content}
       </Modal>
-      <AfternoonSchedule/>
     </div>
   );
 }

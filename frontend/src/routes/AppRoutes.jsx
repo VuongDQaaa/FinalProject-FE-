@@ -14,6 +14,7 @@ import CreateTask from "../pages/request/CreateTask";
 import EditTask from "../pages/request/EditTask";
 import ManageSchedule from "../pages/classroom/schedule/ManageSchedule";
 import CreateSchedule from "../pages/classroom/schedule/CreateSchedule";
+import EditSchedule from "../pages/classroom/schedule/EditSchedule";
 
 export const AppRoutes = [
   {
@@ -44,6 +45,11 @@ export const AppRoutes = [
   {
     path: "/add-schedule/:day/:session/:period/:classId",
     element: <CreateSchedule />,
+    title: "Manage Classroom > Manage Schedule",
+  },
+  {
+    path: "/edit-schedule/:day/:session/:period/:scheduleId",
+    element: <EditSchedule />,
     title: "Manage Classroom > Manage Schedule",
   },
   {
