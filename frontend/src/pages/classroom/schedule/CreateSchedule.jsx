@@ -19,10 +19,11 @@ import { useNavigate } from "react-router-dom";
 const CreateSchedule = () => {
   const dataSchedule = {
     day: useParams().day,
-    period: useParams().period,
+    period: Number(useParams().period),
     session: useParams().session,
-    classId: useParams().classId
+    classId: Number(useParams().classId),
   };
+  console.log(dataSchedule.classId);
   const [isLoading, setLoading] = useState({ isLoading: false });
   const navigate = useNavigate();
   const [listTeacher, setListTeacher] = useState();
@@ -60,22 +61,25 @@ const CreateSchedule = () => {
       offset: 1,
     },
   };
-  const onFinish = (fieldsValue) => {
-console.log(fieldsValue);
-    axios
-      .post(`${process.env.REACT_APP_Backend_URI}api/Schedule/Add-schedule?classId=${dataSchedule.classId}`, {
-        userName: fieldsValue.teacherName.split("-")[2].replace(/ /g, ""),
-        taskId: fieldsValue.taskId,
-        session: fieldsValue.session,
-        day: fieldsValue.day,
-        period: fieldsValue.period,
-      })
+  const onFinish =async (fieldsValue) => {
+    const request = {
+      userName: fieldsValue.teacherName.split("-")[2].replace(/ /g, ""),
+      taskId: fieldsValue.taskId,
+      session: dataSchedule.session,
+      day: dataSchedule.day,
+      period: dataSchedule.period,
+    };
+    console.log(request);
+   await axios.post(
+        `${process.env.REACT_APP_Backend_URI}api/Schedule/Add-schedule?classId=${dataSchedule.classId}`,
+        request
+      )
       .then((response) => {
-        console.log(response);
+    console.log(response);
         setTimeout(() => {
           setLoading({ isLoading: false });
         }, 3000);
-        navigate(`view-schedule/${dataSchedule.classId}`);
+        navigate(`/view-schedule/${dataSchedule.classId}`);
       })
       .catch((error) => {
         console.log(error);
@@ -157,62 +161,51 @@ console.log(fieldsValue);
                 </Form.Item>
 
                 <Form.Item label="Session">
-                  <Form.Item
-                    name="session"
-                    style={{ display: "block" }}
-                  >
+                  <Form.Item name="session" style={{ display: "block" }}>
                     <Select
                       disabled={true}
                       defaultValue={dataSchedule.session}
-                      value={dataSchedule.session}
                       name="session"
                       className="inputForm"
                       style={{ display: "block" }}
                       optionFilterProp="children"
                     >
-                        <Option value={dataSchedule.session}>
-                          {dataSchedule.session}
-                        </Option>
+                      <Option value={dataSchedule.session}>
+                        {dataSchedule.session}
+                      </Option>
                     </Select>
                   </Form.Item>
                 </Form.Item>
 
                 <Form.Item label="Day">
-                  <Form.Item
-                    name="day"
-                  >
+                  <Form.Item name="day">
                     <Select
                       disabled={true}
                       defaultValue={dataSchedule.day}
-                      value={dataSchedule.day}
                       name="day"
                       className="inputForm"
                       style={{ display: "block" }}
                       optionFilterProp="children"
                     >
-                        <Option value={dataSchedule.day}>
-                          {dataSchedule.day}
-                        </Option>
+                      <Option value={dataSchedule.day}>
+                        {dataSchedule.day}
+                      </Option>
                     </Select>
                   </Form.Item>
                 </Form.Item>
 
                 <Form.Item label="Period">
-                  <Form.Item
-                    name="period"
-                    style={{ display: "block" }}
-                  >
+                  <Form.Item name="period" style={{ display: "block" }}>
                     <Select
                       disabled={true}
                       defaultValue={dataSchedule.period}
-                      value={dataSchedule.period}
                       className="inputForm"
                       style={{ display: "block" }}
                       optionFilterProp="children"
                     >
-                        <Option value={dataSchedule.period}>
-                          {dataSchedule.period}
-                        </Option>
+                      <Option value={dataSchedule.period}>
+                        {dataSchedule.period}
+                      </Option>
                     </Select>
                   </Form.Item>
                 </Form.Item>
