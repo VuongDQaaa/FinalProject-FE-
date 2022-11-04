@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
-import "../styles/home.css";
-import { Context } from "../App";
+import "../../styles/home.css";
+import { Context } from "../../App";
 
-export default function Home() {
+export default function ScheduleStudent() {
   const [gridData, setGridData] = useState([]);
   const [loginState] = useContext(Context);
 

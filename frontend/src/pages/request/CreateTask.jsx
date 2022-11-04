@@ -2,11 +2,10 @@ import {
   Row,
   Col,
   Form,
-  Input,
+
   Button,
   Select,
-  DatePicker,
-  Radio,
+ 
   AutoComplete,
 } from "antd";
 import React, { useEffect, useState } from "react";
@@ -49,9 +48,9 @@ const CreateTask = () => {
     },
   };
   const onFinish = (fieldsValue) => {
-    const values = {
-      ...fieldsValue,
-    };
+    // const values = {
+    //   ...fieldsValue,
+    // };
 
     axios
       .post(`${process.env.REACT_APP_Backend_URI}api/AssignedTask/Add-task`, {
