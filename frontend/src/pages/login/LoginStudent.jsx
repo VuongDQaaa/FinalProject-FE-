@@ -122,9 +122,10 @@ const LoginStudent = () => {
               fullName: response.data.fullName,
             })
           );
-
+          window.location.href = `/Schedule`;
           axios.defaults.headers.common["Authorization"] =
             "Bearer " + response.data.token;
+           
         })
 
         .catch((error) => {

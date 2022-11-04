@@ -11,10 +11,9 @@ import ChangePasswordStudent from "./components/ChangePasswordStudent";
 import ChangePasswordUser from "./components/ChangePasswordUser";
 import GridComponent from "./components/GridComponet";
 import axios from "axios";
-
 import { UserRoute } from "./routes/UserRoute";
 import LoginRoutes from "./routes/LoginRoutes";
-
+import  {TeacherRoute}  from "./routes/TeacherRoute";
 export const Context = createContext();
 
 function App() {
@@ -61,9 +60,10 @@ function App() {
   return (
     <Context.Provider value={[loginState, setLoginState]}>
       <BrowserRouter>
+      
         {loginState.isLogin === false ? (
           <RouteComponent routes={LoginRoutes} />
-        ) : loginState.role === "Admin" ? (
+        ) : loginState.role === "Admin"  ? (
           <>
             <HeaderComponent
               fullname={loginState.fullName}
@@ -77,33 +77,57 @@ function App() {
                     isOpen={loginState.isfirstlogin === "True"}
                     userName={loginState.username}
                   />
+                 
                   <MenuComponent routes={NavRoutes} />
+                  
                 </div>
               }
+              
               rightComp={<RouteComponent routes={AppRoutes} />}
             />
           </>
-        ) : (
-          <>
-            <HeaderComponent
-              fullname={loginState.fullName}
-              username={loginState.username}
-              api="api/Student/Change-password-student"
-            />
+        ) : (loginState.role= "Teacher"? ( <>
+          <HeaderComponent
+            fullname={loginState.fullName}
+            username={loginState.username}
+            api="api/Student/Change-password-student"
+          />
 
-            <GridComponent
-              leftComp={
-                <>
-                  <ChangePasswordStudent
-                    isOpen={loginState.isfirstlogin === "True"}
-                    userName={loginState.username}
-                  />
-                  <MenuComponent routes={UserRoute} />
-                </>
-              }
-              rightComp={<RouteComponent routes={AppRoutes} />}
-            />
-          </>
+          <GridComponent
+            leftComp={
+              <>
+                <ChangePasswordStudent
+                  isOpen={loginState.isfirstlogin === "True"}
+                  userName={loginState.username}
+                />
+                <MenuComponent routes={TeacherRoute} />
+              </>
+            }
+            rightComp={<RouteComponent routes={AppRoutes} />}
+          />
+        </>) : ( 
+          <>
+          <HeaderComponent
+            fullname={loginState.fullName}
+            username={loginState.username}
+            api="api/Student/Change-password-student"
+          />
+
+          <GridComponent
+            leftComp={
+              <>
+                <ChangePasswordStudent
+                  isOpen={loginState.isfirstlogin === "True"}
+                  userName={loginState.username}
+                />
+                <MenuComponent routes={UserRoute} />
+              </>
+            }
+            rightComp={<RouteComponent routes={UserRoute} />}
+          />
+        </>
+        )
+         
         )}
       </BrowserRouter>
     </Context.Provider>

@@ -805,45 +805,45 @@ export default function ManageUser() {
           columns={columns}
           pagination={pagination}
           dataSource={finalData}
-          onRow={(record) => {
-            return {
-              onClick: (e) => {
-                if (
-                  e.target.className ===
-                  "ant-table-cell ant-table-cell-row-hover"
-                ) {
-                  setModal({
-                    ...modal,
-                    isOpen: true,
-                    data: {
-                      classroomId: record.classroomId,
-                      classroomName: record.classroomName,
-                      students: record.students,
-                      grade: record.grade,
-                      startYear: record.startYear,
-                      endYear: record.endYear,
-                    },
-                  });
-                } else if (
-                  e.target.className ===
-                  "ant-table-cell ant-table-column-sort ant-table-cell-row-hover"
-                ) {
-                  setModal({
-                    ...modal,
-                    isOpen: true,
-                    data: {
-                      classroomId: record.classroomId,
-                      classroomName: record.classroomName,
-                      students: record.students,
-                    },
-                  });
-                  console.log(modal.data);
-                } else {
-                  setModal({ ...modal, isOpen: false });
-                }
-              },
-            };
-          }}
+          // onRow={(record) => {
+          //   return {
+          //     onClick: (e) => {
+          //       if (
+          //         e.target.className ===
+          //         "ant-table-cell ant-table-cell-row-hover"
+          //       ) {
+          //         setModal({
+          //           ...modal,
+          //           isOpen: true,
+          //           data: {
+          //             classroomId: record.classroomId,
+          //             classroomName: record.classroomName,
+          //             students: record.students,
+          //             grade: record.grade,
+          //             startYear: record.startYear,
+          //             endYear: record.endYear,
+          //           },
+          //         });
+          //       } else if (
+          //         e.target.className ===
+          //         "ant-table-cell ant-table-column-sort ant-table-cell-row-hover"
+          //       ) {
+          //         setModal({
+          //           ...modal,
+          //           isOpen: true,
+          //           data: {
+          //             classroomId: record.classroomId,
+          //             classroomName: record.classroomName,
+          //             students: record.students,
+          //           },
+          //         });
+          //         console.log(modal.data);
+          //       } else {
+          //         setModal({ ...modal, isOpen: false });
+          //       }
+          //     },
+          //   };
+          // }}
         />
       )}
     </>
