@@ -1,7 +1,7 @@
 
 import ManageUser from "../pages/users/AdminUser/ManageUser";
 import ManageClassrom from "../pages/classroom/ManageClassrom";
-import ReportPage from "../pages/report/ReportPage";
+//import ReportPage from "../pages/report/ReportPage";
 import ManageSubject from "../pages/subject/ManageSubject";
 import RequestForReturningPage from "../pages/request/RequestForReturning";
 import ManageEmployee from "../pages/users/AdminEmployee/ManageEmployee";
@@ -35,9 +35,9 @@ export const NavRoutes = [
     title: "Manage Task",
   },
 
-  {
-    path: "/report",
-    element: <ReportPage />,
-    title: "Manage Schedule",
-  },
+  // {
+  //   path: "/report",
+  //   element: <ReportPage />,
+  //   title: "Manage Schedule",
+  // },
 ];
