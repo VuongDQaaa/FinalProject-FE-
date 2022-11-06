@@ -9,6 +9,7 @@ import {
   DatePicker,
   Radio,
   AutoComplete,
+  message,
 } from "antd";
 import React, { useEffect, useState } from "react";
 import "antd/dist/antd.css";
@@ -76,9 +77,11 @@ const EditSchedule = () => {
           setLoading({ isLoading: false });
         }, 3000);
         navigate(`/classroom`);
+        message.success('Edit schedule successfully !');
       })
       .catch((error) => {
         console.log(error);
+        message.error('Edit Error !');
       });
   };
 

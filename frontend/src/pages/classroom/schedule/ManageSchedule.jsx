@@ -66,6 +66,9 @@ export default function ManageSchedule() {
   }, [classroomDetail]);
 
   const columns = [
+    {title: "Slot",
+    dataIndex: "slot",
+    render: (text, record, index) =>(<>{`Slot ${index + 1}`}</>)},
     {
       title: "Monday",
       dataIndex: "monday",
@@ -73,7 +76,6 @@ export default function ManageSchedule() {
         text ? (
           <div>
             <div>{text}</div>
-            <div>{index}</div>
             <Link
               to={`/add-schedule/monday/morning/${index + 1}/${findScheduleId(
                 "Monday",
@@ -133,7 +135,6 @@ export default function ManageSchedule() {
         text ? (
           <div>
             <div>{text}</div>
-            <div>{index}</div>
             <Link
               to={`/add-schedule/tuesday/morning/${index + 1}/${findScheduleId(
                 "Tuesday",
@@ -195,7 +196,6 @@ export default function ManageSchedule() {
         text ? (
           <div>
             <div>{text}</div>
-            <div>{index}</div>
             <Link
               to={`/add-schedule/wednesday/morning/${
                 index + 1
@@ -256,7 +256,6 @@ export default function ManageSchedule() {
         text ? (
           <div>
             <div>{text}</div>
-            <div>{index}</div>
             <Link
               to={`/edit-schedule/thursday/morning/${
                 index + 1
@@ -317,7 +316,6 @@ export default function ManageSchedule() {
         text ? (
           <div>
             <div>{text}</div>
-            <div>{index}</div>
             <Link
               to={`/edit-schedule/friday/morning/${index + 1}/${findScheduleId(
                 "Friday",
@@ -377,7 +375,6 @@ export default function ManageSchedule() {
         text ? (
           <div>
             <div>{text}</div>
-            <div>{index}</div>
             <Link
               to={`/edit-schedule/saturday/morning/${
                 index + 1
@@ -436,9 +433,9 @@ export default function ManageSchedule() {
 
   return (
     <div>
-      <div>Morning</div>
+      <h2>Morning</h2>
       <Table columns={columns} dataSource={data} />
-      <div>Afternoon</div>
+      <h2>Afternoon</h2>
       {/* <Table columns={columns} dataSource={data} /> */}
       <Modal
         visible={deleteModal.isOpen}

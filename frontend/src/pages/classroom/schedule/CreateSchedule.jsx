@@ -9,6 +9,7 @@ import {
   DatePicker,
   Radio,
   AutoComplete,
+  message,
 } from "antd";
 import React, { useEffect, useState } from "react";
 import "antd/dist/antd.css";
@@ -28,6 +29,7 @@ const CreateSchedule = () => {
   const [listTeacher, setListTeacher] = useState();
   const [allTasks, setAllTasks] = useState();
   const options = listTeacher?.map((item) => ({ value: item.suggestion }));
+  console.log(listTeacher);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -74,14 +76,15 @@ const CreateSchedule = () => {
         request
       )
       .then((response) => {
-    console.log(response);
         setTimeout(() => {
           setLoading({ isLoading: false });
         }, 3000);
         navigate(`/view-schedule/${dataSchedule.classId}`);
+        message.success('Add schedule successfully !');
       })
       .catch((error) => {
         console.log(error);
+        message.error('Add Error !');
       });
   };
 

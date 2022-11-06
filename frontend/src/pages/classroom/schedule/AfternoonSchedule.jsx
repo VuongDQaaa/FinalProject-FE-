@@ -40,7 +40,7 @@ export default function AfternoonSchedule() {
   }, [classroomId]);
   useEffect(() => {
     const fillData = () => {
-      let result = [{ key: 1 }, { key: 2 }, { key: 3 }, { key: 4 }, { key: 5 }];
+      let result = [{ key: 1 }, { key: 2 }, { key: 3 }, { key: 4 }];
       classroomDetail?.forEach((item, index) => {
         if (result.some((el) => el.key === item.period)) {
           const indexOfEl = result.findIndex((el) => el.key === item.period);
@@ -65,6 +65,9 @@ export default function AfternoonSchedule() {
   }, [classroomDetail]);
 
   const columns = [
+    {title: "Slot",
+    dataIndex: "slot",
+    render: (text, record, index) =>(<>{`Slot ${index + 1}`}</>)},
     {
       title: "Monday",
       dataIndex: "monday",
@@ -72,7 +75,6 @@ export default function AfternoonSchedule() {
         text ? (
           <div>
             <div>{text}</div>
-            <div>{index}</div>
             <Link
               to={`/add-schedule/monday/afternoon/${index + 1}/${findScheduleId(
                 "Monday",
@@ -132,7 +134,6 @@ export default function AfternoonSchedule() {
         text ? (
           <div>
             <div>{text}</div>
-            <div>{index}</div>
             <Link
               to={`/add-schedule/tuesday/afternoon/${index + 1}/${findScheduleId(
                 "Tuesday",
@@ -194,7 +195,6 @@ export default function AfternoonSchedule() {
         text ? (
           <div>
             <div>{text}</div>
-            <div>{index}</div>
             <Link
               to={`/add-schedule/wednesday/afternoon/${
                 index + 1
@@ -255,7 +255,6 @@ export default function AfternoonSchedule() {
         text ? (
           <div>
             <div>{text}</div>
-            <div>{index}</div>
             <Link
               to={`/edit-schedule/thursday/afternoon/${
                 index + 1
@@ -316,7 +315,6 @@ export default function AfternoonSchedule() {
         text ? (
           <div>
             <div>{text}</div>
-            <div>{index}</div>
             <Link
               to={`/edit-schedule/friday/afternoon/${index + 1}/${findScheduleId(
                 "Friday",
@@ -376,7 +374,6 @@ export default function AfternoonSchedule() {
         text ? (
           <div>
             <div>{text}</div>
-            <div>{index}</div>
             <Link
               to={`/edit-schedule/saturday/afternoon/${
                 index + 1
