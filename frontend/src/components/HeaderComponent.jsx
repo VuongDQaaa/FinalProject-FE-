@@ -57,6 +57,7 @@ export default function HeaderComponent({ fullname, username, api }) {
         return new Promise((resolve, reject) => {
           setTimeout(Math.random() > 0.5 ? resolve : reject, 5000);
           localStorage.removeItem("loginState");
+          localStorage.removeItem("role");
           window.location.href = `/`;
         });
       },

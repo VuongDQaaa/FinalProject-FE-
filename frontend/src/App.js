@@ -63,7 +63,7 @@ function App() {
       
         {loginState.isLogin === false ? (
           <RouteComponent routes={LoginRoutes} />
-        ) : loginState.role === "Admin"  ? (
+        ) : (localStorage.getItem("role") === "Admin"  ? (
           <>
             <HeaderComponent
               fullname={loginState.fullName}
@@ -77,7 +77,6 @@ function App() {
                     isOpen={loginState.isfirstlogin === "True"}
                     userName={loginState.username}
                   />
-                 
                   <MenuComponent routes={NavRoutes} />
                   
                 </div>
@@ -86,11 +85,12 @@ function App() {
               rightComp={<RouteComponent routes={AppRoutes} />}
             />
           </>
-        ) : (loginState.role= "Teacher"? ( <>
+        ) : (localStorage.getItem("role")=== "Teacher"? (
+           <>
           <HeaderComponent
             fullname={loginState.fullName}
             username={loginState.username}
-            api="api/Student/Change-password-student"
+            api="Users/Change-password"
           />
 
           <GridComponent
@@ -127,7 +127,7 @@ function App() {
           />
         </>
         )
-         
+        )
         )}
       </BrowserRouter>
     </Context.Provider>

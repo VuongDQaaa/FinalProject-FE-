@@ -27,7 +27,7 @@ export default function ManageUser() {
   });
 
   //const classOptions = [];
-  const { Option } = Select;
+ // const { Option } = Select;
 
   const columns = [
     {

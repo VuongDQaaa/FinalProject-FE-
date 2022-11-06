@@ -122,12 +122,13 @@ const LoginStudent = () => {
               fullName: response.data.fullName,
             })
           );
+          localStorage.setItem("role",response.data.role );
           window.location.href = `/Schedule`;
           axios.defaults.headers.common["Authorization"] =
             "Bearer " + response.data.token;
            
         })
-
+       
         .catch((error) => {
           setLoging(LOGING.FAIL);
           axios.defaults.headers.common["Authorization"] = "";

@@ -121,7 +121,7 @@ const LoginStudent = () => {
               fullName: response.data.fullName,
             })
           );
-
+          localStorage.setItem("role",response.data.role );
           axios.defaults.headers.common["Authorization"] =
             "Bearer " + response.data.token;
             if(loginState.role ==="Admin"){
