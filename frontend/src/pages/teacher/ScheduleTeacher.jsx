@@ -1029,7 +1029,7 @@ export default function ScheduleTeacher() {
           <tbody>
             <tr>
               <td class="align-middle">
-                <div class="margin-10px-top font-size14">Slot 6</div>
+                <div class="margin-10px-top font-size14">Slot 1</div>
               </td>
               <td>{MONDAY6}</td>
               <td>{TUESDAY6}</td>
@@ -1042,7 +1042,7 @@ export default function ScheduleTeacher() {
 
             <tr>
               <td class="align-middle">
-                <div class="margin-10px-top font-size14">Slot 7</div>
+                <div class="margin-10px-top font-size14">Slot 2</div>
               </td>
               <td>{MONDAY7}</td>
               <td>{TUESDAY7}</td>
@@ -1055,7 +1055,7 @@ export default function ScheduleTeacher() {
 
             <tr>
               <td class="align-middle">
-                <div class="margin-10px-top font-size14">Slot 8</div>
+                <div class="margin-10px-top font-size14">Slot 3</div>
               </td>
               <td>{MONDAY8}</td>
               <td>{TUESDAY8}</td>
@@ -1068,7 +1068,7 @@ export default function ScheduleTeacher() {
 
             <tr>
               <td class="align-middle">
-                <div class="margin-10px-top font-size14">Slot 9</div>
+                <div class="margin-10px-top font-size14">Slot 4</div>
               </td>
               <td>{MONDAY9}</td>
               <td>{TUESDAY9}</td>

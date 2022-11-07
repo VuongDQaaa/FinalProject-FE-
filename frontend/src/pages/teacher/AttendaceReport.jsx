@@ -96,7 +96,7 @@ export function AttendaceReport() {
   const [deleteModal, setDeleteModal] = useState({
     isOpen: false,
     title: "Delete",
-    content:<p>Do you want to delete this absent ?</p>,
+    content:<p>Do you want to delete this absent history ?</p>,
     footer: (
       <div style={{ textAlign: "left" }}>
         <Button className="buttonSave">Delete</Button>
