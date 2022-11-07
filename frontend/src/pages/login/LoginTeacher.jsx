@@ -129,7 +129,6 @@ const LoginStudent = () => {
             }else{
               window.location.href = `/ScheduleOfTeacher`;
             }
-         
         })
 
         .catch((error) => {

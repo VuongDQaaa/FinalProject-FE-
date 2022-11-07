@@ -2,11 +2,10 @@ import {
   Row,
   Col,
   Form,
-
   Button,
   Select,
- 
   AutoComplete,
+  message
 } from "antd";
 import React, { useEffect, useState } from "react";
 import "antd/dist/antd.css";
@@ -61,10 +60,12 @@ const CreateTask = () => {
         setTimeout(() => {
           setLoading({ isLoading: false });
         }, 3000);
-        navigate("/request");
+        
+        navigate("/tasks");
       })
       .catch((error) => {
         console.log(error);
+        message.error('This subject have been created');
       });
   };
 

@@ -26,7 +26,7 @@ export default function RequestForReturningPage() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalCancelVisible, setIsModalCancelVisible] = useState(false);
   const [idCompleted, setIdCompleted] = useState();
-  const [state, setState] = useState("Subject");
+  const [state, setState] = useState("All");
   const [searchText, setSearchText] = useState("");
   const [allSubjects, setAllSubjects] = useState();
   const showModal = () => {
@@ -130,7 +130,7 @@ console.log(allSubjects);
   }, []);
 
   const dataBytype =
-    state === "Subject" ? data : data.filter((u) => u.subjectName === state);
+    state === "All" ? data : data.filter((u) => u.subjectName === state);
   const finalData =
     searchText === ""
       ? dataBytype
@@ -260,6 +260,14 @@ console.log(allSubjects);
                 >
                   {item.subjectName}
                 </Menu.Item>)}
+                <Menu.Item
+                  onClick={() => {
+                    setState("All");
+                  }}
+                >
+                  {" "}
+                  All
+                </Menu.Item>
               </Menu>
             }
           >

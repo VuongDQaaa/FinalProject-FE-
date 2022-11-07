@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Table, Input, Button, Menu, Dropdown, Row, Col, Modal,Form } from "antd";
+import { Table, Input, Button, Row, Col, Modal,Form,message } from "antd";
 import {
-  FilterOutlined,
   EditFilled,
   CloseCircleOutlined,
   CloseSquareOutlined,
@@ -18,10 +17,8 @@ export default function ManageUser() {
   const [searchText, setSearchText] = useState("");
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [type, setType] = useState("All");
   const [form] = Form.useForm();
   const [isLoading, setLoading] = useState({ isLoading: false });
-  const [classData, setClassData] = useState([]);
   const [modal, setModal] = useState({
     isOpen: false,
     data: {},
@@ -90,7 +87,6 @@ const formItemLayout = {
       .then(function (response) {
         let respData = response.data;
         console.log(respData);
-        setClassData(respData);
         respData.forEach((element) => {
           //   element.fullName = element.firstName + " " + element.lastName;
           
@@ -191,7 +187,10 @@ const formItemLayout = {
 
         window.location.reload();
       })
-      .catch(() => {});
+      .catch((error) => {
+        console.log(error);
+        message.error('This subject have been created');
+      });
   };
   
   const handleEdit = () => {
@@ -209,13 +208,11 @@ const formItemLayout = {
       .catch(() => {});
   };
 
-  const dataBytype =
-    type === "All" ? data : data.filter((u) => u.subjectName === type);
   
   const finalData =
     searchText === ""
-      ? dataBytype
-      : dataBytype.filter(
+      ? data
+      : data.filter(
           (u) =>
             u.subjectName
               .toLowerCase()
@@ -251,38 +248,6 @@ const formItemLayout = {
       > Subject List
       </p>
       <Row gutter={45} style={{ marginBottom: "30px" }}>
-        <Col xs={8} sm={8} md={7} lg={7} xl={6} xxl={5}>
-          <Dropdown.Button
-            placement="bottom"
-            icon={<FilterOutlined />}
-            overlay={
-              <Menu>
-                {classData.map((item) => (
-                      <Menu.Item
-                      value={item.subjectName}
-                      onClick={() => {
-                        setType(item.subjectName);
-                      }}
-                    >
-                      {" "}
-                      {item.subjectName}
-                    </Menu.Item>
-                    ))}
-              
-                <Menu.Item
-                  onClick={() => {
-                    setType("All");
-                  }}
-                >
-                  {" "}
-                  All
-                </Menu.Item>
-              </Menu>
-            }
-          >
-            {type}
-          </Dropdown.Button>
-        </Col>
         <Col xs={8} sm={8} md={7} lg={7} xl={8} xxl={8}>
           <Input.Search
             placeholder="Search Subject"

@@ -317,7 +317,7 @@ export default function ManageUser() {
   ];
   const today = new Date();
   const rows = [];
-  for (let i = today.getFullYear() - 10; i < today.getFullYear() + 1; i++) {
+  for (let i = 2002; i < today.getFullYear() + 1; i++) {
     rows.push(
       <Option key={i} value={i}>
         {" "}
@@ -347,17 +347,6 @@ export default function ManageUser() {
             icon={<FilterOutlined />}
             overlay={
               <Menu>
-                {/* {classData.map((item) => (
-                      <Menu.Item
-                      value={item.classroomName}
-                      onClick={() => {
-                        setType(item.classroomName);
-                      }}
-                    >
-                      {" "}
-                      {item.classroomName}
-                    </Menu.Item>
-                    ))} */}
                 <Menu.Item
                   onClick={() => {
                     setType("10");

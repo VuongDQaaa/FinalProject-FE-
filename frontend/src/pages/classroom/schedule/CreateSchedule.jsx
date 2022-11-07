@@ -3,11 +3,8 @@ import {
   Row,
   Col,
   Form,
-  Input,
   Button,
   Select,
-  DatePicker,
-  Radio,
   AutoComplete,
   message,
 } from "antd";
@@ -84,7 +81,7 @@ const CreateSchedule = () => {
       })
       .catch((error) => {
         console.log(error);
-        message.error('Add Error !');
+        message.error('Invalid schedule ! Please check again');
       });
   };
 
