@@ -566,7 +566,6 @@ export default function ScheduleStudent() {
             <tr>
               <td class="align-middle">
                 <div class="margin-10px-top font-size14">Slot 1</div>
-                <div class="font-size13 text-light-gray">7:30-8:30</div>
               </td>
               <td>{MONDAY1}</td>
               <td>{TUESDAY1}</td>
@@ -581,7 +580,6 @@ export default function ScheduleStudent() {
             <tr>
               <td class="align-middle">
                 <div class="margin-10px-top font-size14">Slot 2</div>
-                <div class="font-size13 text-light-gray">8:30-9:30</div>
               </td>
               <td>{MONDAY2}</td>
               <td>{TUESDAY2}</td>
@@ -595,7 +593,6 @@ export default function ScheduleStudent() {
             <tr>
               <td class="align-middle">
                 <div class="margin-10px-top font-size14">Slot 3</div>
-                <div class="font-size13 text-light-gray">7:30-8:30</div>
               </td>
               <td>{MONDAY3}</td>
               <td>{TUESDAY3}</td>
@@ -609,7 +606,6 @@ export default function ScheduleStudent() {
             <tr>
               <td class="align-middle">
                 <div class="margin-10px-top font-size14">Slot 4</div>
-                <div class="font-size13 text-light-gray">10:30-11:30</div>
               </td>
               <td>{MONDAY4}</td>
               <td>{TUESDAY4}</td>
@@ -623,7 +619,6 @@ export default function ScheduleStudent() {
             <tr>
               <td class="align-middle">
                 <div class="margin-10px-top font-size14">Slot 5</div>
-                <div class="font-size13 text-light-gray">11:30-12:30</div>
               </td>
               <td>{MONDAY5}</td>
               <td>{TUESDAY5}</td>
@@ -655,7 +650,6 @@ export default function ScheduleStudent() {
             <tr>
               <td class="align-middle">
                 <div class="margin-10px-top font-size14">Slot 6</div>
-                <div class="font-size13 text-light-gray">13:30-14:30</div>
               </td>
               <td>{MONDAY6}</td>
               <td>{TUESDAY6}</td>
@@ -669,7 +663,6 @@ export default function ScheduleStudent() {
             <tr>
               <td class="align-middle">
                 <div class="margin-10px-top font-size14">Slot 7</div>
-                <div class="font-size13 text-light-gray">14:30-15:30</div>
               </td>
               <td>{MONDAY7}</td>
               <td>{TUESDAY7}</td>
@@ -683,7 +676,6 @@ export default function ScheduleStudent() {
             <tr>
               <td class="align-middle">
                 <div class="margin-10px-top font-size14">Slot 8</div>
-                <div class="font-size13 text-light-gray">15:30-16:30</div>
               </td>
               <td>{MONDAY8}</td>
               <td>{TUESDAY8}</td>
@@ -697,7 +689,6 @@ export default function ScheduleStudent() {
             <tr>
               <td class="align-middle">
                 <div class="margin-10px-top font-size14">Slot 9</div>
-                <div class="font-size13 text-light-gray">16:30-17:30</div>
               </td>
               <td>{MONDAY9}</td>
               <td>{TUESDAY9}</td>
