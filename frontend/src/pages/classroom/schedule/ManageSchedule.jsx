@@ -1,4 +1,4 @@
-import { Button, Modal, Table } from "antd";
+import { Button, Modal, Table, Col } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -32,7 +32,9 @@ export default function ManageSchedule() {
         const { data: response } = await axios.get(
           `${process.env.REACT_APP_Backend_URI}api/Schedule/Get-Schedule/Classroom-id-${classroomId}`
         );
-        setClassroomDetail(response.filter(itemInArray => itemInArray.session === "Morning"));
+        setClassroomDetail(
+          response.filter((itemInArray) => itemInArray.session === "Morning")
+        );
       } catch (error) {
         console.error(error.message);
       }
@@ -66,9 +68,11 @@ export default function ManageSchedule() {
   }, [classroomDetail]);
 
   const columns = [
-    {title: "Slot",
-    dataIndex: "slot",
-    render: (text, record, index) =>(<>{`Slot ${index + 1}`}</>)},
+    {
+      title: "Slot",
+      dataIndex: "slot",
+      render: (text, record, index) => <>{`Slot ${index + 1}`}</>,
+    },
     {
       title: "Monday",
       dataIndex: "monday",
@@ -433,6 +437,16 @@ export default function ManageSchedule() {
 
   return (
     <div>
+      <Col xs={8} sm={8} md={7} lg={7} xl={9} xxl={9}>
+        <Button
+          style={{ background: "#33CCFF", color: "white", fontWeight: "bold" }}
+          onClick={(e) => {
+            window.location.href = `/classroom`;
+          }}
+        >
+          Go back
+        </Button>
+      </Col>
       <h2>Morning</h2>
       <Table columns={columns} dataSource={data} />
       <h2>Afternoon</h2>
@@ -451,7 +465,7 @@ export default function ManageSchedule() {
       >
         {deleteModal.content}
       </Modal>
-      <AfternoonSchedule/>
+      <AfternoonSchedule />
     </div>
   );
 }
