@@ -24,6 +24,7 @@ const CreateSchedule = () => {
   const [isLoading, setLoading] = useState({ isLoading: false });
   const navigate = useNavigate();
   const [listTeacher, setListTeacher] = useState();
+  const [userName, setUserName] = useState();
   const [allTasks, setAllTasks] = useState();
   const options = listTeacher?.map((item) => ({ value: item.suggestion }));
   console.log(listTeacher);
@@ -39,7 +40,7 @@ const CreateSchedule = () => {
       }
       try {
         const { data: response } = await axios.get(
-          `${process.env.REACT_APP_Backend_URI}api/AssignedTask/All-tasks`
+          `${process.env.REACT_APP_Backend_URI}api/AssignedTask/get-task/${userName}`
         );
         setAllTasks(response);
       } catch (error) {

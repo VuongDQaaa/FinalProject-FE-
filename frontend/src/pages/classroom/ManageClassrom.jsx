@@ -142,7 +142,7 @@ export default function ManageUser() {
 
           element.action = [
             <Button>
-              <Link to={`/view-schedule/${element.classroomId}`}>View Schedule</Link>{" "}
+              <Link to={`/view-schedule/${element.classroomId}/${element.classroomName}`}>View Schedule</Link>{" "}
             </Button>,
 
             <EditFilled

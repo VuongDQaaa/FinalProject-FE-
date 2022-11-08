@@ -47,7 +47,7 @@ export const AppRoutes = [
     title: "Manage Classroom",
   },
   {
-    path: "/view-schedule/:classroomId",
+    path: "/view-schedule/:classroomId/:classroomName",
     element: <ManageSchedule />,
     title: "Manage Classroom > Manage Schedule",
   },

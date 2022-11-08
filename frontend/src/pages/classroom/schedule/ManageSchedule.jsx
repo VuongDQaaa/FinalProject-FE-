@@ -7,6 +7,7 @@ import AfternoonSchedule from "./AfternoonSchedule";
 
 export default function ManageSchedule() {
   const classroomId = useParams().classroomId;
+  const classroomName = useParams().classroomName;
   const [classroomDetail, setClassroomDetail] = useState();
   const [data, setData] = useState([]);
   const [deleteModal, setDeleteModal] = useState({
@@ -437,7 +438,7 @@ export default function ManageSchedule() {
 
   return (
     <div>
-      <Col xs={8} sm={8} md={7} lg={7} xl={9} xxl={9}>
+      <Col xs={8} sm={8} md={7} lg={7} xl={7} xxl={7}>
         <Button
           style={{ background: "#33CCFF", color: "white", fontWeight: "bold" }}
           onClick={(e) => {
@@ -447,9 +448,12 @@ export default function ManageSchedule() {
           Go back
         </Button>
       </Col>
-      <h2>Morning</h2>
-      <Table columns={columns} dataSource={data} />
-      <h2>Afternoon</h2>
+        <h1>
+          {classroomName}
+        </h1>
+      <h3>Morning</h3>
+      <Table columns={columns} dataSource={data} pagination={false} />
+      <h3>Afternoon</h3>
       {/* <Table columns={columns} dataSource={data} /> */}
       <Modal
         visible={deleteModal.isOpen}

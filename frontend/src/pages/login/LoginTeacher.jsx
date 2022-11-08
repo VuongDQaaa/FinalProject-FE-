@@ -124,7 +124,7 @@ const LoginStudent = () => {
           localStorage.setItem("role",response.data.role );
           axios.defaults.headers.common["Authorization"] =
             "Bearer " + response.data.token;
-            if(loginState.role ==="Admin"){
+            if(localStorage.getItem("role")=== "Admin"){
               window.location.href = `/employee`;
             }else{
               window.location.href = `/ScheduleOfTeacher`;

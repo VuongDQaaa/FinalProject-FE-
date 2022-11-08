@@ -432,7 +432,7 @@ export default function AfternoonSchedule() {
 
   return (
     <div>
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={data} pagination={false}/>
       {/* <Table columns={columns} dataSource={data} /> */}
       <Modal
         visible={deleteModal.isOpen}
