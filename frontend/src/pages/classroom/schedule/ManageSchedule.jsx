@@ -434,7 +434,6 @@ export default function ManageSchedule() {
         ),
     },
   ];
-  // console.log(otherValArr);
 
   return (
     <div>

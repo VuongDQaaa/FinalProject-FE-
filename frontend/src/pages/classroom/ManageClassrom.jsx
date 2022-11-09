@@ -41,7 +41,6 @@ export default function ManageUser() {
     isOpen: false,
     data: {},
   });
-  console.log(data);
   const [create, setCreate] = useState(false);
   const [submitData, setSubmitData] = useState({
     classroomName: "",
@@ -135,14 +134,10 @@ export default function ManageUser() {
       )
       .then(function (response) {
         let respData = response.data;
-        console.log(respData);
-        // setClassData(respData);
         respData.forEach((element) => {
-          //   element.fullName = element.firstName + " " + element.lastName;
-
           element.action = [
             <Button>
-              <Link to={`/view-schedule/${element.classroomId}/${element.classroomName}`}>View Schedule</Link>{" "}
+              <Link to={`/view-schedule/${element.classroomId}`}>View Schedule</Link>{" "}
             </Button>,
 
             <EditFilled
@@ -163,7 +158,6 @@ export default function ManageUser() {
                   grade: element.grade,
                   startYear: element.startYear,
                 });
-                console.log(form);
               }}
               style={{ color: "#1e94f9", fontSize: "25px" }}
             />,
@@ -512,7 +506,6 @@ export default function ManageUser() {
                     ...editData,
                     grade: name,
                   });
-                  console.log(name);
                 }}
               >
                 {gradeOptions}
@@ -535,7 +528,6 @@ export default function ManageUser() {
                     ...editData,
                     startYear: name,
                   });
-                  console.log(name);
                 }}
               >
                 {rows}
@@ -745,7 +737,6 @@ export default function ManageUser() {
                     ...submitData,
                     grade: name,
                   });
-                  console.log(name);
                 }}
               >
                 {gradeOptions}
@@ -769,7 +760,6 @@ export default function ManageUser() {
                     ...submitData,
                     startYear: name,
                   });
-                  console.log(name);
                 }}
               >
                 {rows}
@@ -794,45 +784,6 @@ export default function ManageUser() {
           columns={columns}
           pagination={pagination}
           dataSource={finalData}
-          // onRow={(record) => {
-          //   return {
-          //     onClick: (e) => {
-          //       if (
-          //         e.target.className ===
-          //         "ant-table-cell ant-table-cell-row-hover"
-          //       ) {
-          //         setModal({
-          //           ...modal,
-          //           isOpen: true,
-          //           data: {
-          //             classroomId: record.classroomId,
-          //             classroomName: record.classroomName,
-          //             students: record.students,
-          //             grade: record.grade,
-          //             startYear: record.startYear,
-          //             endYear: record.endYear,
-          //           },
-          //         });
-          //       } else if (
-          //         e.target.className ===
-          //         "ant-table-cell ant-table-column-sort ant-table-cell-row-hover"
-          //       ) {
-          //         setModal({
-          //           ...modal,
-          //           isOpen: true,
-          //           data: {
-          //             classroomId: record.classroomId,
-          //             classroomName: record.classroomName,
-          //             students: record.students,
-          //           },
-          //         });
-          //         console.log(modal.data);
-          //       } else {
-          //         setModal({ ...modal, isOpen: false });
-          //       }
-          //     },
-          //   };
-          // }}
         />
       )}
     </>

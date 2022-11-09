@@ -428,7 +428,6 @@ export default function AfternoonSchedule() {
         ),
     },
   ];
-  // console.log(otherValArr);
 
   return (
     <div>

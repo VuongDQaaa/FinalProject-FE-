@@ -24,10 +24,8 @@ const CreateSchedule = () => {
   const [isLoading, setLoading] = useState({ isLoading: false });
   const navigate = useNavigate();
   const [listTeacher, setListTeacher] = useState();
-  const [userName, setUserName] = useState();
   const [allTasks, setAllTasks] = useState();
-  const options = listTeacher?.map((item) => ({ value: item.suggestion }));
-  console.log(listTeacher);
+  const options = listTeacher?.map((item) => ({ value: item.userId +"-" +item.suggestion }));
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -35,14 +33,6 @@ const CreateSchedule = () => {
           `${process.env.REACT_APP_Backend_URI}Users/search-teacher`
         );
         setListTeacher(response);
-      } catch (error) {
-        console.error(error.message);
-      }
-      try {
-        const { data: response } = await axios.get(
-          `${process.env.REACT_APP_Backend_URI}api/AssignedTask/get-task/${userName}`
-        );
-        setAllTasks(response);
       } catch (error) {
         console.error(error.message);
       }
@@ -60,15 +50,24 @@ const CreateSchedule = () => {
       offset: 1,
     },
   };
+  const onSelect = (response) => {
+    axios
+    .get(
+      `${process.env.REACT_APP_Backend_URI}api/AssignedTask/get-task/teacher-${response.split("-")[0].replace(/ /g, "")}`
+    )
+    .then(function (response) {
+      let respData = response.data;
+      setAllTasks(respData);})
+    .catch(() => {});
+  };
   const onFinish =async (fieldsValue) => {
     const request = {
-      userName: fieldsValue.teacherName.split("-")[2].replace(/ /g, ""),
+      userName: fieldsValue.teacherName.split("-")[3].replace(/ /g, ""),
       taskId: fieldsValue.taskId,
       session: dataSchedule.session,
       day: dataSchedule.day,
       period: dataSchedule.period,
     };
-    console.log(request);
    await axios.post(
         `${process.env.REACT_APP_Backend_URI}api/Schedule/Add-schedule?classId=${dataSchedule.classId}`,
         request
@@ -81,7 +80,6 @@ const CreateSchedule = () => {
         message.success('Add schedule successfully !');
       })
       .catch((error) => {
-        console.log(error);
         message.error('Invalid schedule ! Please check again');
       });
   };
@@ -122,6 +120,7 @@ const CreateSchedule = () => {
                     hasFeedback
                   >
                     <AutoComplete
+                      onSelect={onSelect}
                       disabled={isLoading.isLoading === true}
                       maxLength={51}
                       className="inputForm"
@@ -237,7 +236,7 @@ const CreateSchedule = () => {
                         className="buttonCancel"
                         disabled={isLoading.isLoading === true}
                         onClick={() => {
-                          navigate("/request");
+                          navigate("/classroom");
                         }}
                       >
                         Cancel

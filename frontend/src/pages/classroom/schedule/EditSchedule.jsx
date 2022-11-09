@@ -3,11 +3,8 @@ import {
   Row,
   Col,
   Form,
-  Input,
   Button,
   Select,
-  DatePicker,
-  Radio,
   AutoComplete,
   message,
 } from "antd";
@@ -28,7 +25,7 @@ const EditSchedule = () => {
   const navigate = useNavigate();
   const [listTeacher, setListTeacher] = useState();
   const [allTasks, setAllTasks] = useState();
-  const options = listTeacher?.map((item) => ({ value: item.suggestion }));
+  const options = listTeacher?.map((item) => ({ value: item.userId +"-" +item.suggestion }));
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -61,9 +58,20 @@ const EditSchedule = () => {
       offset: 1,
     },
   };
+  const onSelect = (response) => {
+    axios
+    .get(
+      `${process.env.REACT_APP_Backend_URI}api/AssignedTask/get-task/teacher-${response.split("-")[0].replace(/ /g, "")}`
+    )
+    .then(function (response) {
+      let respData = response.data;
+      setAllTasks(respData);
+      console.log(respData);})
+    .catch(() => {});
+  };
   const onFinish =async (fieldsValue) => {
     const request = {
-      userName: fieldsValue.teacherName.split("-")[2].replace(/ /g, ""),
+      userName: fieldsValue.teacherName.split("-")[3].replace(/ /g, ""),
       taskId: fieldsValue.taskId,
     };
     console.log(request);
@@ -121,6 +129,7 @@ const EditSchedule = () => {
                     hasFeedback
                   >
                     <AutoComplete
+                      onSelect={onSelect}
                       disabled={isLoading.isLoading === true}
                       maxLength={51}
                       className="inputForm"
