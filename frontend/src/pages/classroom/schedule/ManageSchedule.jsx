@@ -81,14 +81,6 @@ export default function ManageSchedule() {
         text ? (
           <div>
             <div>{text}</div>
-            <Link
-              to={`/add-schedule/monday/morning/${index + 1}/${findScheduleId(
-                "Monday",
-                index + 1
-              )}`}
-            >
-              <Button>Edit</Button>
-            </Link>
             <Button
               onClick={() => {
                 setDeleteModal({
@@ -140,14 +132,6 @@ export default function ManageSchedule() {
         text ? (
           <div>
             <div>{text}</div>
-            <Link
-              to={`/add-schedule/tuesday/morning/${index + 1}/${findScheduleId(
-                "Tuesday",
-                index + 1
-              )}`}
-            >
-              <Button>Edit</Button>
-            </Link>
             <Button
               onClick={() => {
                 setDeleteModal({
@@ -201,13 +185,6 @@ export default function ManageSchedule() {
         text ? (
           <div>
             <div>{text}</div>
-            <Link
-              to={`/add-schedule/wednesday/morning/${
-                index + 1
-              }/${findScheduleId("Wednesday", index + 1)}`}
-            >
-              <Button>Edit</Button>
-            </Link>
             <Button
               onClick={() => {
                 setDeleteModal({
@@ -261,13 +238,6 @@ export default function ManageSchedule() {
         text ? (
           <div>
             <div>{text}</div>
-            <Link
-              to={`/edit-schedule/thursday/morning/${
-                index + 1
-              }/${findScheduleId("Thursday", index + 1)}`}
-            >
-              <Button>Edit</Button>
-            </Link>
             <Button
               onClick={() => {
                 setDeleteModal({
@@ -321,14 +291,6 @@ export default function ManageSchedule() {
         text ? (
           <div>
             <div>{text}</div>
-            <Link
-              to={`/edit-schedule/friday/morning/${index + 1}/${findScheduleId(
-                "Friday",
-                index + 1
-              )}`}
-            >
-              <Button>Edit</Button>
-            </Link>
             <Button
               onClick={() => {
                 setDeleteModal({
@@ -380,13 +342,6 @@ export default function ManageSchedule() {
         text ? (
           <div>
             <div>{text}</div>
-            <Link
-              to={`/edit-schedule/saturday/morning/${
-                index + 1
-              }/${findScheduleId("Saturday", index + 1)}`}
-            >
-              <Button>Edit</Button>
-            </Link>
             <Button
               onClick={() => {
                 setDeleteModal({
@@ -447,9 +402,7 @@ export default function ManageSchedule() {
           Go back
         </Button>
       </Col>
-        <h1>
-          {classroomName}
-        </h1>
+      <h1>Classroom: {classroomName}</h1>
       <h3>Morning</h3>
       <Table columns={columns} dataSource={data} pagination={false} />
       <h3>Afternoon</h3>

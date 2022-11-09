@@ -3,7 +3,6 @@ import Home from "../pages/Home";
 import ManageUser from "../pages/users/AdminUser/ManageUser";
 import CreateUserPage from "../pages/users/AdminUser/CreateUserPage";
 import ManageClassrom from "../pages/classroom/ManageClassrom";
-import ReportPage from "../pages/report/ReportPage";
 import RequestForReturningPage from "../pages/request/RequestForReturning";
 import ManageSubject from "../pages/subject/ManageSubject";
 import { AbsentHistory } from "../pages/student/AbsentHistory";
@@ -14,8 +13,6 @@ import CreateTask from "../pages/request/CreateTask";
 import EditTask from "../pages/request/EditTask";
 import ManageSchedule from "../pages/classroom/schedule/ManageSchedule";
 import CreateSchedule from "../pages/classroom/schedule/CreateSchedule";
-import EditSchedule from "../pages/classroom/schedule/EditSchedule";
-
 import Schedule from "../pages/student/ScheduleStudent";
 import ScheduleTeacher from "../pages/teacher/ScheduleTeacher";
 import {TakeAttendace}  from "../pages/teacher/TakeAttendace";
@@ -47,18 +44,13 @@ export const AppRoutes = [
     title: "Manage Classroom",
   },
   {
-    path: "/view-schedule/:classroomId",
+    path: "/view-schedule/:classroomId/:classroomName",
     element: <ManageSchedule />,
     title: "Manage Classroom > Manage Schedule",
   },
   {
     path: "/add-schedule/:day/:session/:period/:classId",
     element: <CreateSchedule />,
-    title: "Manage Classroom > Manage Schedule",
-  },
-  {
-    path: "/edit-schedule/:day/:session/:period/:scheduleId",
-    element: <EditSchedule />,
     title: "Manage Classroom > Manage Schedule",
   },
   {
@@ -82,13 +74,6 @@ export const AppRoutes = [
     element: <EditTask />,
     title: "Manage Task > Edit Task",
   },
-
-  {
-    path: "/report",
-    element: <ReportPage />,
-    title: "Report",
-  },
-
   {
     path: "/addStudent",
     element: <CreateUserPage />,

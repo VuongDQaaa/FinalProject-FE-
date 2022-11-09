@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Table,Input,Button,Form,Modal } from "antd";
+import { Table,Input,Button,Form,Modal, Checkbox } from "antd";
 import axios from "axios";
 import "../../styles/Styles.css";
 import { CloseSquareOutlined } from "@ant-design/icons";
@@ -59,12 +59,12 @@ export function TakeAttendace() {
         return 0;
       },
     },
-    // {
-    //   title: "Reason",
-    //   dataIndex: "reason",
-    //   key: "reason",
+    {
+      title: "Is absent",
+      dataIndex: "absent",
+      key: "absent",
 
-    // },
+    },
     {
         title: "Action",
         dataIndex: "action",
@@ -106,56 +106,25 @@ export function TakeAttendace() {
         let respData = response.data;
         console.log(respData);
         respData.forEach((element) => {
-      
-            // element.reason = [
-              
-            //   <Form.Item
-            //     name="reason"
-            //     rules={[
-            //       { required: true, message: "Reason must be required" },
-  
-            //       {
-            //         max: 50,
-            //         message: "Reason must less than 50 characters",
-            //       },
-            //     ]}
-            //     style={{ display: "block" }}
-            //     hasFeedback
-            //   >
-            //     <Input
-            //       onChange={(name) => {
-            //         setReasonz({
-            //           ...reasonz,
-            //           reason: name.target.value,
-            //         });
-            //       }}
-            //       disabled={isLoading.isLoading === true}
-            //       maxLength={51}
-            //       className="inputForm"
-            //     />
-            //   </Form.Item>
-           
-            // ];
+            element.absent = [
+              <Checkbox 
+                defaultChecked={true}
+              />
+            ];
             element.action =[
               <Button
-             
-             style={{ background: "#e30c18", color: "white" }}
-          
-            onClick={() => {
-            
-                setEditModal({
-                  ...editModal,
-                  isOpen: true,
-                });
+                style={{ background: "#e30c18", color: "white" }}
+                onClick={() => {
+                  setEditModal({
+                    ...editModal,
+                    isOpen: true,
+                  });
                 setStudentId(element.studentId);
-                
-
             }}
           >
             Absent
           </Button>
             ]
-           
           });
             
         setData(respData);
