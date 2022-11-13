@@ -20,7 +20,9 @@ const CreateSchedule = () => {
     period: Number(useParams().period),
     session: useParams().session,
     classId: Number(useParams().classId),
+    dateTime: useParams().dateTime
   };
+  console.log(dataSchedule.dateTime)
   const [isLoading, setLoading] = useState({ isLoading: false });
   const navigate = useNavigate();
   const [listTeacher, setListTeacher] = useState();

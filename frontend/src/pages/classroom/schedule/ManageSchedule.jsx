@@ -5,7 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import { CloseSquareOutlined } from "@ant-design/icons";
 import AfternoonSchedule from "./AfternoonSchedule";
 import { DatePicker } from "antd";
-import moment from 'moment';
+import moment from "moment";
 
 export default function ManageSchedule() {
   const classroomId = useParams().classroomId;
@@ -23,17 +23,17 @@ export default function ManageSchedule() {
     ),
   });
   const [year, setYear] = useState();
-  const [week, setWeek] = useState();
-  const weekFormat = 'DD/MM';
+  const [week, setWeek] = useState("19/11 - 30/11");
+  const weekFormat = "DD/MM";
   const customWeekStartEndFormat = (value) =>
-  `${moment(value).startOf('week').format(weekFormat)} - ${moment(value)
-    .endOf('week')
-    .format(weekFormat)}`;
-    const onChange = (date, dateString) => {
-      setYear(date.year());
-      setWeek(dateString);
-      console.log(date.year(), dateString, date.week());
-    };
+    `${moment(value).startOf("week").format(weekFormat)} - ${moment(value)
+      .endOf("week")
+      .format(weekFormat)}`;
+  const onChange = (date, dateString) => {
+    setYear(date.year());
+    setWeek(dateString);
+    console.log(date.year(), dateString, date.week());
+  };
   const findScheduleId = (day, period) => {
     let result;
     classroomDetail.forEach(
@@ -89,7 +89,12 @@ export default function ManageSchedule() {
       render: (text, record, index) => <>{`Slot ${index + 1}`}</>,
     },
     {
-      title: "Monday",
+      title: (
+        <div>
+          <div>Monday</div>
+          <div>{week.split(" - ")[0]}</div>
+        </div>
+      ),
       dataIndex: "monday",
       render: (text, record, index) =>
         text ? (
@@ -140,7 +145,16 @@ export default function ManageSchedule() {
         ),
     },
     {
-      title: "Tuesday",
+      title: (
+        <div>
+          <div>Tuesday</div>
+          <div>
+            {moment(moment(`${week.split(" - ")[0]}/${year}`, "DD/MM/YYYY").add(1, "d")).format(
+              "DD/MM/YYYY"
+            )}
+          </div>
+        </div>
+      ),
       dataIndex: "tuesday",
       render: (text, record, index) =>
         text ? (
@@ -186,14 +200,28 @@ export default function ManageSchedule() {
           </div>
         ) : (
           <Link
-            to={`/add-schedule/tuesday/morning/${index + 1}/${classroomId}`}
+            to={`/add-schedule/tuesday/morning/${index + 1}/${classroomId}/date${moment(moment(`${week.split(" - ")[0]}/${year}`, "DD/MM/YYYY").add(1, "d")).format(
+              "DD-MM-YYYY"
+            )}`}
           >
             <Button danger>Add</Button>
           </Link>
         ),
     },
     {
-      title: "Wednesday",
+      title: (
+        <div>
+          <div>Wednesday</div>
+          <div>
+            {moment(
+              moment(`${week.split(" - ")[0]}/${year}`, "DD/MM/YYYY").add(
+                2,
+                "d"
+              )
+            ).format("DD/MM/YYYY")}
+          </div>
+        </div>
+      ),
       dataIndex: "wednesday",
       render: (text, record, index) =>
         text ? (
@@ -418,7 +446,12 @@ export default function ManageSchedule() {
       </Col>
       <h1>Classroom: {classroomName}</h1>
       <h3>Morning</h3>
-   <DatePicker defaultValue={moment()} format={customWeekStartEndFormat} picker="week" onChange={onChange}/>
+      <DatePicker
+        defaultValue={moment()}
+        format={customWeekStartEndFormat}
+        picker="week"
+        onChange={onChange}
+      />
       <Table columns={columns} dataSource={data} pagination={false} />
       <h3>Afternoon</h3>
       {/* <Table columns={columns} dataSource={data} /> */}
