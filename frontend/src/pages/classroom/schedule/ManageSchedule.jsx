@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { CloseSquareOutlined } from "@ant-design/icons";
 import AfternoonSchedule from "./AfternoonSchedule";
+import { DatePicker } from "antd";
+import moment from 'moment';
 
 export default function ManageSchedule() {
   const classroomId = useParams().classroomId;
@@ -20,6 +22,18 @@ export default function ManageSchedule() {
       </div>
     ),
   });
+  const [year, setYear] = useState();
+  const [week, setWeek] = useState();
+  const weekFormat = 'DD/MM';
+  const customWeekStartEndFormat = (value) =>
+  `${moment(value).startOf('week').format(weekFormat)} - ${moment(value)
+    .endOf('week')
+    .format(weekFormat)}`;
+    const onChange = (date, dateString) => {
+      setYear(date.year());
+      setWeek(dateString);
+      console.log(date.year(), dateString, date.week());
+    };
   const findScheduleId = (day, period) => {
     let result;
     classroomDetail.forEach(
@@ -31,7 +45,7 @@ export default function ManageSchedule() {
     const fetchData = async () => {
       try {
         const { data: response } = await axios.get(
-          `${process.env.REACT_APP_Backend_URI}api/Schedule/Get-Schedule/Classroom-id-${classroomId}`
+          `${process.env.REACT_APP_Backend_URI}api/Schedule/Get-Schedule/Classroom-id-${classroomId}?year=${year}&week=${week}`
         );
         setClassroomDetail(
           response.filter((itemInArray) => itemInArray.session === "Morning")
@@ -41,7 +55,7 @@ export default function ManageSchedule() {
       }
     };
     fetchData();
-  }, [classroomId]);
+  }, [classroomId, year, week]);
   useEffect(() => {
     const fillData = () => {
       let result = [{ key: 1 }, { key: 2 }, { key: 3 }, { key: 4 }, { key: 5 }];
@@ -404,6 +418,7 @@ export default function ManageSchedule() {
       </Col>
       <h1>Classroom: {classroomName}</h1>
       <h3>Morning</h3>
+   <DatePicker defaultValue={moment()} format={customWeekStartEndFormat} picker="week" onChange={onChange}/>
       <Table columns={columns} dataSource={data} pagination={false} />
       <h3>Afternoon</h3>
       {/* <Table columns={columns} dataSource={data} /> */}

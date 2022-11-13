@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Table, Input, Button, Row, Col, Modal, Form, Menu, Dropdown} from "antd";
+import { Table, Input, Button, Row, Col, Modal, Form, Menu, Dropdown, DatePicker} from "antd";
 import axios from "axios";
 import "../../styles/Styles.css";
 import moment from "moment";
@@ -20,6 +20,7 @@ export function AttendaceReport() {
   const [reasonz, setReasonz] = useState({ reason: "" });
   const [historyId,setHistoryId] = useState("");
   const [isLoading, setLoading] = useState({ isLoading: false });
+  const [date, setDate] = useState("");
   const columns = [
     {
       title: "Created Date",
@@ -245,9 +246,11 @@ export function AttendaceReport() {
   const [searchText, setSearchText] = useState("");
   const dataBytype =
     classz === "All" ? data : data.filter((u) => u.classroomName === classz);
+    const dataByDate =
+    date === "" ? data : data.filter((u) => u.createdDate === date);
   const dataBySubject =
     subject === "All"
-      ? dataBytype
+      ? dataBytype && dataByDate
       : dataBytype.filter((u) => u.subjectName === subject);
   const finalData =
     searchText === ""
@@ -257,9 +260,9 @@ export function AttendaceReport() {
             .toLowerCase()
             .replace(/\s+/g, "")
             .includes(searchText.toLowerCase().replace(/\s+/g, "")) ||
-            u.subjectName.toLowerCase().includes(searchText.toLowerCase())
+            u.subjectName.toLowerCase().includes(searchText.toLowerCase()) 
         );
-
+console.log(date);
   const pagination = {
     current: page,
     PageSize: pageSize,
@@ -381,7 +384,10 @@ export function AttendaceReport() {
             }}
           />
         </Col>
-        
+        <Col xs={8} sm={8} md={7} lg={7} xl={8} xxl={8}>
+        <DatePicker  format="DD/MM/YYYY" onChange={(date, dateString) => setDate(dateString)} />
+        </Col>
+
       </Row>
       {/* Edit Modal */}
       <Modal

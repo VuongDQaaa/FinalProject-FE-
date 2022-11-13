@@ -76,7 +76,7 @@ const CreateSchedule = () => {
         setTimeout(() => {
           setLoading({ isLoading: false });
         }, 3000);
-        navigate(`/view-schedule/${dataSchedule.classId}`);
+        navigate(-1);
         message.success('Add schedule successfully !');
       })
       .catch((error) => {

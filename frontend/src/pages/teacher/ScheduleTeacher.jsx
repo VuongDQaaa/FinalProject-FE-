@@ -4,14 +4,28 @@ import "../../styles/home.css";
 import { Context } from "../../App";
 import { EditFilled} from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { DatePicker } from "antd";
+import moment from 'moment';
+
 export default function ScheduleTeacher() {
   const [gridData, setGridData] = useState([]);
   const [loginState] = useContext(Context);
-
+  const [year, setYear] = useState();
+  const [week, setWeek] = useState();
+  const weekFormat = 'DD/MM';
+  const customWeekStartEndFormat = (value) =>
+  `${moment(value).startOf('week').format(weekFormat)} - ${moment(value)
+    .endOf('week')
+    .format(weekFormat)}`;
+    const onChange = (date, dateString) => {
+      setYear(date.year());
+      setWeek(dateString);
+      console.log(date.year(), dateString, date.week());
+    };
   useEffect(() => {
     axios({
       method: "GET",
-      url: `${process.env.REACT_APP_Backend_URI}api/Schedule/Get-Schedule/Teacher-id-${loginState.id}`,
+      url: `${process.env.REACT_APP_Backend_URI}api/Schedule/Get-Schedule/Teacher-id-${loginState.id}?year=${year}&week=${week}`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${loginState.token}`,
@@ -21,7 +35,7 @@ export default function ScheduleTeacher() {
         setGridData(response.data);
       })
       .catch(function (error) {});
-  }, [loginState]);
+  }, [loginState, year, week]);
 
   console.log(gridData);
   const MONDAY1 = [];
@@ -926,6 +940,7 @@ export default function ScheduleTeacher() {
 
   return (
     <>
+   <DatePicker defaultValue={moment()} format={customWeekStartEndFormat} picker="week" onChange={onChange}/>
    
       <div class="table-responsive tablez">
       <h2>Morning</h2>

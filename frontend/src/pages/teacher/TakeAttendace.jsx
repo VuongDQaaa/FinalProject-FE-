@@ -16,6 +16,7 @@ export function TakeAttendace() {
   const [loginState] = useContext(Context);
   const [reasonz,setReasonz] =useState({reason:""});
   const [studentId,setStudentId] =useState("");
+  const [studentIdCheck,setStudentIdCheck] =useState({});
 
   const formItemLayout = {
     labelCol: {
@@ -108,12 +109,14 @@ export function TakeAttendace() {
         respData.forEach((element) => {
             element.absent = [
               <Checkbox 
-                defaultChecked={true}
+                // defaultChecked={true}
+                onClick={(value) => {setStudentIdCheck({checked: value.target.checked, studentId: element.studentId})}}
               />
             ];
             element.action =[
               <Button
-                style={{ background: "#e30c18", color: "white" }}
+              disabled={!(studentIdCheck.studentId === element.studentId && studentIdCheck.checked)}
+              danger 
                 onClick={() => {
                   setEditModal({
                     ...editModal,
@@ -130,9 +133,10 @@ export function TakeAttendace() {
         setData(respData);
       }, [])
       .catch(() => {});
-  }, [classId, editModal, form, form.classId, isLoading.isLoading, reasonz]);
+  }, [classId, editModal, form, form.classId, isLoading.isLoading, reasonz, studentIdCheck.studentId, studentIdCheck.checked]);
  
 
+  console.log(studentIdCheck)
   
 
   const pagination = {
