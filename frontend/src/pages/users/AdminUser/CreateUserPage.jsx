@@ -51,7 +51,7 @@ export default function CreateUserPage() {
           setLoading({ isLoading: false });
         }, 3000);
 
-        navigate("/user");
+        navigate("/student");
       })
       .catch(() => {});
   };

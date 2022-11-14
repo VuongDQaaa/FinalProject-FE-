@@ -83,7 +83,11 @@ export default function AfternoonSchedule() {
     dataIndex: "slot",
     render: (text, record, index) =>(<>{`Slot ${index + 1}`}</>)},
     {
-      title: "Monday",
+      title: (
+        <div>
+          <div>Monday</div>
+        </div>
+      ),
       dataIndex: "monday",
       render: (text, record, index) =>
         text ? (

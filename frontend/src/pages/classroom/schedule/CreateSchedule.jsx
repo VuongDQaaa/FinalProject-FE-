@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   Row,
   Col,
@@ -12,7 +12,6 @@ import React, { useEffect, useState } from "react";
 import "antd/dist/antd.css";
 import "../../../styles/Styles.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const CreateSchedule = () => {
   const dataSchedule = {
@@ -22,17 +21,20 @@ const CreateSchedule = () => {
     classId: Number(useParams().classId),
     dateTime: useParams().dateTime
   };
-  console.log(dataSchedule.dateTime)
   const [isLoading, setLoading] = useState({ isLoading: false });
   const navigate = useNavigate();
   const [listTeacher, setListTeacher] = useState();
   const [allTasks, setAllTasks] = useState();
   const options = listTeacher?.map((item) => ({ value: item.userId +"-" +item.suggestion }));
+  const day = useParams().day;
+  const period = useParams().period;
+  const session = useParams().session;
+  const datetime = useParams().dateTime;
   useEffect(() => {
     const fetchData = async () => {
       try {
         const { data: response } = await axios.get(
-          `${process.env.REACT_APP_Backend_URI}Users/search-teacher`
+          `${process.env.REACT_APP_Backend_URI}Users/search-teacher?scheduleDate=${datetime}&session=${session}&day=${day}&period=${period}`
         );
         setListTeacher(response);
       } catch (error) {
@@ -40,7 +42,7 @@ const CreateSchedule = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [datetime, session, day, period]);
   const [form] = Form.useForm();
   const { Option } = Select;
   const formItemLayout = {
@@ -66,6 +68,7 @@ const CreateSchedule = () => {
     const request = {
       userName: fieldsValue.teacherName.split("-")[3].replace(/ /g, ""),
       taskId: fieldsValue.taskId,
+      dateTime: dataSchedule.dateTime,
       session: dataSchedule.session,
       day: dataSchedule.day,
       period: dataSchedule.period,
@@ -161,6 +164,22 @@ const CreateSchedule = () => {
                   </Form.Item>
                 </Form.Item>
 
+                <Form.Item label="Date">
+                  <Form.Item name="date" style={{ display: "block" }}>
+                    <Select
+                      disabled={true}
+                      defaultValue={dataSchedule.dateTime}
+                      className="inputForm"
+                      style={{ display: "block" }}
+                      optionFilterProp="children"
+                    >
+                      <Option value={dataSchedule.dateTime}>
+                        {dataSchedule.dateTime}
+                      </Option>
+                    </Select>
+                  </Form.Item>
+                </Form.Item>
+
                 <Form.Item label="Session">
                   <Form.Item name="session" style={{ display: "block" }}>
                     <Select
@@ -238,7 +257,7 @@ const CreateSchedule = () => {
                         className="buttonCancel"
                         disabled={isLoading.isLoading === true}
                         onClick={() => {
-                          navigate("/classroom");
+                          navigate(-1);
                         }}
                       >
                         Cancel

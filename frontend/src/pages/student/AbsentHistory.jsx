@@ -35,6 +35,16 @@ export function AbsentHistory() {
       },
     },
     {
+      title: "Session",
+      dataIndex: "session",
+      key: "session",
+    },
+    {
+      title: "Slot",
+      dataIndex: "slot",
+      key: "slot",
+    },
+    {
       title: "Subject Name",
       dataIndex: "subjectName",
       key: "subjectName",

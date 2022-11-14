@@ -28,6 +28,21 @@ export function AttendaceReport() {
       key: "createdDate",
     },
     {
+      title: "Absent Date",
+      dataIndex: "absentDate",
+      key: "absentDate",
+    },
+    {
+      title: "Session",
+      dataIndex: "session",
+      key: "session",
+    },
+    {
+      title: "Slot",
+      dataIndex: "slot",
+      key: "slot",
+    },
+    {
       title: "Classroom",
       dataIndex: "classroomName",
       key: "classroomName",
@@ -148,6 +163,9 @@ export function AttendaceReport() {
           element.createdDate = moment(
             new Date(element.createdDate).toLocaleDateString("en-US")
           ).format("DD/MM/YYYY");
+          element.absentDate = moment(
+            new Date(element.absentDate).toLocaleDateString("en-US")
+          ).format("DD/MM/YYYY");
           element.action = [
             <EditFilled
               onClick={() => {
@@ -247,7 +265,7 @@ export function AttendaceReport() {
   const dataBytype =
     classz === "All" ? data : data.filter((u) => u.classroomName === classz);
     const dataByDate =
-    date === "" ? data : data.filter((u) => u.createdDate === date);
+    date === "" ? data : data.filter((u) => u.absentDate === date);
   const dataBySubject =
     subject === "All"
       ? dataBytype && dataByDate
@@ -256,7 +274,7 @@ export function AttendaceReport() {
     searchText === ""
       ? dataBySubject
       : dataBySubject.filter((u) =>
-          u.classroomName
+          u.studentFullName
             .toLowerCase()
             .replace(/\s+/g, "")
             .includes(searchText.toLowerCase().replace(/\s+/g, "")) ||
@@ -385,6 +403,7 @@ console.log(date);
           />
         </Col>
         <Col xs={8} sm={8} md={7} lg={7} xl={8} xxl={8}>
+          Absent date:
         <DatePicker  format="DD/MM/YYYY" onChange={(date, dateString) => setDate(dateString)} />
         </Col>
 

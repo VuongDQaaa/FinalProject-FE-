@@ -87,7 +87,6 @@ export function TakeAttendace() {
         });
       })
       .catch((error) => {
-       
         console.log(error);
       });
   };

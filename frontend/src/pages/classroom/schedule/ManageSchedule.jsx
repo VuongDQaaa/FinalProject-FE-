@@ -23,7 +23,7 @@ export default function ManageSchedule() {
     ),
   });
   const [year, setYear] = useState();
-  const [week, setWeek] = useState("19/11 - 30/11");
+  const [week, setWeek] = useState("");
   const weekFormat = "DD/MM";
   const customWeekStartEndFormat = (value) =>
     `${moment(value).startOf("week").format(weekFormat)} - ${moment(value)
@@ -92,7 +92,11 @@ export default function ManageSchedule() {
       title: (
         <div>
           <div>Monday</div>
-          <div>{week.split(" - ")[0]}</div>
+          <div>
+            {moment(moment(`${week.split(" - ")[0]}/${year}`, "DD/MM/YYYY").add(1, "d")).format(
+              "DD/MM/YYYY"
+            )}
+          </div>
         </div>
       ),
       dataIndex: "monday",
@@ -139,7 +143,11 @@ export default function ManageSchedule() {
             </Button>
           </div>
         ) : (
-          <Link to={`/add-schedule/monday/morning/${index + 1}/${classroomId}`}>
+          <Link
+          to={`/add-schedule/monday/morning/${index + 1}/${classroomId}/date${moment(moment(`${week.split(" - ")[0]}/${year}`, "DD/MM/YYYY").add(1, "d")).format(
+            "DD-MM-YYYY"
+          )}`}
+        >
             <Button danger>Add</Button>
           </Link>
         ),
@@ -149,7 +157,7 @@ export default function ManageSchedule() {
         <div>
           <div>Tuesday</div>
           <div>
-            {moment(moment(`${week.split(" - ")[0]}/${year}`, "DD/MM/YYYY").add(1, "d")).format(
+            {moment(moment(`${week.split(" - ")[0]}/${year}`, "DD/MM/YYYY").add(2, "d")).format(
               "DD/MM/YYYY"
             )}
           </div>
@@ -200,7 +208,7 @@ export default function ManageSchedule() {
           </div>
         ) : (
           <Link
-            to={`/add-schedule/tuesday/morning/${index + 1}/${classroomId}/date${moment(moment(`${week.split(" - ")[0]}/${year}`, "DD/MM/YYYY").add(1, "d")).format(
+            to={`/add-schedule/tuesday/morning/${index + 1}/${classroomId}/date${moment(moment(`${week.split(" - ")[0]}/${year}`, "DD/MM/YYYY").add(2, "d")).format(
               "DD-MM-YYYY"
             )}`}
           >
@@ -213,12 +221,9 @@ export default function ManageSchedule() {
         <div>
           <div>Wednesday</div>
           <div>
-            {moment(
-              moment(`${week.split(" - ")[0]}/${year}`, "DD/MM/YYYY").add(
-                2,
-                "d"
-              )
-            ).format("DD/MM/YYYY")}
+            {moment(moment(`${week.split(" - ")[0]}/${year}`, "DD/MM/YYYY").add(3, "d")).format(
+              "DD/MM/YYYY"
+            )}
           </div>
         </div>
       ),
@@ -267,14 +272,25 @@ export default function ManageSchedule() {
           </div>
         ) : (
           <Link
-            to={`/add-schedule/wednesday/morning/${index + 1}/${classroomId}`}
+            to={`/add-schedule/wednesday/morning/${index + 1}/${classroomId}/date${moment(moment(`${week.split(" - ")[0]}/${year}`, "DD/MM/YYYY").add(3, "d")).format(
+              "DD-MM-YYYY"
+            )}`}
           >
             <Button danger>Add</Button>
           </Link>
         ),
     },
     {
-      title: "Thursday",
+      title: (
+        <div>
+          <div>Thursday</div>
+          <div>
+            {moment(moment(`${week.split(" - ")[0]}/${year}`, "DD/MM/YYYY").add(4, "d")).format(
+              "DD/MM/YYYY"
+            )}
+          </div>
+        </div>
+      ),
       dataIndex: "thursday",
       render: (text, record, index) =>
         text ? (
@@ -320,14 +336,25 @@ export default function ManageSchedule() {
           </div>
         ) : (
           <Link
-            to={`/add-schedule/thursday/morning/${index + 1}/${classroomId}`}
+            to={`/add-schedule/thurday/morning/${index + 1}/${classroomId}/date${moment(moment(`${week.split(" - ")[0]}/${year}`, "DD/MM/YYYY").add(4, "d")).format(
+              "DD-MM-YYYY"
+            )}`}
           >
             <Button danger>Add</Button>
           </Link>
         ),
     },
     {
-      title: "Friday",
+      title: (
+        <div>
+          <div>Friday</div>
+          <div>
+            {moment(moment(`${week.split(" - ")[0]}/${year}`, "DD/MM/YYYY").add(5, "d")).format(
+              "DD/MM/YYYY"
+            )}
+          </div>
+        </div>
+      ),
       dataIndex: "friday",
       render: (text, record, index) =>
         text ? (
@@ -372,13 +399,26 @@ export default function ManageSchedule() {
             </Button>
           </div>
         ) : (
-          <Link to={`/add-schedule/friday/morning/${index + 1}/${classroomId}`}>
+          <Link
+            to={`/add-schedule/friday/morning/${index + 1}/${classroomId}/date${moment(moment(`${week.split(" - ")[0]}/${year}`, "DD/MM/YYYY").add(5, "d")).format(
+              "DD-MM-YYYY"
+            )}`}
+          >
             <Button danger>Add</Button>
           </Link>
         ),
     },
     {
-      title: "Saturday",
+      title: (
+        <div>
+          <div>Saturday</div>
+          <div>
+            {moment(moment(`${week.split(" - ")[0]}/${year}`, "DD/MM/YYYY").add(6, "d")).format(
+              "DD/MM/YYYY"
+            )}
+          </div>
+        </div>
+      ),
       dataIndex: "saturday",
       render: (text, record, index) =>
         text ? (
@@ -424,7 +464,9 @@ export default function ManageSchedule() {
           </div>
         ) : (
           <Link
-            to={`/add-schedule/saturday/morning/${index + 1}/${classroomId}`}
+            to={`/add-schedule/saturday/morning/${index + 1}/${classroomId}/date${moment(moment(`${week.split(" - ")[0]}/${year}`, "DD/MM/YYYY").add(6, "d")).format(
+              "DD-MM-YYYY"
+            )}`}
           >
             <Button danger>Add</Button>
           </Link>
