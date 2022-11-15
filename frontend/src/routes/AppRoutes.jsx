@@ -1,5 +1,4 @@
 import EditUserPage from "../pages/users/AdminUser/EditUserPage";
-import Home from "../pages/Home";
 import ManageUser from "../pages/users/AdminUser/ManageUser";
 import CreateUserPage from "../pages/users/AdminUser/CreateUserPage";
 import ManageClassrom from "../pages/classroom/ManageClassrom";
@@ -18,11 +17,6 @@ import ScheduleTeacher from "../pages/teacher/ScheduleTeacher";
 import {TakeAttendace}  from "../pages/teacher/TakeAttendace";
 import {AttendaceReport}  from "../pages/teacher/AttendaceReport";
 export const AppRoutes = [
-  {
-    path: "/",
-    element: <Home />,
-    title: "Home",
-  },
   {
     path: "/Schedule",
     element: <Schedule />,

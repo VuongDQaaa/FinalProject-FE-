@@ -68,7 +68,7 @@ const CreateSchedule = () => {
     const request = {
       userName: fieldsValue.teacherName.split("-")[3].replace(/ /g, ""),
       taskId: fieldsValue.taskId,
-      dateTime: dataSchedule.dateTime,
+      scheduleDate: dataSchedule.dateTime,
       session: dataSchedule.session,
       day: dataSchedule.day,
       period: dataSchedule.period,
