@@ -235,7 +235,7 @@ export default function CreateUserPage() {
                       className="buttonCancel"
                       disabled={isLoading.isLoading === true}
                       onClick={() => {
-                        navigate("/user");
+                        navigate("/student");
                       }}
                     >
                       Cancel

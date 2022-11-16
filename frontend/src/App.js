@@ -96,7 +96,7 @@ function App() {
           <GridComponent
             leftComp={
               <>
-                <ChangePasswordStudent
+                <ChangePasswordUser
                   isOpen={loginState.isfirstlogin === "True"}
                   userName={loginState.username}
                 />

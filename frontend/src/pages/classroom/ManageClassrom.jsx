@@ -10,6 +10,7 @@ import {
   Modal,
   Form,
   Select,
+  message
 } from "antd";
 import {
   FilterOutlined,
@@ -234,10 +235,11 @@ export default function ManageUser() {
         setTimeout(() => {
           setLoading({ isLoading: false });
         }, 3000);
-
         window.location.reload();
       })
-      .catch(() => {});
+      .catch((error) => {
+        message.error('This classroom has existed');
+      });
   };
 
   const handleEdit = () => {

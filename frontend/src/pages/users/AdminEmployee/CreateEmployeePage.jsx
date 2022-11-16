@@ -217,7 +217,7 @@ export default function CreateEmployeePage() {
                       className="buttonCancel"
                       disabled={isLoading.isLoading === true}
                       onClick={() => {
-                        navigate("/user");
+                        navigate("/employee");
                       }}
                     >
                       Cancel
