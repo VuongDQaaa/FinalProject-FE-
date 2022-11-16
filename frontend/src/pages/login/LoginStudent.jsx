@@ -202,7 +202,7 @@ const LoginStudent = () => {
                 </p>
               ) : null}
             </div>
-            <div>
+            <div class="loginz">
               <Button
                 style={{
                   width: "150px",

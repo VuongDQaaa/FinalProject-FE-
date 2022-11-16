@@ -199,7 +199,7 @@ const LoginStudent = () => {
               <p className={classes.validationText}>{formik.errors.password}</p>
             ) : null}
           </div>
-          <div>
+          <div class="loginz">
             <Button
               style={{
                 width: "150px",

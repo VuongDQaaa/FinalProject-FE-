@@ -8,9 +8,13 @@ import moment from 'moment';
 export default function ScheduleStudent() {
   const [gridData, setGridData] = useState([]);
   const [loginState] = useContext(Context);
-  const [year, setYear] = useState();
-  const [week, setWeek] = useState();
-  const weekFormat = 'DD/MM';
+  const today = new Date();
+  const weekFormat ='DD/MM';
+  const result = `${moment(today).startOf('week').format(weekFormat)} - ${moment(today).endOf('week') .format(weekFormat)}`;
+  const [year, setYear] = useState(today.getFullYear());
+  const [week, setWeek] = useState(result);
+  console.log(year,week);
+  
   const customWeekStartEndFormat = (value) =>
   `${moment(value).startOf('week').format(weekFormat)} - ${moment(value)
     .endOf('week')
@@ -100,7 +104,7 @@ export default function ScheduleStudent() {
   const SUNDAY8 = [];
   const SUNDAY9 = [];
   for (let i = 0; i < gridData.length; i++) {
-    if (gridData[i].day === "Monday") {
+    if (gridData[i].day === "Monday" && gridData[i].session ==="Morning") {
       if (gridData[i].period === 1) {
         MONDAY1.push(
           <div class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white text-center ">
@@ -136,28 +140,30 @@ export default function ScheduleStudent() {
           </div>
         );
       }
-      if (gridData[i].period === 6) {
+    }
+      if (gridData[i].day === "Monday" && gridData[i].session ==="Afternoon") {
+      if (gridData[i].period === 1) {
         MONDAY6.push(
           <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
             {gridData[i].autoFill}
           </div>
         );
       }
-      if (gridData[i].period === 7) {
+      if (gridData[i].period === 2) {
         MONDAY7.push(
           <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
             {gridData[i].autoFill}
           </div>
         );
       }
-      if (gridData[i].period === 8) {
+      if (gridData[i].period === 3) {
         MONDAY8.push(
           <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
             {gridData[i].autoFill}
           </div>
         );
       }
-      if (gridData[i].period === 9) {
+      if (gridData[i].period === 4) {
         MONDAY9.push(
           <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
             {gridData[i].autoFill}
@@ -165,7 +171,7 @@ export default function ScheduleStudent() {
         );
       }
     }
-    if (gridData[i].day === "Tusday") {
+    if (gridData[i].day === "Tusday" && gridData[i].session ==="Morning") {
       if (gridData[i].period === 1) {
         TUESDAY1.push(
           <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
@@ -194,6 +200,7 @@ export default function ScheduleStudent() {
           </div>
         );
       }
+    
       if (gridData[i].period === 5) {
         TUESDAY5.push(
           <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
@@ -201,28 +208,30 @@ export default function ScheduleStudent() {
           </div>
         );
       }
-      if (gridData[i].period === 6) {
+    }
+    if (gridData[i].day === "Tusday" && gridData[i].session ==="Afternoon") {
+      if (gridData[i].period === 1) {
         TUESDAY6.push(
           <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
             {gridData[i].autoFill}
           </div>
         );
       }
-      if (gridData[i].period === 7) {
+      if (gridData[i].period === 2) {
         TUESDAY7.push(
           <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
             {gridData[i].autoFill}
           </div>
         );
       }
-      if (gridData[i].period === 8) {
+      if (gridData[i].period === 3) {
         TUESDAY8.push(
           <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
             {gridData[i].autoFill}
           </div>
         );
       }
-      if (gridData[i].period === 9) {
+      if (gridData[i].period === 4) {
         TUESDAY9.push(
           <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
             {gridData[i].autoFill}
@@ -230,7 +239,7 @@ export default function ScheduleStudent() {
         );
       }
     }
-    if (gridData[i].day === "Wednesday") {
+    if (gridData[i].day === "Wednesday" && gridData[i].session ==="Morning") {
         if (gridData[i].period === 1) {
             WEDNESDAY1.push(
               <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
@@ -266,28 +275,30 @@ export default function ScheduleStudent() {
               </div>
             );
           }
-          if (gridData[i].period === 6) {
+        }
+        if (gridData[i].day === "Wednesday" && gridData[i].session ==="Afternoon") {
+          if (gridData[i].period === 1) {
             WEDNESDAY6.push(
               <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
                 {gridData[i].autoFill}
               </div>
             );
           }
-          if (gridData[i].period === 7) {
+          if (gridData[i].period === 2) {
             WEDNESDAY7.push(
               <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
                 {gridData[i].autoFill}
               </div>
             );
           }
-          if (gridData[i].period === 8) {
+          if (gridData[i].period === 3) {
             WEDNESDAY8.push(
               <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
                 {gridData[i].autoFill}
               </div>
             );
           }
-          if (gridData[i].period === 9) {
+          if (gridData[i].period === 4) {
             WEDNESDAY9.push(
               <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
                 {gridData[i].autoFill}
@@ -295,7 +306,7 @@ export default function ScheduleStudent() {
             );
           }
     }
-    if (gridData[i].day === "Thurday") {
+    if (gridData[i].day === "Thursday" && gridData[i].session ==="Morning") {
         if (gridData[i].period === 1) {
             THURSDAY1.push(
               <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
@@ -331,28 +342,30 @@ export default function ScheduleStudent() {
               </div>
             );
           }
-          if (gridData[i].period === 6) {
+        }
+        if (gridData[i].day === "Thursday" && gridData[i].session ==="Afternoon") {
+          if (gridData[i].period === 1) {
             THURSDAY6.push(
               <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
                 {gridData[i].autoFill}
               </div>
             );
           }
-          if (gridData[i].period === 7) {
+          if (gridData[i].period === 2) {
             THURSDAY7.push(
               <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
                 {gridData[i].autoFill}
               </div>
             );
           }
-          if (gridData[i].period === 8) {
+          if (gridData[i].period === 3) {
             THURSDAY8.push(
               <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
                 {gridData[i].autoFill}
               </div>
             );
           }
-          if (gridData[i].period === 9) {
+          if (gridData[i].period === 4) {
             THURSDAY9.push(
               <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
                 {gridData[i].autoFill}
@@ -360,7 +373,7 @@ export default function ScheduleStudent() {
             );
           }
     }
-    if (gridData[i].day === "Friday") {
+    if (gridData[i].day === "Friday" && gridData[i].session ==="Morning") {
         if (gridData[i].period === 1) {
             FRIDAY1.push(
               <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
@@ -396,28 +409,30 @@ export default function ScheduleStudent() {
               </div>
             );
           }
-          if (gridData[i].period === 6) {
+        }
+        if (gridData[i].day === "Friday" && gridData[i].session ==="Afternoon") {
+          if (gridData[i].period === 1) {
             FRIDAY6.push(
               <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
                 {gridData[i].autoFill}
               </div>
             );
           }
-          if (gridData[i].period === 7) {
+          if (gridData[i].period === 2) {
             FRIDAY7.push(
               <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
                 {gridData[i].autoFill}
               </div>
             );
           }
-          if (gridData[i].period === 8) {
+          if (gridData[i].period === 3) {
             FRIDAY8.push(
               <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
                 {gridData[i].autoFill}
               </div>
             );
           }
-          if (gridData[i].period === 9) {
+          if (gridData[i].period === 4) {
             FRIDAY9.push(
               <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
                 {gridData[i].autoFill}
@@ -425,7 +440,7 @@ export default function ScheduleStudent() {
             );
           }
     }
-    if (gridData[i].day === "Satuday") {
+    if (gridData[i].day === "Saturday" && gridData[i].session ==="Morning") {
         if (gridData[i].period === 1) {
             SATURDAY1.push(
               <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
@@ -461,28 +476,30 @@ export default function ScheduleStudent() {
               </div>
             );
           }
-          if (gridData[i].period === 6) {
+        }
+        if (gridData[i].day === "Saturday" && gridData[i].session ==="Afternoon") {
+          if (gridData[i].period === 1) {
             SATURDAY6.push(
               <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
                 {gridData[i].autoFill}
               </div>
             );
           }
-          if (gridData[i].period === 7) {
+          if (gridData[i].period === 2) {
             SATURDAY7.push(
               <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
                 {gridData[i].autoFill}
               </div>
             );
           }
-          if (gridData[i].period === 8) {
+          if (gridData[i].period === 3) {
             SATURDAY8.push(
               <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
                 {gridData[i].autoFill}
               </div>
             );
           }
-          if (gridData[i].period === 9) {
+          if (gridData[i].period === 4) {
             SATURDAY9.push(
               <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
                 {gridData[i].autoFill}
@@ -490,7 +507,7 @@ export default function ScheduleStudent() {
             );
           }
     }
-    if (gridData[i].day === "Sunday") {
+    if (gridData[i].day === "Sunday" && gridData[i].session ==="Morning") {
       if (gridData[i].period === 1) {
           SUNDAY1.push(
             <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
@@ -526,28 +543,30 @@ export default function ScheduleStudent() {
             </div>
           );
         }
-        if (gridData[i].period === 6) {
+      }
+      if (gridData[i].day === "Sunday" && gridData[i].session ==="Afternoon") {
+        if (gridData[i].period === 1) {
          SUNDAY6.push(
             <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
               {gridData[i].autoFill}
             </div>
           );
         }
-        if (gridData[i].period === 7) {
+        if (gridData[i].period === 2) {
           SUNDAY7.push(
             <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
               {gridData[i].autoFill}
             </div>
           );
         }
-        if (gridData[i].period === 8) {
+        if (gridData[i].period === 3) {
           SUNDAY8.push(
             <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
               {gridData[i].autoFill}
             </div>
           );
         }
-        if (gridData[i].period === 9) {
+        if (gridData[i].period === 4) {
           SUNDAY9.push(
             <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
               {gridData[i].autoFill}
@@ -559,7 +578,7 @@ export default function ScheduleStudent() {
 
   return (
     <>
-   <DatePicker defaultValue={moment()} format={customWeekStartEndFormat} picker="week" onChange={onChange}/>
+   <DatePicker defaultValue={moment()} format={customWeekStartEndFormat} picker="week" onChange={onChange} />
       <div class="table-responsive tablez">
       <h2>Morning</h2>
         <table class="table table-bordered tablez">

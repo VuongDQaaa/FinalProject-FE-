@@ -111,9 +111,12 @@ body{
     border-top: 1px solid #dee2e6;
 }
 .tablez{
-    width: 70%;
+    
     margin: auto;
+    width: auto;
+    text-align: center;
 }
 .absent{
     text-align: center;
+   
 }
