@@ -10,7 +10,7 @@ export default function ScheduleStudent() {
   const [loginState] = useContext(Context);
   const today = new Date();
   const weekFormat ='DD/MM';
-  const result = `${moment(today).startOf('week').format(weekFormat)} - ${moment(today).endOf('week') .format(weekFormat)}`;
+  const result = `${moment(today).startOf('week').format(weekFormat)} - ${moment(today).endOf('week').format(weekFormat)}`;
   const [year, setYear] = useState(today.getFullYear());
   const [week, setWeek] = useState(result);
   console.log(year,week);
@@ -171,7 +171,7 @@ export default function ScheduleStudent() {
         );
       }
     }
-    if (gridData[i].day === "Tusday" && gridData[i].session ==="Morning") {
+    if (gridData[i].day === "Tuesday" && gridData[i].session ==="Morning") {
       if (gridData[i].period === 1) {
         TUESDAY1.push(
           <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">
@@ -209,7 +209,7 @@ export default function ScheduleStudent() {
         );
       }
     }
-    if (gridData[i].day === "Tusday" && gridData[i].session ==="Afternoon") {
+    if (gridData[i].day === "Tuesday" && gridData[i].session ==="Afternoon") {
       if (gridData[i].period === 1) {
         TUESDAY6.push(
           <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">

@@ -22,9 +22,11 @@ export default function ManageSchedule() {
       </div>
     ),
   });
-  const [year, setYear] = useState();
-  const [week, setWeek] = useState("");
+  const today = new Date();
   const weekFormat = "DD/MM";
+  const result = `${moment(today).startOf('week').format(weekFormat)} - ${moment(today).endOf('week').format(weekFormat)}`;
+  const [year, setYear] = useState(today.getFullYear());
+  const [week, setWeek] = useState(result);
   const customWeekStartEndFormat = (value) =>
     `${moment(value).startOf("week").format(weekFormat)} - ${moment(value)
       .endOf("week")
@@ -336,7 +338,7 @@ export default function ManageSchedule() {
           </div>
         ) : (
           <Link
-            to={`/add-schedule/thurday/morning/${index + 1}/${classroomId}/date${moment(moment(`${week.split(" - ")[0]}/${year}`, "DD/MM/YYYY").add(4, "d")).format(
+            to={`/add-schedule/thursday/morning/${index + 1}/${classroomId}/date${moment(moment(`${week.split(" - ")[0]}/${year}`, "DD/MM/YYYY").add(4, "d")).format(
               "DD-MM-YYYY"
             )}`}
           >
