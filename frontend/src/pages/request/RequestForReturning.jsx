@@ -29,13 +29,6 @@ export default function RequestForReturningPage() {
   const [state, setState] = useState("All");
   const [searchText, setSearchText] = useState("");
   const [allSubjects, setAllSubjects] = useState();
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleCheckId = (id) => {
-    setIdCompleted(id);
-  };
 
   const handleOk = () => {
     setIsModalVisible(false);
@@ -97,19 +90,6 @@ console.log(allSubjects);
         respData.forEach((element) => {
             console.log(element);
           element.action = [
-            <Button
-              className="buttonState"
-              disabled={element.state === "Completed"}
-              onClick={() => {
-                showModal();
-                handleCheckId(element.taskId);
-              }}
-            >
-            <Link to={`/editTask/${element.taskId}`} id="editButton">
-              Edit
-              </Link>
-            </Button>,
-
             <Button
             danger
               className="buttonState"

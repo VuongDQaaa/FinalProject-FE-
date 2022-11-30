@@ -107,7 +107,7 @@ export default function ScheduleStudent() {
     if (gridData[i].day === "Monday" && gridData[i].session ==="Morning") {
       if (gridData[i].period === 1) {
         MONDAY1.push(
-          <div class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white text-center ">
+          <div class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white text-center ">
             {gridData[i].autoFill}
           </div>
         );

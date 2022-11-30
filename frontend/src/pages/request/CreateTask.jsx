@@ -22,7 +22,7 @@ const CreateTask = () => {
   useEffect(() => {
     const fetchData = async () =>{
       try {
-        const {data: response} = await axios.get(`${process.env.REACT_APP_Backend_URI}Users/search-teacher`);
+        const {data: response} = await axios.get(`${process.env.REACT_APP_Backend_URI}Users/search-teacher-task`);
         setListTeacher(response);
       } catch (error) {
         console.error(error.message);
@@ -65,7 +65,7 @@ const CreateTask = () => {
       })
       .catch((error) => {
         console.log(error);
-        message.error('This subject have been created');
+        message.error('This task have been created');
       });
   };
 

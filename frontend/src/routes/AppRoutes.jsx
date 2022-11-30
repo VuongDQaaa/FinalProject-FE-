@@ -9,7 +9,6 @@ import ManageEmployee from "../pages/users/AdminEmployee/ManageEmployee";
 import CreateEmployeePage from "../pages/users/AdminEmployee/CreateEmployeePage";
 import EditEmployeePage from "../pages/users/AdminEmployee/EditEmployeePage";
 import CreateTask from "../pages/request/CreateTask";
-import EditTask from "../pages/request/EditTask";
 import ManageSchedule from "../pages/classroom/schedule/ManageSchedule";
 import CreateSchedule from "../pages/classroom/schedule/CreateSchedule";
 import Schedule from "../pages/student/ScheduleStudent";
@@ -62,11 +61,6 @@ export const AppRoutes = [
     path: "/createTask",
     element: <CreateTask />,
     title: "Manage Task > Create Task",
-  },
-  {
-    path: "/editTask/:taskId",
-    element: <EditTask />,
-    title: "Manage Task > Edit Task",
   },
   {
     path: "/addStudent",
